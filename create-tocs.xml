@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." name="create-tocs">
+
+    <!-- transform OEBPS/content.opf with create-content.xsl -->
+    <property name="contentDir" value="./OEBPS"/>
+    <xslt style="./xslt/create-content.xsl" destdir="${contentDir}" basedir="${contentDir}">
+        <factory name="net.sf.saxon.TransformerFactoryImpl"/>
+        <classpath location="./saxon/saxon9he.jar"/>
+        <fileset dir="${contentDir}">
+            <include name="content.opf"/>
+        </fileset>
+    </xslt>
+
+    <!-- transform OEBPS/texts/inhalt.xhtml with create-inhalt.xsl -->
+    <property name="textDir" value="./OEBPS/texts"/>
+    <xslt style="./xslt/create-inhalt.xsl" destdir="${textDir}" basedir="${textDir}">
+        <factory name="net.sf.saxon.TransformerFactoryImpl"/>
+        <classpath location="./saxon/saxon9he.jar"/>
+        <fileset dir="${textDir}">
+            <include name="inhalt.xhtml"/>
+        </fileset>
+    </xslt>
+
+    <!-- transform OEBPS/texts/inhaltsverzeichnis.ncx with create-inhaltsverzeichnis.xsl -->
+    <xslt style="./xslt/create-inhaltsverzeichnis.xsl" destdir="${textDir}" basedir="${textDir}">
+        <factory name="net.sf.saxon.TransformerFactoryImpl"/>
+        <classpath location="./saxon/saxon9he.jar"/>
+        <fileset dir="${textDir}">
+            <include name="inhaltsverzeichnis.ncx"/>
+        </fileset>
+    </xslt>
+
+</project>
