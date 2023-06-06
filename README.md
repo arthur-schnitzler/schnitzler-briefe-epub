@@ -13,7 +13,7 @@ With these XHTML files it produces an E-Book of all correspondences that have th
 ```
 python remove-unapproved-files.py
 ```
-- Transform edition files with editions-to-xhtml-for-epub.xsl
+- Transform edition files with ./xslt/editions-to-xhtml-for-epub.xsl
 - Rename the suffixes of the edition files to xhtml
 - Remove empty namespace declarations by running in the epub directory:
 ```
@@ -24,9 +24,9 @@ python remove-empty-namespace-declarations.py
 python remove-tei-files.py
 ```
 - Copy XHTML files to ./OEBPS/texts and remove the editions subdirectory
-- Transform OEBPS/content.opf with create-content.xsl
-- Transform OEBPS/texts/inhalt.xhtml with create-inhalt.xsl
-- Transform OEBPS/texts/inhaltsverzeichnis.ncx with create-inhaltsverzeichnis.xsl
+- Transform ./OEBPS/content.opf with ./xslt/create-content.xsl
+- Transform ./OEBPS/texts/inhalt.xhtml with ./xslt/create-inhalt.xsl
+- Transform ./OEBPS/texts/inhaltsverzeichnis.ncx with ./xslt/create-inhaltsverzeichnis.xsl
 - Create the EPUB by running in the epub directory:
 ```
 zip -rX out/schnitzler-briefe.epub mimetype META-INF/ OEBPS/ -x "*.DS_Store" -x "README.md" -x "epubcheck.jar" -x "lib" -x "out" -x "xslt" -x ".git" -x ".github" -x "fetch-data.sh" -x "remove-unapproved-files.py" -x "remove-empty-namespace-declarations.py" -x "remove-tei-files.py" -x "requirements.txt" -x "shellscripts" -x "editions-to-epub.xml" -x "create-tocs.xml" -x "LICENSE"
