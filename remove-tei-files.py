@@ -18,8 +18,6 @@ def delete_files_with_tei_tag(directory):
                 try:
                     with open(file_path, 'r', encoding='utf-8') as f:
                         content = f.read()
-                        print(f"Processing file: {file_path}")  # Debugging statement
-                        print(content)  # Debugging statement
                     
                     if contains_tei_tag(content, tei_pattern):
                         os.remove(file_path)
