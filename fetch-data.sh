@@ -1,8 +1,8 @@
-# !/bin/bash
+# bin/bash
 
 # get schnitzler-briefe-data
 
-rm -rf data
+rm -rf editions
 wget https://github.com/arthur-schnitzler/schnitzler-briefe-data/archive/refs/heads/main.zip
 rm -rf editions
 unzip main.zip
