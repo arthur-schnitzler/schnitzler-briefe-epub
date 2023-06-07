@@ -1,53 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project basedir="." name="editions-to-epub">
-    
-    <!-- create a temporary directory for the source files -->
-    <property name="tmpDir-source" value="./tmp-source"/>
-    <delete dir="${tmpDir-source}"/>
-    <mkdir dir="${tmpDir-source}"/>
-    
-    <!-- create a temporary directory for the transformed files -->
-    <property name="tmpDir-dest" value="./tmp-dest"/>
-    <delete dir="${tmpDir-dest}"/>
-    <mkdir dir="${tmpDir-dest}"/>
-    
-    <!-- move xml files to temporary source directory -->
-    <property name="xmlDir" value="./editions/L0*.xml"/>
-    <move todir="${xmlDir}">
-        <fileset dir="${tmpDir-source}">
-            <include name="*.xml"/>
-        </fileset>
-    </move>
-    
-    <!-- transform xml files with editions-to-xhtml-for-epub.xsl -->
-    <xslt style="./xslt/editions-to-xhtml-for-epub.xsl" destdir="${tmpDir-dest}"
-        basedir="${tmpDir-source}">
+
+    <!-- source files -->
+    <property name="editions" value="./editions"/>
+
+    <!-- temporary directory for the transformed files -->
+    <property name="tmpDir" value="./tmpDir"/>
+    <delete dir="${tmpDir}"/>
+    <mkdir dir="${tmpDir}"/>
+
+    <!-- transform edition files with editions-to-xhtml-for-epub.xsl -->
+    <xslt style="./xslt/editions-to-xhtml-for-epub.xsl" destdir="${tmpDir}" basedir="${editions}"
+        includes="L0*.xml" extension=".xml">
         <factory name="net.sf.saxon.TransformerFactoryImpl"/>
         <classpath location="./saxon/saxon9he.jar"/>
-        <fileset dir="${tmpDir-source}">
-            <include name="*.xhtml"/>
-        </fileset>
     </xslt>
-    
+
     <!-- move transformed files and rename them to xhtml -->
-    <move todir="${tmpDir-dest}">
-        <fileset dir="${tmpDir-source}"/>
-        <mapper type="glob" from="*.xml" to="*.xhtml"/>
-    </move>
-    <delete dir="${tmpDir-source}"/>
-    <mkdir dir="${tmpDir-source}"/>
-    
-    <!-- copy xhtml files to ./OEBPS/texts -->
     <property name="textDir" value="./OEBPS/texts"/>
     <move todir="${textDir}">
-        <fileset dir="${tmpDir-dest}"/>
+        <fileset dir="${tmpDir}"/>
+        <mapper type="glob" from="*.xml" to="*.xhtml"/>
     </move>
-    
-    <!-- delete temporary directories -->
-    <delete dir="${tmpDir-source}"/>
-    <delete dir="${tmpDir-dest}"/>
-    
-    <!-- delete xml directory -->
-    <delete dir="${xmlDir}"/>
-    
+
+    <!-- remove directories -->
+    <delete dir="${tmpDir}"/>
+    <delete dir="${editions}"/>
+
 </project>
