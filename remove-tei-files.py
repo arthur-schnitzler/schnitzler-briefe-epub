@@ -5,7 +5,7 @@ def delete_files_with_tei_tag(directory):
     tei_pattern = re.compile(r'<TEI\b[^>]*>.*?</TEI>', re.DOTALL | re.IGNORECASE)
     xhtml_files_found = False  # Flag to track if any XHTML files are found
     removed_files = []  # List to store the names of the removed files
-    namespaces = set()  # Set to store the distinct URIs
+    namespaces = set()  # Set to store the distinct namespaces
     
     def contains_tei_tag(content, tei_pattern):
         return bool(tei_pattern.search(content))
@@ -19,13 +19,14 @@ def delete_files_with_tei_tag(directory):
                     with open(file_path, 'r', encoding='utf-8') as f:
                         content = f.read()
                         print(f"Processing file: {file_path}")  # Debugging statement
+                        print(content)  # Debugging statement
                     
                     if contains_tei_tag(content, tei_pattern):
                         os.remove(file_path)
                         removed_files.append(file)  # Add the filename to the removed files list
                         
-                        # Extract the distinct URIs from the xmlns declarations
-                        matches = re.findall(r'xmlns="([^"]+)"', content)
+                        # Extract the distinct namespaces from the xmlns declarations
+                        matches = re.findall(r'xmlns:(\w+)=', content)
                         namespaces.update(matches)
                 except IOError:
                     print(f"Error reading file: {file_path}")
