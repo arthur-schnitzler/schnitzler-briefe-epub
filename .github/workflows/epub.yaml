@@ -28,31 +28,30 @@ jobs:
                 pip install -r requirements.txt
           - name: Fetch data
             run: |
-                fetch_data.sh
+                ./fetch_data.sh
           - name: Remove files that are not approved
             run: |
-                python remove-unapproved-files.py
+                python ./remove-unapproved-files.py
           - name: Prepare Files for Epub
             run: |
-                ant editions-to-epub.xml
+                ant ./editions-to-epub.xml
           - name: Remove empty namespace declarations
             run: |
-                python remove-empty-namespace-declarations.py
+                python ./remove-empty-namespace-declarations.py
           - name: Remove TEI files
             run: |
-                python remove-tei-files.py
+                python ./remove-tei-files.py
           - name: Create TOCs for the Epub
             run: |
-                ant create-tocs.xml
+                ant ./create-tocs.xml
           - name: Create Epub
             run: |
-                zip -rX out/schnitzler-briefe.epub mimetype META-INF/ OEBPS/ -x "*.DS_Store" -x "README.md" -x "epubcheck.jar" -x "lib" -x "out" -x "xslt" -x ".git" -x ".github" -x "fetch-data.sh" -x "remove-unapproved-files.py" -x "remove-empty-namespace-declarations.py" -x "remove-tei-files.py" -x "requirements.txt" -x "shellscripts" -x "editions-to-epub.xml" -x "create-tocs.xml" -x "LICENSE"
+                zip -rX ./out/schnitzler-briefe.epub mimetype META-INF/ OEBPS/ -x "*.DS_Store" -x "README.md" -x "epubcheck.jar" -x "lib" -x "out" -x "xslt" -x ".git" -x ".github" -x "fetch-data.sh" -x "remove-unapproved-files.py" -x "remove-empty-namespace-declarations.py" -x "remove-tei-files.py" -x "requirements.txt" -x "shellscripts" -x "editions-to-epub.xml" -x "create-tocs.xml" -x "LICENSE"
           - name: Validate Epub
             run: |
-                java -jar epubcheck.jar out/schnitzler-briefe.epub
+                java -jar ./epubcheck.jar ./out/schnitzler-briefe.epub
           - name: Commit and Push
             uses: stefanzweifel/git-auto-commit-action@v4
             with:
                 github_token: ${{secrets.GITHUB_TOKEN}}
                 commit_message: Generated new Epub
-                publish_dir: ./epub-all
