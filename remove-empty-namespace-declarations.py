@@ -7,7 +7,7 @@ def parse_xhtml_files(directory):
     corrected_files = []  # List to store the names of the corrected files
     
     for filename in os.listdir(directory):
-        if filename.endswith(".xhtml"):
+        if filename.startswith("L0") and filename.endswith(".xhtml"):
             xhtml_files_found = True  # Set the flag to True
             filepath = os.path.join(directory, filename)
             
@@ -28,7 +28,8 @@ def parse_xhtml_files(directory):
     if not xhtml_files_found:
         print("No XHTML files found in the specified directory.")
     else:
-        print("XHTML files corrected:")
+        print(f"Number of XHTML files corrected: {len(corrected_files)}")
+        print("Corrected files:")
         for filename in corrected_files:
             print(filename)
 
