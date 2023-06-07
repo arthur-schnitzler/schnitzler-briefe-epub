@@ -26,7 +26,7 @@ def delete_files_with_tei_tag(directory):
                         print(f"Deleted file: {file_path}")
                         
                         # Get namespaces used in the XHTML file
-                        namespaces = get_namespaces(content)
+                        namespaces = extract_namespaces(content)
                         print(f"Namespaces used: {namespaces}")
                         
                 except IOError:
@@ -39,15 +39,15 @@ def delete_files_with_tei_tag(directory):
         for file in removed_files:
             print(file)
 
-def get_namespaces(xml_content):
+def extract_namespaces(xml_content):
     namespaces = set()
     root = ET.fromstring(xml_content)
     
-    # Extract namespaces from the XML content
+    # Extract namespaces used in the XHTML file
     for elem in root.iter():
-        match = re.match(r'\{.*\}', elem.tag)
-        if match:
-            namespace = match.group()[1:-1]
+        tag = elem.tag
+        if '}' in tag:
+            namespace = tag.split('}')[0][1:]
             namespaces.add(namespace)
     
     return namespaces
