@@ -1,5 +1,6 @@
 import os
 import re
+import xml.etree.ElementTree as ET
 
 def delete_files_with_tei_tag(directory):
     tei_pattern = re.compile(r'<TEI\b[^>]*>.*?</TEI>', re.DOTALL | re.IGNORECASE)
@@ -23,6 +24,11 @@ def delete_files_with_tei_tag(directory):
                         os.remove(file_path)
                         removed_files.append(file)  # Add the filename to the removed files list
                         print(f"Deleted file: {file_path}")
+                        
+                        # Get namespaces used in the XHTML file
+                        namespaces = get_namespaces(content)
+                        print(f"Namespaces used: {namespaces}")
+                        
                 except IOError:
                     print(f"Error reading file: {file_path}")
     
@@ -32,6 +38,19 @@ def delete_files_with_tei_tag(directory):
         print("Removed files:")
         for file in removed_files:
             print(file)
+
+def get_namespaces(xml_content):
+    namespaces = set()
+    root = ET.fromstring(xml_content)
+    
+    # Extract namespaces from the XML content
+    for elem in root.iter():
+        match = re.match(r'\{.*\}', elem.tag)
+        if match:
+            namespace = match.group()[1:-1]
+            namespaces.add(namespace)
+    
+    return namespaces
 
 directory = './OEBPS/texts'
 delete_files_with_tei_tag(directory)
