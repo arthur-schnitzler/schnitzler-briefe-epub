@@ -10,6 +10,8 @@ def delete_files_with_tei_tag(directory):
     def contains_tei_tag(content, tei_pattern):
         return bool(tei_pattern.search(content))
 
+    namespace_pattern = re.compile(r'xmlns:(\w+)=["\'][^"\']*["\']')  # Pattern to capture namespaces
+
     for root, dirs, files in os.walk(directory):
         for file in files:
             if file.endswith('.xhtml'):
@@ -25,10 +27,10 @@ def delete_files_with_tei_tag(directory):
                         removed_files.append(file)  # Add the filename to the removed files list
 
                         # Extract the distinct namespaces from the xmlns declarations
-                        matches = re.findall(r'xmlns:(\w+)=', content)
+                        matches = re.findall(namespace_pattern, content)
                         namespaces.update(matches)
-                except IOError:
-                    print(f"Error reading file: {file_path}")
+                except IOError as e:
+                    print(f"Error reading file: {file_path}: {str(e)}")
 
     if not xhtml_files_found:
         print("No XHTML files found in the specified directory.")
