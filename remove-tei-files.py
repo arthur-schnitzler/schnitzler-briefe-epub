@@ -14,7 +14,7 @@ def delete_files_with_tei_tag(directory):
         for file in files:
             if file.endswith('.xhtml'):
                 xhtml_files_found = True  # Set the flag to True
-                file_path = os.path.join(root, file)
+                file_path = os.path.normpath(os.path.join(root, file))
                 try:
                     with open(file_path, 'r', encoding='utf-8') as f:
                         content = f.read()
