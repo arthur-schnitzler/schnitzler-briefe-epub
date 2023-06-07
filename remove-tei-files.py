@@ -2,15 +2,9 @@ import os
 import re
 
 def delete_files_with_tei_tag(directory):
-    tei_pattern = re.compile(r'<TEI\b[^>]*>.*?</TEI>', re.DOTALL | re.IGNORECASE)
+    tei_pattern = re.compile(r'<TEI', re.IGNORECASE)
     xhtml_files_found = False  # Flag to track if any XHTML files are found
     removed_files = []  # List to store the names of the removed files
-    namespaces = set()  # Set to store the distinct namespaces
-
-    def contains_tei_tag(content, tei_pattern):
-        return bool(tei_pattern.search(content))
-
-    namespace_pattern = re.compile(r'xmlns:(\w+)=["\'][^"\']*["\']')  # Pattern to capture namespaces
 
     for root, dirs, files in os.walk(directory):
         for file in files:
@@ -22,13 +16,10 @@ def delete_files_with_tei_tag(directory):
                     with open(file_path, 'r', encoding='utf-8') as f:
                         content = f.read()
 
-                    if contains_tei_tag(content, tei_pattern):
+                    if tei_pattern.search(content):
                         os.remove(file_path)
                         removed_files.append(file)  # Add the filename to the removed files list
-
-                        # Extract the distinct namespaces from the xmlns declarations
-                        matches = re.findall(namespace_pattern, content)
-                        namespaces.update(matches)
+                        print(f"<TEI tag found in file: {file_path}")
                 except IOError as e:
                     print(f"Error reading file: {file_path}: {str(e)}")
 
@@ -38,10 +29,6 @@ def delete_files_with_tei_tag(directory):
         print("Removed files:")
         for file in removed_files:
             print(file)
-
-        print("Distinct namespaces:")
-        for namespace in namespaces:
-            print(namespace)
 
 directory = './OEBPS/texts'
 delete_files_with_tei_tag(directory)
