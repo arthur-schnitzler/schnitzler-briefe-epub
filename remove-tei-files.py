@@ -1,11 +1,11 @@
 import os
 import re
-import xml.etree.ElementTree as ET
 
 def delete_files_with_tei_tag(directory):
     tei_pattern = re.compile(r'<TEI\b[^>]*>.*?</TEI>', re.DOTALL | re.IGNORECASE)
     xhtml_files_found = False  # Flag to track if any XHTML files are found
     removed_files = []  # List to store the names of the removed files
+    namespaces = set()  # Set to store the distinct prefixes
     
     def contains_tei_tag(content, tei_pattern):
         return bool(tei_pattern.search(content))
@@ -23,12 +23,10 @@ def delete_files_with_tei_tag(directory):
                     if contains_tei_tag(content, tei_pattern):
                         os.remove(file_path)
                         removed_files.append(file)  # Add the filename to the removed files list
-                        print(f"Deleted file: {file_path}")
                         
-                        # Get namespaces used in the XHTML file
-                        namespaces = extract_namespaces(content)
-                        print(f"Namespaces used: {namespaces}")
-                        
+                        # Extract the distinct prefixes from the xmlns declarations
+                        matches = re.findall(r'xmlns:([^= "\']+)', content)
+                        namespaces.update(matches)
                 except IOError:
                     print(f"Error reading file: {file_path}")
     
@@ -38,19 +36,10 @@ def delete_files_with_tei_tag(directory):
         print("Removed files:")
         for file in removed_files:
             print(file)
-
-def extract_namespaces(xml_content):
-    namespaces = set()
-    root = ET.fromstring(xml_content)
-    
-    # Extract namespaces used in the XHTML file
-    for elem in root.iter():
-        tag = elem.tag
-        if '}' in tag:
-            namespace = tag.split('}')[0][1:]
-            namespaces.add(namespace)
-    
-    return namespaces
+        
+        print("Distinct namespaces:")
+        for namespace in namespaces:
+            print(namespace)
 
 directory = './OEBPS/texts'
 delete_files_with_tei_tag(directory)
