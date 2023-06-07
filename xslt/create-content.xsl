@@ -93,7 +93,7 @@
                         <xsl:text>application/xhtml+xml</xsl:text>
                     </xsl:attribute>
                 </xsl:element>
-                <xsl:for-each select="collection('../OEBPS/texts/?select=L0*.xhtml;recurse=yes')">
+                <xsl:for-each select="collection('./texts/?select=L0*.xhtml;recurse=yes')">
                     <xsl:sort select="//xhtml:meta[@name = 'date']/@content" order="ascending"/>
                     <xsl:sort select="//xhtml:meta[@name = 'n']/@content" order="ascending"/>
                     <xsl:element name="item" namespace="http://www.idpf.org/2007/opf">
@@ -102,7 +102,7 @@
                         </xsl:attribute>
                         <xsl:attribute name="href">
                             <xsl:value-of
-                                select="concat('../OEBPS/texts/', //xhtml:meta[@name = 'id']/@content, '.xhtml')"
+                                select="concat('./texts/', //xhtml:meta[@name = 'id']/@content, '.xhtml')"
                             />
                         </xsl:attribute>
                         <xsl:attribute name="media-type">
@@ -157,7 +157,7 @@
                         <xsl:text>inhalt</xsl:text>
                     </xsl:attribute>
                 </xsl:element>
-                <xsl:for-each select="collection('../OEBPS/texts/?select=L0*.xhtml;recurse=yes')">
+                <xsl:for-each select="collection('./texts/?select=L0*.xhtml;recurse=yes')">
                     <xsl:sort select="//xhtml:meta[@name = 'date']/@content" order="ascending"/>
                     <xsl:sort select="//xhtml:meta[@name = 'n']/@content" order="ascending"/>
                     <xsl:element name="itemref" namespace="http://www.idpf.org/2007/opf">
