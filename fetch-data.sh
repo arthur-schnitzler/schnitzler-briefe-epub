@@ -3,9 +3,9 @@
 # get schnitzler-briefe-data
 
 rm -rf editions
-wget https://github.com/arthur-schnitzler/schnitzler-briefe-data/archive/refs/heads/main.zip
+wget https://github.com/arthur-schnitzler/arthur-schnitzler-arbeit/archive/refs/heads/main.zip
 unzip main.zip
 
-mv schnitzler-briefe-data-main/data/editions editions/
+mv arthur-schnitzler-arbeit-main/editions editions/
 rm main.zip
-rm -rf ./schnitzler-briefe-data-main
+rm -rf ./arthur-schnitzler-arbeit-main
