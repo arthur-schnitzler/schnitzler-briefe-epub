@@ -34,7 +34,7 @@ jobs:
                 python ./remove-unapproved-files.py
           - name: Prepare Files for Epub
             run: |
-                ant ./editions-to-epub.xml
+                ant -f ./editions-to-epub.xml
           - name: Remove empty namespace declarations
             run: |
                 python ./remove-empty-namespace-declarations.py
@@ -43,7 +43,7 @@ jobs:
                 python ./remove-tei-files.py
           - name: Create TOCs for the Epub
             run: |
-                ant ./create-tocs.xml
+                ant -f ./create-tocs.xml
           - name: Create Epub
             run: |
                 zip -rX ./out/schnitzler-briefe.epub mimetype META-INF/ OEBPS/ -x "*.DS_Store" -x "README.md" -x "epubcheck.jar" -x "lib" -x "out" -x "xslt" -x ".git" -x ".github" -x "fetch-data.sh" -x "remove-unapproved-files.py" -x "remove-empty-namespace-declarations.py" -x "remove-tei-files.py" -x "requirements.txt" -x "shellscripts" -x "editions-to-epub.xml" -x "create-tocs.xml" -x "LICENSE"
