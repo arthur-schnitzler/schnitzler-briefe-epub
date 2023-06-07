@@ -39,7 +39,7 @@
     
     <!-- copy xhtml files to ./OEBPS/texts -->
     <property name="textDir" value="./OEBPS/texts"/>
-    <move todir="${tmpDir-dest}">
+    <move todir="${textDir}">
         <fileset dir="${tmpDir-dest}"/>
     </move>
     
