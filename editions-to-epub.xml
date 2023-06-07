@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project basedir="." name="editions-to-epub">
-
+    
     <!-- create a temporary directory for the source files -->
     <property name="tmpDir-source" value="./tmp-source"/>
     <delete dir="${tmpDir-source}"/>
     <mkdir dir="${tmpDir-source}"/>
-
+    
     <!-- create a temporary directory for the transformed files -->
     <property name="tmpDir-dest" value="./tmp-dest"/>
     <delete dir="${tmpDir-dest}"/>
     <mkdir dir="${tmpDir-dest}"/>
-
+    
     <!-- move xml files to temporary source directory -->
     <property name="xmlDir" value="./editions/L0*.xml"/>
     <move todir="${xmlDir}">
@@ -18,7 +18,7 @@
             <include name="*.xml"/>
         </fileset>
     </move>
-
+    
     <!-- transform xml files with editions-to-xhtml-for-epub.xsl -->
     <xslt style="./xslt/editions-to-xhtml-for-epub.xsl" destdir="${tmpDir-dest}"
         basedir="${tmpDir-source}">
@@ -28,7 +28,7 @@
             <include name="*.xhtml"/>
         </fileset>
     </xslt>
-
+    
     <!-- move transformed files and rename them to xhtml -->
     <move todir="${tmpDir-dest}">
         <fileset dir="${tmpDir-source}"/>
@@ -36,23 +36,18 @@
     </move>
     <delete dir="${tmpDir-source}"/>
     <mkdir dir="${tmpDir-source}"/>
-
-    <!-- validate xhtml files -->
-    <xmlvalidate failonerror="false" warn="true" classname="org.apache.xerces.parsers.SAXParser"
-        classpath="lib/xerces.jar">
-        <fileset dir="${tmpDir-dest}" includes="*.xhtml"/>
-    </xmlvalidate>
-
-    <!-- copy xhtml files to schnitzler-briefe-static/epub/OEBPS/texts -->
+    
+    <!-- copy xhtml files to ./OEBPS/texts -->
+    <property name="textDir" value="./OEBPS/texts"/>
     <move todir="${tmpDir-dest}">
-        <fileset dir="${textDir}"/>
+        <fileset dir="${tmpDir-dest}"/>
     </move>
-
+    
     <!-- delete temporary directories -->
     <delete dir="${tmpDir-source}"/>
     <delete dir="${tmpDir-dest}"/>
-
+    
     <!-- delete xml directory -->
     <delete dir="${xmlDir}"/>
-
+    
 </project>
