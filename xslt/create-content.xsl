@@ -3,14 +3,13 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions"
     xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:xhtml="http://www.w3.org/1999/xhtml"
     xmlns:opf="http://www.idpf.org/2007/opf" xmlns:dc="http://purl.org/dc/elements/1.1/"
-     version="3.0"
-    exclude-result-prefixes="tei xhtml opf">
+    version="3.0" exclude-result-prefixes="tei xhtml opf">
 
     <xsl:output method="xml" omit-xml-declaration="yes"/>
 
     <xsl:mode on-no-match="shallow-skip"/>
 
-    <xsl:variable name="folderURI" select="resolve-uri('.', base-uri())"/>
+    <!--<xsl:variable name="folderURI" select="resolve-uri('.', base-uri())"/>-->
 
     <xsl:template match="/">
         <xsl:element name="package" namespace="http://www.idpf.org/2007/opf">
@@ -94,16 +93,17 @@
                         <xsl:text>application/xhtml+xml</xsl:text>
                     </xsl:attribute>
                 </xsl:element>
-                <xsl:for-each
-                    select="collection(concat($folderURI, '/texts/?select=L0*.xhtml;recurse=yes'))">
-                    <xsl:sort select="//xhtml:meta[@name='date']/@content" order="ascending"/>
-                    <xsl:sort select="//xhtml:meta[@name='n']/@content" order="ascending"/>
+                <xsl:for-each select="collection('../OEBPS/texts/?select=L0*.xhtml;recurse=yes')">
+                    <xsl:sort select="//xhtml:meta[@name = 'date']/@content" order="ascending"/>
+                    <xsl:sort select="//xhtml:meta[@name = 'n']/@content" order="ascending"/>
                     <xsl:element name="item" namespace="http://www.idpf.org/2007/opf">
                         <xsl:attribute name="id">
-                            <xsl:value-of select="//xhtml:meta[@name='id']/@content"/>
+                            <xsl:value-of select="//xhtml:meta[@name = 'id']/@content"/>
                         </xsl:attribute>
                         <xsl:attribute name="href">
-                            <xsl:value-of select="concat('texts/', //xhtml:meta[@name='id']/@content, '.xhtml')"/>
+                            <xsl:value-of
+                                select="concat('../OEBPS/texts/', //xhtml:meta[@name = 'id']/@content, '.xhtml')"
+                            />
                         </xsl:attribute>
                         <xsl:attribute name="media-type">
                             <xsl:text>application/xhtml+xml</xsl:text>
@@ -157,13 +157,12 @@
                         <xsl:text>inhalt</xsl:text>
                     </xsl:attribute>
                 </xsl:element>
-                <xsl:for-each
-                    select="collection(concat($folderURI, '/texts/?select=L0*.xhtml;recurse=yes'))">
-                    <xsl:sort select="//xhtml:meta[@name='date']/@content" order="ascending"/>
-                    <xsl:sort select="//xhtml:meta[@name='n']/@content" order="ascending"/>
+                <xsl:for-each select="collection('../OEBPS/texts/?select=L0*.xhtml;recurse=yes')">
+                    <xsl:sort select="//xhtml:meta[@name = 'date']/@content" order="ascending"/>
+                    <xsl:sort select="//xhtml:meta[@name = 'n']/@content" order="ascending"/>
                     <xsl:element name="itemref" namespace="http://www.idpf.org/2007/opf">
                         <xsl:attribute name="idref">
-                            <xsl:value-of select="//xhtml:meta[@name='id']/@content"/>
+                            <xsl:value-of select="//xhtml:meta[@name = 'id']/@content"/>
                         </xsl:attribute>
                     </xsl:element>
                 </xsl:for-each>
