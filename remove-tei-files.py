@@ -6,6 +6,9 @@ def delete_files_with_tei_tag(directory):
     xhtml_files_found = False  # Flag to track if any XHTML files are found
     removed_files = []  # List to store the names of the removed files
     
+    def contains_tei_tag(content, tei_pattern):
+        return bool(tei_pattern.search(content))
+    
     for root, dirs, files in os.walk(directory):
         for file in files:
             if file.endswith('.xhtml'):
@@ -28,9 +31,6 @@ def delete_files_with_tei_tag(directory):
         print("Removed files:")
         for file in removed_files:
             print(file)
-
-def contains_tei_tag(content, tei_pattern):
-    return bool(tei_pattern.search(content))
 
 directory = './OEBPS/texts'
 delete_files_with_tei_tag(directory)
