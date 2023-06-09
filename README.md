@@ -8,14 +8,14 @@ With these XHTML files it produces an E-Book of all correspondences that have th
 
 ## If working manually:
 
+- Install Saxon by running
+```
+sh shellscripts/dl_saxon.sh
+```
 - Download/Pull edition files from https://github.com/arthur-schnitzler/arthur-schnitzler-arbeit/tree/main/editions and save them to a subdirectory named editions
 - Remove unapproved files by running
 ```
 python remove-unapproved-files.py
-```
-- Install Saxon by running
-```
-sh shellscripts/dl_saxon.sh
 ```
 - Transform the edition files and rename the suffixes of the edition files to .xhtml by running
 ```
