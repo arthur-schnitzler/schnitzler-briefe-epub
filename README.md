@@ -25,7 +25,7 @@ ant -f editions-to-epub.xml
 ```
 python remove-empty-namespace-declarations.py
 ```
-- Remove files that were not transformed by running
+- Remove files that were (for whatever reason) not transformed by running
 ```
 python remove-tei-files.py
 ```
@@ -37,7 +37,7 @@ ant -f create-tocs.xml
 ```
 zip -rX out/schnitzler-briefe.epub mimetype META-INF/ OEBPS/ -x "*.DS_Store" -x "README.md" -x "epubcheck.jar" -x "lib" -x "out" -x "xslt" -x ".git" -x ".github" -x "fetch-data.sh" -x "remove-unapproved-files.py" -x "remove-empty-namespace-declarations.py" -x "remove-tei-files.py" -x "requirements.txt" -x "shellscripts" -x "editions-to-epub.xml" -x "create-tocs.xml" -x "LICENSE"
 ```
-- Validate the EPUB by running
+- Optionally: Validate the EPUB by running
 ```
 java -jar epubcheck.jar out/schnitzler-briefe.epub
 ```
