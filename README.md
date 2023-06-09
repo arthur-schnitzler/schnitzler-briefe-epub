@@ -29,7 +29,7 @@ python remove-empty-namespace-declarations.py
 ```
 python remove-tei-files.py
 ```
-- Transform ./OEBPS/content.opf, ./OEBPS/texts/inhalt.xhtml and ./OEBPS/texts/inhaltsverzeichnis.ncx by running
+- Transform OEBPS/content.opf, OEBPS/texts/inhalt.xhtml and OEBPS/texts/inhaltsverzeichnis.ncx by running
 ```
 ant -f create-tocs.xml
 ```
