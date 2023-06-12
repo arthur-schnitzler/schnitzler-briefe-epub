@@ -2094,7 +2094,7 @@
     <!-- signed -->
     <xsl:template match="tei:signed">
         <br/>
-        <span class="signature">
+        <span class="signature" style="text-align: right;">
             <xsl:apply-templates/>
         </span>
     </xsl:template>
