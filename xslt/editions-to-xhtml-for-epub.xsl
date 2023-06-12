@@ -75,7 +75,7 @@
                 <xsl:if test="//tei:note[@type = 'footnote']">
                     <xsl:if test="count(//tei:note[@type = 'footnote']) = 1">
                         <div class="singular-footnote" style="font-size: smaller;">
-                            <strong>Fußnote</strong>
+                            <h4>Fußnote</h4>
                             <br/>
                             <xsl:apply-templates select="//tei:note[@type = 'footnote']"
                                 mode="footnote"/>
@@ -83,7 +83,7 @@
                     </xsl:if>
                     <xsl:if test="count(//tei:note[@type = 'footnote']) > 1">
                         <div class="multiple-footnotes" style="font-size: smaller;">
-                            <strong>Fußnoten</strong>
+                            <h4>Fußnoten</h4>
                             <br/>
                             <xsl:apply-templates select="//tei:note[@type = 'footnote']"
                                 mode="footnote"/>
@@ -92,12 +92,14 @@
                 </xsl:if>
                 <!-- msDesc -->
                 <div class="msDesc" style="font-size: smaller;">
+                    <br/>
                     <h4>Manuskriptbeschreibung</h4>
                     <xsl:apply-templates select="//tei:msDesc"/>
                 </div>
                 <!-- Kommentar -->
                 <xsl:if test="//tei:note[@type = 'commentary' or @type = 'textConst']">
                     <div class="kommentar" style="font-size: smaller;">
+                        <br/>
                         <h4>Kommentar</h4>
                         <xsl:apply-templates
                             select="//tei:note[@type = 'textConst' or @type = 'commentary']"
