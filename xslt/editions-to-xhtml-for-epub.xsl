@@ -60,7 +60,10 @@
             </head>
             <body style="font-family: serif; text-align: left;">
                 <!-- Titel -->
-                <h4><xsl:text>Korrespondenzstück </xsl:text><xsl:value-of select="tei:TEI/@xml:id"/></h4>
+                <h4>
+                    <xsl:text>Korrespondenzstück </xsl:text>
+                    <xsl:value-of select="tei:TEI/@xml:id"/>
+                </h4>
                 <h2>
                     <xsl:copy-of select="//tei:titleStmt/tei:title[@level = 'a']/text()"/>
                 </h2>
@@ -1309,7 +1312,7 @@
             </span>
         </xsl:if>
     </xsl:template>
-    
+
     <!-- title in Kommentaren -->
     <xsl:template match="tei:title">
         <xsl:if test=".[@level = 'm']">
@@ -1672,13 +1675,17 @@
                 <xsl:attribute name="class">
                     <xsl:text>stamp</xsl:text>
                 </xsl:attribute>
-                <xsl:text>[Stempel:]</xsl:text>
+                <xsl:attribute name="style">
+                    <xsl:text>font-family: sans-serif;</xsl:text>
+                </xsl:attribute>
             </xsl:if>
             <xsl:if test=".[@rend = 'pre-print']">
                 <xsl:attribute name="class">
                     <xsl:text>pre-print</xsl:text>
                 </xsl:attribute>
-                <xsl:text>[Vordruck:]</xsl:text>
+                <xsl:attribute name="style">
+                    <xsl:text>font-family: sans-serif;</xsl:text>
+                </xsl:attribute>
             </xsl:if>
             <xsl:if test=".[@rend = 'italics']">
                 <xsl:attribute name="class">
@@ -1723,18 +1730,17 @@
         </span>
         <br/>
     </xsl:template>
-    <xsl:template
-        match="tei:p[(@rend = 'center' or @rend = 'right') and not(ancestor::tei:desc)]">
+    <xsl:template match="tei:p[(@rend = 'center' or @rend = 'right') and not(ancestor::tei:desc)]">
         <p>
             <xsl:if test="@rend">
                 <xsl:attribute name="style">
-                <xsl:if test=".[@rend = 'center']">
-                    <xsl:text>text-align: center;</xsl:text>
-                </xsl:if>
-                <xsl:if test=".[@rend = 'right']">
-                    <xsl:text>text-align: right;</xsl:text>
-                </xsl:if>
-            </xsl:attribute></xsl:if>
+                    <xsl:if test=".[@rend = 'center']">
+                        <xsl:text>text-align: center;</xsl:text>
+                    </xsl:if>
+                    <xsl:if test=".[@rend = 'right']">
+                        <xsl:text>text-align: right;</xsl:text>
+                    </xsl:if>
+                </xsl:attribute></xsl:if>
             <xsl:apply-templates/>
         </p>
     </xsl:template>
