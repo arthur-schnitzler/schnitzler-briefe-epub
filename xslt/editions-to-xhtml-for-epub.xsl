@@ -1810,18 +1810,18 @@
     </xsl:template>
 
     <!-- salute -->
-    <xsl:template match="tei:salute[@rend = 'inline']">
+    <xsl:template match="tei:salute[@rend = 'inline' and not(ancestor::tei:p)]">
         <span class="salute">
             <xsl:apply-templates/>
         </span>
     </xsl:template>
-    <xsl:template match="tei:salute[not(@*) or @rend = 'left']">
+    <xsl:template match="tei:salute[not(@*) or @rend = 'left' and not(ancestor::tei:p)]">
         <span class="salute">
             <xsl:apply-templates/>
         </span>
         <br/>
     </xsl:template>
-    <xsl:template match="tei:salute[@rend = 'center' or @rend = 'right']">
+    <xsl:template match="tei:salute[@rend = 'center' or @rend = 'right' and not(ancestor::tei:p)]">
         <span>
             <xsl:attribute name="class">
                 <xsl:text>salute</xsl:text>
@@ -1837,6 +1837,34 @@
             <xsl:apply-templates/>
         </span>
         <br/>
+    </xsl:template>
+
+    <!-- salute in Absätzen -->
+    <xsl:template match="tei:salute[@rend = 'inline' and ancestor::tei:p]">
+        <span class="salute">
+            <xsl:apply-templates/>
+        </span>
+    </xsl:template>
+    <xsl:template match="tei:salute[not(@*) or @rend = 'left' and ancestor::tei:p]">
+        <span class="salute">
+            <xsl:apply-templates/>
+        </span>
+    </xsl:template>
+    <xsl:template match="tei:salute[@rend = 'center' or @rend = 'right' and ancestor::tei:p]">
+        <span>
+            <xsl:attribute name="class">
+                <xsl:text>salute</xsl:text>
+            </xsl:attribute>
+            <xsl:attribute name="style">
+                <xsl:if test=".[@rend = 'center']">
+                    <xsl:text>text-align: center;</xsl:text>
+                </xsl:if>
+                <xsl:if test=".[@rend = 'right']">
+                    <xsl:text>text-align: right;</xsl:text>
+                </xsl:if>
+            </xsl:attribute>
+            <xsl:apply-templates/>
+        </span>
     </xsl:template>
 
     <!-- Seitenumbruch -->
