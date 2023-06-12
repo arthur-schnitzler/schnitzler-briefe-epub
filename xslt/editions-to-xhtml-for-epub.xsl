@@ -60,6 +60,7 @@
             </head>
             <body style="font-family: serif; text-align: left;">
                 <!-- Titel -->
+                <h4><xsl:text>Korrespondenzstück </xsl:text><xsl:value-of select="tei:TEI/@xml:id"/></h4>
                 <h2>
                     <xsl:copy-of select="//tei:titleStmt/tei:title[@level = 'a']/text()"/>
                 </h2>
