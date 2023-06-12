@@ -24,7 +24,7 @@
 
     <!-- transform OEBPS/content.opf with create-content.xsl -->
     <xslt style="./xslt/create-content.xsl" destdir="${contentTmp}" basedir="${contentDir}"
-        includes="${contentDir}/content.opf" extension=".opf">
+        includes="content.opf" extension=".opf">
         <factory name="net.sf.saxon.TransformerFactoryImpl"/>
         <classpath location="./saxon/saxon9he.jar"/>
     </xslt>
@@ -35,7 +35,7 @@
 
     <!-- transform OEBPS/texts/inhalt.xhtml with create-inhalt.xsl -->
     <xslt style="./xslt/create-inhalt.xsl" destdir="${inhaltTmp}" basedir="${textDir}"
-        includes="${textDir}/inhalt.xhtml" extension=".xhtml">
+        includes="inhalt.xhtml" extension=".xhtml">
         <factory name="net.sf.saxon.TransformerFactoryImpl"/>
         <classpath location="./saxon/saxon9he.jar"/>
     </xslt>
@@ -46,7 +46,7 @@
 
     <!-- transform OEBPS/texts/inhaltsverzeichnis.ncx with create-inhaltsverzeichnis.xsl -->
     <xslt style="./xslt/create-inhaltsverzeichnis.xsl" destdir="${inhaltsverzeichnisTmp}"
-        basedir="${textDir}" includes="${textDir}/inhaltsverzeichnis.ncx" extension=".ncx">
+        basedir="${textDir}" includes="inhaltsverzeichnis.ncx" extension=".ncx">
         <factory name="net.sf.saxon.TransformerFactoryImpl"/>
         <classpath location="./saxon/saxon9he.jar"/>
     </xslt>
@@ -57,7 +57,7 @@
     
     <!-- transform OEBPS/texts/titel.xhtml with create-titel.xsl -->
     <xslt style="./xslt/create-titel.xsl" destdir="${titelTmp}"
-        basedir="${textDir}" includes="${textDir}/titel.xhtml" extension=".xhtml">
+        basedir="${textDir}" includes="titel.xhtml" extension=".xhtml">
         <factory name="net.sf.saxon.TransformerFactoryImpl"/>
         <classpath location="./saxon/saxon9he.jar"/>
     </xslt>
