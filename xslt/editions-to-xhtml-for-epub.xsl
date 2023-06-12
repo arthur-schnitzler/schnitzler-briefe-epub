@@ -73,22 +73,10 @@
                 </div>
                 <!-- Fußnoten -->
                 <xsl:if test="//tei:note[@type = 'footnote']">
-                    <xsl:if test="count(//tei:note[@type = 'footnote']) = 1">
-                        <div class="singular-footnote" style="font-size: smaller;">
-                            <h4>Fußnote</h4>
-                            <br/>
-                            <xsl:apply-templates select="//tei:note[@type = 'footnote']"
-                                mode="footnote"/>
-                        </div>
-                    </xsl:if>
-                    <xsl:if test="count(//tei:note[@type = 'footnote']) > 1">
-                        <div class="multiple-footnotes" style="font-size: smaller;">
-                            <h4>Fußnoten</h4>
-                            <br/>
-                            <xsl:apply-templates select="//tei:note[@type = 'footnote']"
-                                mode="footnote"/>
-                        </div>
-                    </xsl:if>
+                    <div class="footnote" style="font-size: smaller;">
+                        <xsl:apply-templates select="//tei:note[@type = 'footnote']" mode="footnote"
+                        />
+                    </div>
                 </xsl:if>
                 <!-- msDesc -->
                 <div class="msDesc" style="font-size: smaller;">
@@ -1749,11 +1737,7 @@
 
     <!-- p in Kommentaren -->
     <xsl:template match="tei:p[ancestor::tei:note]">
-        <br/>
-        <span class="p-kommentar">
-            <xsl:apply-templates/>
-        </span>
-        <br/>
+        <p><xsl:apply-templates/></p>
     </xsl:template>
 
     <!-- postscript -->
