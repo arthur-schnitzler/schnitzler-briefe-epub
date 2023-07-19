@@ -159,7 +159,7 @@
                 </xsl:if>
             </table>
         </xsl:for-each>
-        <xsl:for-each select="tei:biblStruct">
+        <xsl:for-each select="//tei:biblStruct">
             <h5>DRUCK <xsl:value-of select="position()"/>
             </h5>
             <table class="print">
