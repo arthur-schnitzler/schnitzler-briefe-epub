@@ -1602,7 +1602,7 @@
                     <xsl:text>superscript</xsl:text>
                 </xsl:attribute>
                 <xsl:attribute name="style">
-                    <xsl:text>vertical-align: super;</xsl:text>
+                    <xsl:text>position: relative; top: -0.5em; font-size: 80%;</xsl:text>
                 </xsl:attribute>
             </xsl:if>
             <xsl:if test=".[@rend = 'subscript']">
@@ -1610,7 +1610,7 @@
                     <xsl:text>subscript</xsl:text>
                 </xsl:attribute>
                 <xsl:attribute name="style">
-                    <xsl:text>vertical-align: sub;</xsl:text>
+                    <xsl:text>position: relative; top: 0.5em; font-size: 80%</xsl:text>
                 </xsl:attribute>
             </xsl:if>
             <xsl:if test=".[@rend = 'spaced_out']">
