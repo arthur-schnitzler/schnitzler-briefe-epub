@@ -1052,7 +1052,7 @@
             </xsl:otherwise>
         </xsl:choose>
         <xsl:if
-            test="(following-sibling::tei:desc[@type = 'umschlag' or @type = 'fragment' or @type = 'reproduktion' or @type = 'entwurf' or @type = '_blaetter' or @type='_seiten']) or (preceding-sibling::tei:desc[@type = 'umschlag' or @type = 'fragment' or @type = 'reproduktion' or @type = 'entwurf' or @type = '_blaetter' or @type='_seiten'])">
+            test="(following-sibling::tei:desc[@type = 'umschlag' or @type = 'fragment' or @type = 'reproduktion' or @type = 'entwurf' or @type = '_blaetter' or @type = '_seiten']) or (preceding-sibling::tei:desc[@type = 'umschlag' or @type = 'fragment' or @type = 'reproduktion' or @type = 'entwurf' or @type = '_blaetter' or @type = '_seiten'])">
             <xsl:text>, </xsl:text>
         </xsl:if>
     </xsl:template>
@@ -1066,7 +1066,7 @@
             </xsl:otherwise>
         </xsl:choose>
         <xsl:if
-            test="(following-sibling::tei:desc[@type = 'umschlag' or @type = 'fragment' or @type = 'reproduktion' or @type = 'entwurf'  or @type = '_blaetter' or @type='_seiten']) or (preceding-sibling::tei:desc[@type = 'umschlag' or @type = 'fragment' or @type = 'reproduktion' or @type = 'entwurf'  or @type = '_blaetter' or @type='_seiten'])">
+            test="(following-sibling::tei:desc[@type = 'umschlag' or @type = 'fragment' or @type = 'reproduktion' or @type = 'entwurf' or @type = '_blaetter' or @type = '_seiten']) or (preceding-sibling::tei:desc[@type = 'umschlag' or @type = 'fragment' or @type = 'reproduktion' or @type = 'entwurf' or @type = '_blaetter' or @type = '_seiten'])">
             <xsl:text>, </xsl:text>
         </xsl:if>
     </xsl:template>
@@ -1708,19 +1708,21 @@
 
     <!-- Absätze -->
     <xsl:template
-        match="tei:p[not(ancestor::tei:typeDesc) and not(ancestor::tei:desc) and not(ancestor::tei:note) and (not(@*) or @rend = 'inline' or @rend = 'left')]">
+        match="tei:p[not(ancestor::tei:typeDesc) and not(ancestor::tei:desc) and not(ancestor::tei:note) and not(ancestor::tei:quote) and (not(@*) or @rend = 'inline' or @rend = 'left')]">
         <p>
             <xsl:apply-templates/>
         </p>
     </xsl:template>
-    <xsl:template match="tei:p[ancestor::tei:desc or ancestor::tei:note]">
+    <xsl:template
+        match="tei:p[ancestor::tei:desc or ancestor::tei:note and not(ancestor::tei:quote)]">
         <br/>
         <span class="p">
             <xsl:apply-templates/>
         </span>
         <br/>
     </xsl:template>
-    <xsl:template match="tei:p[(@rend = 'center' or @rend = 'right') and not(ancestor::tei:desc)]">
+    <xsl:template
+        match="tei:p[(@rend = 'center' or @rend = 'right') and not(ancestor::tei:desc) and not(ancestor::tei:quote)]">
         <p>
             <xsl:if test="@rend">
                 <xsl:attribute name="style">
@@ -1736,8 +1738,22 @@
     </xsl:template>
 
     <!-- p in Kommentaren -->
-    <xsl:template match="tei:p[ancestor::tei:note]">
+    <xsl:template match="tei:p[ancestor::tei:note and not(ancestor::tei:quote)]">
         <p><xsl:apply-templates/></p>
+    </xsl:template>
+
+    <!-- p in quote -->
+    <xsl:template match="tei:quote/tei:p[position() &lt; last()]">
+        <span class="p-in-quote">
+            <xsl:apply-templates/>
+            <xsl:text> / </xsl:text>
+        </span>
+    </xsl:template>
+
+    <xsl:template match="tei:quote/tei:p[last()]">
+        <span class="p-in-quote">
+            <xsl:apply-templates/>
+        </span>
     </xsl:template>
 
     <!-- postscript -->
@@ -2121,7 +2137,7 @@
     </xsl:template>
 
     <!-- quote -->
-    <xsl:template match="tei:quote">
+    <xsl:template match="tei:quote[not(/tei:p)]">
         <span class="quote">
             <xsl:apply-templates/>
         </span>
