@@ -10,9 +10,9 @@
     <delete dir="${contentTmp}"/>
     <mkdir dir="${contentTmp}"/>
 
-    <property name="inhaltTmp" value="./OEBPS/texts/inhaltTmp"/>
+    <!--<property name="inhaltTmp" value="./OEBPS/texts/inhaltTmp"/>
     <delete dir="${inhaltTmp}"/>
-    <mkdir dir="${inhaltTmp}"/>
+    <mkdir dir="${inhaltTmp}"/>-->
 
     <property name="inhaltsverzeichnisTmp" value="./OEBPS/texts/inhaltsverzeichnisTmp"/>
     <delete dir="${inhaltsverzeichnisTmp}"/>
@@ -34,7 +34,7 @@
     <delete dir="${contentTmp}"/>
 
     <!-- transform OEBPS/texts/inhalt.xhtml with create-inhalt.xsl -->
-    <xslt style="./xslt/create-inhalt.xsl" destdir="${inhaltTmp}" basedir="${textDir}"
+    <!--<xslt style="./xslt/create-inhalt.xsl" destdir="${inhaltTmp}" basedir="${textDir}"
         includes="inhalt.xhtml" extension=".xhtml">
         <factory name="net.sf.saxon.TransformerFactoryImpl"/>
         <classpath location="./saxon/saxon9he.jar"/>
@@ -42,7 +42,7 @@
     <move todir="${textDir}">
         <fileset dir="${inhaltTmp}"/>
     </move>
-    <delete dir="${inhaltTmp}"/>
+    <delete dir="${inhaltTmp}"/>-->
 
     <!-- transform OEBPS/texts/inhaltsverzeichnis.ncx with create-inhaltsverzeichnis.xsl -->
     <xslt style="./xslt/create-inhaltsverzeichnis.xsl" destdir="${inhaltsverzeichnisTmp}"
