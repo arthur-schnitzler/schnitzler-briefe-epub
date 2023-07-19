@@ -102,7 +102,7 @@
                         </xsl:attribute>
                         <xsl:attribute name="href">
                             <xsl:value-of
-                                select="concat('../OEBPS/texts/', //xhtml:meta[@name = 'id']/@content, '.xhtml')"
+                                select="concat('texts/', //xhtml:meta[@name = 'id']/@content, '.xhtml')"
                             />
                         </xsl:attribute>
                         <xsl:attribute name="media-type">
