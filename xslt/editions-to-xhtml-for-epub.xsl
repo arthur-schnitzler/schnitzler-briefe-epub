@@ -1722,11 +1722,9 @@
     </xsl:template>
     <xsl:template
         match="tei:p[ancestor::tei:desc or ancestor::tei:note and not(ancestor::tei:quote)]">
-        <br/>
         <span class="p">
             <xsl:apply-templates/>
         </span>
-        <br/>
     </xsl:template>
     <xsl:template
         match="tei:p[(@rend = 'center' or @rend = 'right') and not(ancestor::tei:desc) and not(ancestor::tei:quote)]">
@@ -2107,6 +2105,7 @@
         <div class="opener">
             <xsl:apply-templates/>
         </div>
+        <br/>
     </xsl:template>
 
     <!-- closer -->
