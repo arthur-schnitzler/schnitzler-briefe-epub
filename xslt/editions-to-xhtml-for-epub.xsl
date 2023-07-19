@@ -79,11 +79,14 @@
                     </div>
                 </xsl:if>
                 <!-- msDesc -->
-                <div class="msDesc" style="font-size: smaller;">
-                    <br/>
-                    <h4>Manuskriptbeschreibung</h4>
-                    <xsl:apply-templates select="//tei:msDesc"/>
-                </div>
+                <xsl:if test="//tei:msDesc">
+                    <div class="msDesc" style="font-size: smaller;">
+                        <br/>
+                        <br/>
+                        <h4>Manuskriptbeschreibung</h4>
+                        <xsl:apply-templates select="//tei:msDesc"/>
+                    </div>
+                </xsl:if>
                 <!-- Kommentar -->
                 <xsl:if test="//tei:note[@type = 'commentary' or @type = 'textConst']">
                     <div class="kommentar" style="font-size: smaller;">
@@ -119,58 +122,61 @@
 
     <!-- msDesc -->
     <xsl:template match="tei:msDesc">
-        <xsl:for-each select="//tei:witness">
-            <h5>TEXTZEUGE <xsl:value-of select="@n"/>
-            </h5>
-            <table class="witness">
-                <xsl:if test="tei:msDesc/tei:msIdentifier">
-                    <tr>
-                        <th>Signatur</th>
-                        <td>
-                            <xsl:for-each select="tei:msDesc/tei:msIdentifier/child::*">
-                                <xsl:value-of select="."/>
-                                <xsl:if test="not(position() = last())">
-                                    <xsl:text>, </xsl:text>
-                                </xsl:if>
-                            </xsl:for-each>
-                        </td>
-                    </tr>
-                </xsl:if>
-                <xsl:if test="//tei:physDesc">
-                    <tr>
-                        <th>Beschreibung</th>
-                        <td>
-                            <xsl:apply-templates select="tei:msDesc/tei:physDesc/tei:objectDesc"/>
-                        </td>
-                    </tr>
-                    <xsl:if test="tei:msDesc/tei:physDesc/tei:typeDesc">
-                        <xsl:apply-templates select="tei:msDesc/tei:physDesc/tei:typeDesc"/>
-                    </xsl:if>
-                    <xsl:if test="tei:msDesc/tei:physDesc/tei:handDesc">
-                        <xsl:apply-templates select="tei:msDesc/tei:physDesc/tei:handDesc"/>
-                    </xsl:if>
-                    <xsl:if test="tei:msDesc/tei:physDesc/tei:additions">
+        <xsl:if test="//tei:witness">
+            <xsl:for-each select="//tei:witness">
+                <h5>Textzeuge <xsl:value-of select="@n"/></h5>
+                <table class="witness">
+                    <xsl:if test="//tei:msIdentifier">
                         <tr>
-                            <th/>
-                            <th>Zufügungen</th>
+                            <th style="text-align: left;">Signatur</th>
+                            <td style="vertical-align: top;">
+                                <xsl:for-each select="//tei:msIdentifier/child::*">
+                                    <xsl:value-of select="."/>
+                                    <xsl:if test="not(position() = last())">
+                                        <xsl:text>, </xsl:text>
+                                    </xsl:if>
+                                </xsl:for-each>
+                            </td>
                         </tr>
-                        <xsl:apply-templates select="tei:msDesc/tei:physDesc/tei:additions"/>
                     </xsl:if>
-                </xsl:if>
-            </table>
-        </xsl:for-each>
-        <xsl:for-each select="//tei:biblStruct">
-            <h5>DRUCK <xsl:value-of select="position()"/>
-            </h5>
-            <table class="print">
-                <tr>
-                    <th/>
-                    <td>
-                        <xsl:value-of select="mam:bibliografische-angabe(.)"/>
-                    </td>
-                </tr>
-            </table>
-        </xsl:for-each>
+                    <xsl:if test="//tei:physDesc">
+                        <tr>
+                            <th style="text-align: left;">Beschreibung</th>
+                            <td style="vertical-align: top;">
+                                <xsl:apply-templates select="tei:msDesc/tei:physDesc/tei:objectDesc"
+                                />
+                            </td>
+                        </tr>
+                        <xsl:if test="tei:msDesc/tei:physDesc/tei:typeDesc">
+                            <xsl:apply-templates select="tei:msDesc/tei:physDesc/tei:typeDesc"/>
+                        </xsl:if>
+                        <xsl:if test="tei:msDesc/tei:physDesc/tei:handDesc">
+                            <xsl:apply-templates select="tei:msDesc/tei:physDesc/tei:handDesc"/>
+                        </xsl:if>
+                        <xsl:if test="tei:msDesc/tei:physDesc/tei:additions">
+                            <tr>
+                                <th style="text-align: left;">Zufügungen</th>
+                                <td/>
+                            </tr>
+                            <xsl:apply-templates select="tei:msDesc/tei:physDesc/tei:additions"/>
+                        </xsl:if>
+                    </xsl:if>
+                </table>
+            </xsl:for-each>
+        </xsl:if>
+        <xsl:if test="//tei:biblStruct">
+            <xsl:for-each select="//tei:biblStruct">
+                <h5>Druck <xsl:value-of select="position()"/></h5>
+                <table class="print">
+                    <tr>
+                        <th/>
+                        <td style="vertical-align: top;">
+                            <xsl:value-of select="mam:bibliografische-angabe(.)"/>
+                        </td>
+                    </tr>
+                </table>
+            </xsl:for-each>
+        </xsl:if>
     </xsl:template>
     <xsl:function name="mam:bibliografische-angabe">
         <xsl:param name="biblStruct-input" as="node()"/>
@@ -513,7 +519,7 @@
         <xsl:choose>
             <xsl:when test="$poschitzion &gt; 0">
                 <td/>
-                <td>
+                <td style="vertical-align: top;">
                     <xsl:value-of select="$poschitzion + 1"/>
                     <xsl:text>) </xsl:text>
                     <xsl:apply-templates/>
@@ -522,14 +528,14 @@
             <xsl:when
                 test="$poschitzion = 0 and not(parent::tei:incident/following-sibling::tei:incident[@type = 'supplement'])">
                 <th>Beilage</th>
-                <td>
+                <td style="vertical-align: top;">
                     <xsl:apply-templates/>
                 </td>
             </xsl:when>
             <xsl:when
                 test="$poschitzion = 0 and parent::tei:incident/following-sibling::tei:incident[@type = 'supplement']">
                 <th>Beilagen</th>
-                <td>
+                <td style="vertical-align: top;">
                     <xsl:value-of select="$poschitzion + 1"/>
                     <xsl:text>) </xsl:text>
                     <xsl:apply-templates/>
@@ -543,7 +549,7 @@
         <xsl:choose>
             <xsl:when test="$poschitzion &gt; 0">
                 <th/>
-                <td>
+                <td style="vertical-align: top;">
                     <xsl:apply-templates/>
                 </td>
             </xsl:when>
@@ -552,7 +558,7 @@
                 <th>
                     <xsl:text>Versand</xsl:text>
                 </th>
-                <td>
+                <td style="vertical-align: top;">
                     <xsl:apply-templates/>
                 </td>
             </xsl:when>
@@ -561,7 +567,7 @@
                 <th>
                     <xsl:text>Versand</xsl:text>
                 </th>
-                <td>
+                <td style="vertical-align: top;">
                     <xsl:apply-templates/>
                 </td>
             </xsl:when>
@@ -577,7 +583,7 @@
                 <th>
                     <xsl:value-of select="$receiver"/>
                 </th>
-                <td>
+                <td style="vertical-align: top;">
                     <xsl:value-of select="$poschitzion + 1"/>
                     <xsl:text>) </xsl:text>
                     <xsl:apply-templates/>
@@ -588,7 +594,7 @@
                 <th>
                     <xsl:value-of select="$receiver"/>
                 </th>
-                <td>
+                <td style="vertical-align: top;">
                     <xsl:value-of select="$poschitzion + 1"/>
                     <xsl:text>) </xsl:text>
                     <xsl:apply-templates/>
@@ -598,7 +604,7 @@
                 <th>
                     <xsl:value-of select="$receiver"/>
                 </th>
-                <td>
+                <td style="vertical-align: top;">
                     <xsl:apply-templates/>
                 </td>
             </xsl:otherwise>
@@ -610,7 +616,7 @@
         <xsl:choose>
             <xsl:when test="$poschitzion &gt; 0">
                 <td/>
-                <td>
+                <td style="vertical-align: top;">
                     <xsl:value-of select="$poschitzion + 1"/>
                     <xsl:text>) </xsl:text>
                     <xsl:apply-templates/>
@@ -621,7 +627,7 @@
                 <th>
                     <xsl:text>Ordnung</xsl:text>
                 </th>
-                <td>
+                <td style="vertical-align: top;">
                     <xsl:apply-templates/>
                 </td>
             </xsl:when>
@@ -630,7 +636,7 @@
                 <th>
                     <xsl:text>Ordnung</xsl:text>
                 </th>
-                <td>
+                <td style="vertical-align: top;">
                     <xsl:value-of select="$poschitzion + 1"/>
                     <xsl:text>) </xsl:text>
                     <xsl:apply-templates/>
@@ -644,7 +650,7 @@
         <xsl:choose>
             <xsl:when test="$poschitzion &gt; 0">
                 <td/>
-                <td>
+                <td style="vertical-align: top;">
                     <xsl:value-of select="$poschitzion + 1"/>
                     <xsl:text>) </xsl:text>
                     <xsl:apply-templates/>
@@ -655,7 +661,7 @@
                 <th>
                     <xsl:text>Zusatz</xsl:text>
                 </th>
-                <td>
+                <td style="vertical-align: top;">
                     <xsl:apply-templates/>
                 </td>
             </xsl:when>
@@ -664,7 +670,7 @@
                 <th>
                     <xsl:text>Zusatz</xsl:text>
                 </th>
-                <td>
+                <td style="vertical-align: top;">
                     <xsl:value-of select="$poschitzion + 1"/>
                     <xsl:text>) </xsl:text>
                     <xsl:apply-templates/>
@@ -678,7 +684,7 @@
         <xsl:choose>
             <xsl:when test="$poschitzion &gt; 0">
                 <td/>
-                <td>
+                <td style="vertical-align: top;">
                     <xsl:value-of select="$poschitzion + 1"/>
                     <xsl:text>) </xsl:text>
                     <xsl:apply-templates/>
@@ -687,14 +693,14 @@
             <xsl:when
                 test="$poschitzion = 0 and not(parent::tei:incident/following-sibling::tei:incident[@type = 'editorial'])">
                 <th>Editorischer Hinweis</th>
-                <td>
+                <td style="vertical-align: top;">
                     <xsl:apply-templates/>
                 </td>
             </xsl:when>
             <xsl:when
                 test="$poschitzion = 0 and parent::tei:incident/following-sibling::tei:incident[@type = 'editorial']">
                 <th>Editorischer Hinweise</th>
-                <td>
+                <td style="vertical-align: top;">
                     <xsl:value-of select="$poschitzion + 1"/>
                     <xsl:text>) </xsl:text>
                     <xsl:apply-templates/>
@@ -715,7 +721,7 @@
                     <th/>
                 </xsl:otherwise>
             </xsl:choose>
-            <td>
+            <td style="vertical-align: top;">
                 <xsl:apply-templates/>
             </td>
         </tr>
@@ -725,8 +731,8 @@
             <!-- Nur eine Handschrift, diese demnach vom Autor/der Autorin: -->
             <xsl:when test="not(child::tei:handNote[2]) and not(tei:handNote/@corresp)">
                 <tr>
-                    <th>Handschrift</th>
-                    <td>
+                    <th style="text-align: left;">Handschrift</th>
+                    <td style="vertical-align: top;">
                         <xsl:value-of select="mam:handNote(tei:handNote)"/>
                     </td>
                 </tr>
@@ -736,8 +742,8 @@
                 <xsl:choose>
                     <xsl:when test="handNote/@corresp = 'schreibkraft'">
                         <tr>
-                            <th>Handschrift einer Schreibkraft</th>
-                            <td>
+                            <th style="text-align: left;">Handschrift einer Schreibkraft</th>
+                            <td style="vertical-align: top;">
                                 <xsl:value-of select="mam:handNote(tei:handNote)"/>
                             </td>
                         </tr>
@@ -746,9 +752,10 @@
                         <xsl:variable name="sender"
                             select="ancestor::tei:teiHeader[1]/tei:profileDesc[1]/tei:correspDesc[1]/tei:correspAction[@type = 'sent']/tei:persName[@ref = tei:handNote/@corresp]"/>
                         <tr>
-                            <th>Handschrift <xsl:value-of select="$sender"/>
+                            <th style="text-align: left;">Handschrift <xsl:value-of select="$sender"
+                                />
                             </th>
-                            <td>
+                            <td style="vertical-align: top;">
                                 <xsl:value-of select="mam:handNote(tei:handNote)"/>
                             </td>
                         </tr>
@@ -766,10 +773,10 @@
                     <xsl:choose>
                         <xsl:when test="count($handDesc-v/tei:handNote[@corresp = $corespi]) = 1">
                             <tr>
-                                <th>Handschrift <xsl:value-of
+                                <th style="text-align: left;">Handschrift <xsl:value-of
                                         select="mam:vorname-vor-nachname($corespi-name)"/>
                                 </th>
-                                <td>
+                                <td style="vertical-align: top;">
                                     <xsl:value-of
                                         select="mam:handNote($handDesc-v/tei:handNote[@corresp = $corespi])"
                                     />
@@ -781,7 +788,7 @@
                                 <tr>
                                     <xsl:choose>
                                         <xsl:when test="position() = 1">
-                                            <th>Handschrift <xsl:value-of
+                                            <th style="text-align: left;">Handschrift <xsl:value-of
                                                   select="mam:vorname-vor-nachname($corespi-name)"/>
                                             </th>
                                         </xsl:when>
@@ -789,7 +796,7 @@
                                             <th/>
                                         </xsl:otherwise>
                                     </xsl:choose>
-                                    <td>
+                                    <td style="vertical-align: top;">
                                         <xsl:variable name="poschitzon" select="position()"/>
                                         <xsl:value-of select="$poschitzon"/>
                                         <xsl:text>) </xsl:text>
