@@ -36,6 +36,10 @@
                             <xsl:value-of
                                 select="//tei:correspAction[@type = 'sent']//tei:date/@notBefore"/>
                         </xsl:if>
+                        <xsl:if test="//tei:correspAction[@type = 'sent']//tei:date[not(@notBefore)]/@notAfter">
+                            <xsl:value-of
+                                select="//tei:correspAction[@type = 'sent']//tei:date[not(@notBefore)]/@notAfter"/>
+                        </xsl:if>
                     </xsl:attribute>
                 </meta>
                 <meta>
