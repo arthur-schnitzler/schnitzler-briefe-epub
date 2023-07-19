@@ -1748,14 +1748,14 @@
     </xsl:template>
 
     <!-- p in quote -->
-    <xsl:template match="tei:quote/tei:p[position() &lt; last()]">
+    <xsl:template match="tei:quote/tei:p[position() != last()]">
         <span class="p-in-quote">
             <xsl:apply-templates/>
             <xsl:text> / </xsl:text>
         </span>
     </xsl:template>
 
-    <xsl:template match="tei:quote/tei:p[last()]">
+    <xsl:template match="tei:quote/tei:p[position() = last()]">
         <span class="p-in-quote">
             <xsl:apply-templates/>
         </span>
