@@ -15,7 +15,7 @@
     </metadata>
     <manifest>
         <item id="cover-html" href="texts/cover.xhtml" media-type="application/xhtml+xml"/>
-        <item id="inhaltsverzeichnis" href="texts/inhaltsverzeichnis.ncx"
+        <item id="inhaltsverzeichnis" href="inhaltsverzeichnis.ncx"
             media-type="application/x-dtbncx+xml"/>
         <item id="titel" href="texts/titel.xhtml" media-type="application/xhtml+xml"/>
         <item id="L02551" href="texts/L02551.xhtml" media-type="application/xhtml+xml"/>
@@ -2874,7 +2874,6 @@
         <itemref idref="cover-html" linear="no"/>
         <itemref idref="titel"/>
         <itemref idref="rechte"/>
-        <itemref idref="einleitung"/>
         <itemref idref="L02551"/>
         <itemref idref="L02639"/>
         <itemref idref="L02640"/>
@@ -5724,8 +5723,4 @@
         <itemref idref="L02547"/>
         <itemref idref="L02548"/>
     </spine>
-    <guide>
-        <reference type="cover" title="Cover" href="texts/cover.xhtml"/>
-        <reference type="text" title="Titel" href="texts/titel.xhtml"/>
-    </guide>
 </package>

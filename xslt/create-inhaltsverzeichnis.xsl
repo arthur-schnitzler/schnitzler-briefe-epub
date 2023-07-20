@@ -84,7 +84,7 @@
                     </xsl:element>
                     <xsl:element name="content" namespace="http://www.daisy.org/z3986/2005/ncx/">
                         <xsl:attribute name="src">
-                            <xsl:text>cover.xhtml</xsl:text>
+                            <xsl:text>texts/cover.xhtml</xsl:text>
                         </xsl:attribute>
                     </xsl:element>
                 </xsl:element>
@@ -102,7 +102,7 @@
                     </xsl:element>
                     <xsl:element name="content" namespace="http://www.daisy.org/z3986/2005/ncx/">
                         <xsl:attribute name="src">
-                            <xsl:text>titel.xhtml</xsl:text>
+                            <xsl:text>texts/titel.xhtml</xsl:text>
                         </xsl:attribute>
                     </xsl:element>
                 </xsl:element>
@@ -120,7 +120,7 @@
                     </xsl:element>
                     <xsl:element name="content" namespace="http://www.daisy.org/z3986/2005/ncx/">
                         <xsl:attribute name="src">
-                            <xsl:text>rechte.xhtml</xsl:text>
+                            <xsl:text>texts/rechte.xhtml</xsl:text>
                         </xsl:attribute>
                     </xsl:element>
                 </xsl:element>
@@ -164,7 +164,7 @@
                         <xsl:element name="content" namespace="http://www.daisy.org/z3986/2005/ncx/">
                             <xsl:attribute name="src">
                                 <xsl:value-of
-                                    select="concat(//xhtml:meta[@name = 'id']/@content, '.xhtml')"/>
+                                    select="concat('texts/', //xhtml:meta[@name = 'id']/@content, '.xhtml')"/>
                             </xsl:attribute>
                         </xsl:element>
                     </xsl:element>
