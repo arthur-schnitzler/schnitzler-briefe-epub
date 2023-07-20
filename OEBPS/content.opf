@@ -2868,7 +2868,7 @@
         <item id="L02548" href="texts/L02548.xhtml" media-type="application/xhtml+xml"/>
         <item id="rechte" href="texts/rechte.xhtml" media-type="application/xhtml+xml"/>
         <item id="css" href="styles/stylesheet.css" media-type="text/css"/>
-        <item id="cover.jpg" href="../images/cover.jpg" media-type="image/jpeg"/>
+        <item id="cover.jpg" href="images/cover.jpg" media-type="image/jpeg"/>
     </manifest>
     <spine toc="inhaltsverzeichnis">
         <itemref idref="cover-html" linear="no"/>
@@ -5723,4 +5723,8 @@
         <itemref idref="L02547"/>
         <itemref idref="L02548"/>
     </spine>
+    <guide>
+        <reference type="cover" title="Cover" href="texts/cover.xhtml"/>
+        <reference type="text" title="Titel" href="texts/titel.xhtml"/>
+    </guide>
 </package>

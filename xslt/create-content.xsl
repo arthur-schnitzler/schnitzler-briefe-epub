@@ -151,7 +151,7 @@
                         <xsl:text>cover.jpg</xsl:text>
                     </xsl:attribute>
                     <xsl:attribute name="href">
-                        <xsl:text>../images/cover.jpg</xsl:text>
+                        <xsl:text>images/cover.jpg</xsl:text>
                     </xsl:attribute>
                     <xsl:attribute name="media-type">
                         <xsl:text>image/jpeg</xsl:text>
@@ -200,7 +200,7 @@
                     </xsl:element>
                 </xsl:for-each>
             </xsl:element>
-            <!--<xsl:element name="guide" namespace="http://www.idpf.org/2007/opf">
+            <xsl:element name="guide" namespace="http://www.idpf.org/2007/opf">
                 <xsl:element name="reference" namespace="http://www.idpf.org/2007/opf">
                     <xsl:attribute name="type">
                         <xsl:text>cover</xsl:text>
@@ -212,7 +212,7 @@
                         <xsl:text>texts/cover.xhtml</xsl:text>
                     </xsl:attribute>
                 </xsl:element>
-                <!-\-<xsl:element name="reference" namespace="http://www.idpf.org/2007/opf">
+                <!--<xsl:element name="reference" namespace="http://www.idpf.org/2007/opf">
                     <xsl:attribute name="type">
                         <xsl:text>toc</xsl:text>
                     </xsl:attribute>
@@ -222,7 +222,7 @@
                     <xsl:attribute name="href">
                         <xsl:text>contents.xhtml</xsl:text>
                     </xsl:attribute>
-                </xsl:element>-\->
+                </xsl:element>-->
                 <xsl:element name="reference" namespace="http://www.idpf.org/2007/opf">
                     <xsl:attribute name="type">
                         <xsl:text>text</xsl:text>
@@ -234,7 +234,7 @@
                         <xsl:text>texts/titel.xhtml</xsl:text>
                     </xsl:attribute>
                 </xsl:element>
-            </xsl:element>-->
+            </xsl:element>
         </xsl:element>
     </xsl:template>
 </xsl:stylesheet>
