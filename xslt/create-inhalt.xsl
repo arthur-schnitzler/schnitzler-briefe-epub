@@ -44,6 +44,7 @@
                         <xsl:sort select="//xhtml:meta[@name = 'n']/@content" order="ascending"/>
                         <xsl:element name="li" namespace="http://www.w3.org/1999/xhtml">
                             <xsl:element name="a" namespace="http://www.w3.org/1999/xhtml">
+                                <!-- XXXX schauen, ob das funktioniert für Schluss -->
                                 <xsl:attribute name="href">
                                     <xsl:value-of select="concat(//xhtml:meta[@name='id']/@content, '.xhtml')"/>
                                 </xsl:attribute>
