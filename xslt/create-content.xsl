@@ -124,7 +124,7 @@
                         <xsl:text>application/xhtml+xml</xsl:text>
                     </xsl:attribute>
                 </xsl:element>
-                <xsl:element name="item" namespace="http://www.idpf.org/2007/opf">
+                <!--<xsl:element name="item" namespace="http://www.idpf.org/2007/opf">
                     <xsl:attribute name="id">
                         <xsl:text>einleitung</xsl:text>
                     </xsl:attribute>
@@ -134,7 +134,7 @@
                     <xsl:attribute name="media-type">
                         <xsl:text>application/xhtml+xml</xsl:text>
                     </xsl:attribute>
-                </xsl:element>
+                </xsl:element>-->
                 <xsl:element name="item" namespace="http://www.idpf.org/2007/opf">
                     <xsl:attribute name="id">
                         <xsl:text>css</xsl:text>
@@ -209,10 +209,10 @@
                         <xsl:text>Cover</xsl:text>
                     </xsl:attribute>
                     <xsl:attribute name="href">
-                        <xsl:text>cover.xhtml</xsl:text>
+                        <xsl:text>texts/cover.xhtml</xsl:text>
                     </xsl:attribute>
                 </xsl:element>
-                <xsl:element name="reference" namespace="http://www.idpf.org/2007/opf">
+                <!--<xsl:element name="reference" namespace="http://www.idpf.org/2007/opf">
                     <xsl:attribute name="type">
                         <xsl:text>toc</xsl:text>
                     </xsl:attribute>
@@ -222,7 +222,7 @@
                     <xsl:attribute name="href">
                         <xsl:text>contents.xhtml</xsl:text>
                     </xsl:attribute>
-                </xsl:element>
+                </xsl:element>-->
                 <xsl:element name="reference" namespace="http://www.idpf.org/2007/opf">
                     <xsl:attribute name="type">
                         <xsl:text>text</xsl:text>
@@ -231,7 +231,7 @@
                         <xsl:text>Titel</xsl:text>
                     </xsl:attribute>
                     <xsl:attribute name="href">
-                        <xsl:text>titel.xhtml</xsl:text>
+                        <xsl:text>texts/titel.xhtml</xsl:text>
                     </xsl:attribute>
                 </xsl:element>
             </xsl:element>
