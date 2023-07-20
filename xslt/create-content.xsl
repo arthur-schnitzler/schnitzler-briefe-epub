@@ -50,16 +50,19 @@
                 <xsl:element name="subject" namespace="http://purl.org/dc/elements/1.1/">
                     <xsl:text>Arthur Schnitzler’s literary correspondences</xsl:text>
                 </xsl:element>
-                <!--<xsl:element name="meta" namespace="http://www.idpf.org/2007/opf">
-                    <xsl:attribute name="name">
-                        <xsl:text>cover</xsl:text>
-                    </xsl:attribute>
-                    <xsl:attribute name="content">
-                        <xsl:text>images/cover.svg</xsl:text>
-                    </xsl:attribute>
-                </xsl:element>-->
             </xsl:element>
             <xsl:element name="manifest" namespace="http://www.idpf.org/2007/opf">
+                <xsl:element name="item" namespace="http://www.idpf.org/2007/opf">
+                    <xsl:attribute name="id">
+                        <xsl:text>cover-html</xsl:text>
+                    </xsl:attribute>
+                    <xsl:attribute name="href">
+                        <xsl:text>texts/cover.xhtml</xsl:text>
+                    </xsl:attribute>
+                    <xsl:attribute name="media-type">
+                        <xsl:text>application/xhtml+xml</xsl:text>
+                    </xsl:attribute>
+                </xsl:element>
                 <xsl:element name="item" namespace="http://www.idpf.org/2007/opf">
                     <xsl:attribute name="id">
                         <xsl:text>inhaltsverzeichnis</xsl:text>
@@ -143,16 +146,30 @@
                         <xsl:text>text/css</xsl:text>
                     </xsl:attribute>
                 </xsl:element>
+                <xsl:element name="item" namespace="http://www.idpf.org/2007/opf">
+                    <xsl:attribute name="id">
+                        <xsl:text>cover.jpg</xsl:text>
+                    </xsl:attribute>
+                    <xsl:attribute name="href">
+                        <xsl:text>../images/cover.jpg</xsl:text>
+                    </xsl:attribute>
+                    <xsl:attribute name="media-type">
+                        <xsl:text>image/jpeg</xsl:text>
+                    </xsl:attribute>
+                </xsl:element>
             </xsl:element>
             <xsl:element name="spine" namespace="http://www.idpf.org/2007/opf">
                 <xsl:attribute name="toc">
                     <xsl:text>inhaltsverzeichnis</xsl:text>
                 </xsl:attribute>
-                <!--<xsl:element name="itemref" namespace="http://www.idpf.org/2007/opf">
+                <xsl:element name="itemref" namespace="http://www.idpf.org/2007/opf">
                     <xsl:attribute name="idref">
-                        <xsl:text>coverimage</xsl:text>
+                        <xsl:text>cover-html</xsl:text>
                     </xsl:attribute>
-                </xsl:element>-->
+                    <xsl:attribute name="linear">
+                        <xsl:text>no</xsl:text>
+                    </xsl:attribute>
+                </xsl:element>
                 <xsl:element name="itemref" namespace="http://www.idpf.org/2007/opf">
                     <xsl:attribute name="idref">
                         <xsl:text>titel</xsl:text>
@@ -183,7 +200,41 @@
                     </xsl:element>
                 </xsl:for-each>
             </xsl:element>
+            <xsl:element name="guide" namespace="http://www.idpf.org/2007/opf">
+                <xsl:element name="reference" namespace="http://www.idpf.org/2007/opf">
+                    <xsl:attribute name="type">
+                        <xsl:text>cover</xsl:text>
+                    </xsl:attribute>
+                    <xsl:attribute name="title">
+                        <xsl:text>Cover</xsl:text>
+                    </xsl:attribute>
+                    <xsl:attribute name="href">
+                        <xsl:text>cover.xhtml</xsl:text>
+                    </xsl:attribute>
+                </xsl:element>
+                <xsl:element name="reference" namespace="http://www.idpf.org/2007/opf">
+                    <xsl:attribute name="type">
+                        <xsl:text>toc</xsl:text>
+                    </xsl:attribute>
+                    <xsl:attribute name="title">
+                        <xsl:text>Inhaltsverzeichnis</xsl:text>
+                    </xsl:attribute>
+                    <xsl:attribute name="href">
+                        <xsl:text>contents.xhtml</xsl:text>
+                    </xsl:attribute>
+                </xsl:element>
+                <xsl:element name="reference" namespace="http://www.idpf.org/2007/opf">
+                    <xsl:attribute name="type">
+                        <xsl:text>text</xsl:text>
+                    </xsl:attribute>
+                    <xsl:attribute name="title">
+                        <xsl:text>Titel</xsl:text>
+                    </xsl:attribute>
+                    <xsl:attribute name="href">
+                        <xsl:text>titel.xhtml</xsl:text>
+                    </xsl:attribute>
+                </xsl:element>
+            </xsl:element>
         </xsl:element>
     </xsl:template>
-
 </xsl:stylesheet>

@@ -72,10 +72,28 @@
             <xsl:element name="navMap" namespace="http://www.daisy.org/z3986/2005/ncx/">
                 <xsl:element name="navPoint" namespace="http://www.daisy.org/z3986/2005/ncx/">
                     <xsl:attribute name="id">
-                        <xsl:text>titel</xsl:text>
+                        <xsl:text>cover</xsl:text>
                     </xsl:attribute>
                     <xsl:attribute name="playOrder">
                         <xsl:text>1</xsl:text>
+                    </xsl:attribute>
+                    <xsl:element name="navLabel" namespace="http://www.daisy.org/z3986/2005/ncx/">
+                        <xsl:element name="text" namespace="http://www.daisy.org/z3986/2005/ncx/">
+                            <xsl:text>Cover</xsl:text>
+                        </xsl:element>
+                    </xsl:element>
+                    <xsl:element name="content" namespace="http://www.daisy.org/z3986/2005/ncx/">
+                        <xsl:attribute name="src">
+                            <xsl:text>cover.xhtml</xsl:text>
+                        </xsl:attribute>
+                    </xsl:element>
+                </xsl:element>
+                <xsl:element name="navPoint" namespace="http://www.daisy.org/z3986/2005/ncx/">
+                    <xsl:attribute name="id">
+                        <xsl:text>titel</xsl:text>
+                    </xsl:attribute>
+                    <xsl:attribute name="playOrder">
+                        <xsl:text>2</xsl:text>
                     </xsl:attribute>
                     <xsl:element name="navLabel" namespace="http://www.daisy.org/z3986/2005/ncx/">
                         <xsl:element name="text" namespace="http://www.daisy.org/z3986/2005/ncx/">
@@ -93,7 +111,7 @@
                         <xsl:text>rechte</xsl:text>
                     </xsl:attribute>
                     <xsl:attribute name="playOrder">
-                        <xsl:text>2</xsl:text>
+                        <xsl:text>3</xsl:text>
                     </xsl:attribute>
                     <xsl:element name="navLabel" namespace="http://www.daisy.org/z3986/2005/ncx/">
                         <xsl:element name="text" namespace="http://www.daisy.org/z3986/2005/ncx/">
@@ -134,7 +152,7 @@
                             <xsl:value-of select="//xhtml:meta[@name = 'id']/@content"/>
                         </xsl:attribute>
                         <xsl:attribute name="playOrder">
-                            <xsl:number value="position() + 2" format="1"/>
+                            <xsl:number value="position() + 3" format="1"/>
                         </xsl:attribute>
                         <xsl:element name="navLabel"
                             namespace="http://www.daisy.org/z3986/2005/ncx/">

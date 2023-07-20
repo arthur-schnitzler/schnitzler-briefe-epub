@@ -14,6 +14,7 @@
             correspondences</subject>
     </metadata>
     <manifest>
+        <item id="cover-html" href="texts/cover.xhtml" media-type="application/xhtml+xml"/>
         <item id="inhaltsverzeichnis" href="texts/inhaltsverzeichnis.ncx"
             media-type="application/x-dtbncx+xml"/>
         <item id="titel" href="texts/titel.xhtml" media-type="application/xhtml+xml"/>
@@ -2868,8 +2869,10 @@
         <item id="rechte" href="texts/rechte.xhtml" media-type="application/xhtml+xml"/>
         <item id="einleitung" href="texts/einleitung.xhtml" media-type="application/xhtml+xml"/>
         <item id="css" href="styles/stylesheet.css" media-type="text/css"/>
+        <item id="cover.jpg" href="../images/cover.jpg" media-type="image/jpeg"/>
     </manifest>
     <spine toc="inhaltsverzeichnis">
+        <itemref idref="cover-html" linear="no"/>
         <itemref idref="titel"/>
         <itemref idref="rechte"/>
         <itemref idref="einleitung"/>
@@ -5722,4 +5725,9 @@
         <itemref idref="L02547"/>
         <itemref idref="L02548"/>
     </spine>
+    <guide>
+        <reference type="cover" title="Cover" href="cover.xhtml"/>
+        <reference type="toc" title="Inhaltsverzeichnis" href="contents.xhtml"/>
+        <reference type="text" title="Titel" href="titel.xhtml"/>
+    </guide>
 </package>
