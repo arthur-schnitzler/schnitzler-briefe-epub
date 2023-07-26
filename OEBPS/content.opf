@@ -19,6 +19,7 @@
             media-type="application/x-dtbncx+xml"/>
         <item id="titel" href="texts/titel.xhtml" media-type="application/xhtml+xml"/>
         <item id="rechte" href="texts/rechte.xhtml" media-type="application/xhtml+xml"/>
+        <item id="vorbemerkung" href="texts/vorbemerkung.xhtml" media-type="application/xhtml+xml"/>
         <item id="toc-years" href="texts/toc-years.xhtml" media-type="application/xhtml+xml"/>
         <item id="L02551" href="texts/L02551.xhtml" media-type="application/xhtml+xml"/>
         <item id="L02639" href="texts/L02639.xhtml" media-type="application/xhtml+xml"/>
@@ -2876,6 +2877,7 @@
         <itemref idref="cover-html" linear="no"/>
         <itemref idref="titel"/>
         <itemref idref="rechte"/>
+        <itemref idref="vorbemerkung"/>
         <itemref idref="toc-years"/>
         <itemref idref="L02551"/>
         <itemref idref="L02639"/>

@@ -30,13 +30,10 @@
                         Untner</p>
                 </div>
                 <div>
-                    <p>Diese Edition basiert auf der digitalen kritischen Edition der Briefwechsel
-                        Arthur Schnitzlers mit Autorinnen und Autoren (<a
-                            href="https://schnitzler-briefe.acdh.oeaw.ac.at/"
-                            >https://schnitzler-briefe.acdh.oeaw.ac.at/</a>).</p>
-                    <p>Dieses E-Book wird, wie die digitale Edition, immer wieder aktualisiert.
-                        Zuletzt: <xsl:value-of select="fn:current-date()"/>.</p>
-                    <p>Die der Edition zugrundeliegenden Daten können unter <a
+                    <p>Dieses E-Book wird, wie die digitale Edition, auf der sie basiert,
+                        fortlaufend aktualisiert. Zuletzt: <xsl:value-of select="fn:current-date()"
+                        />.</p>
+                    <p>Die dem E-Book zugrundeliegenden Daten können unter <a
                             href="https://github.com/arthur-schnitzler/schnitzler-briefe-epub"
                             >https://github.com/arthur-schnitzler/schnitzler-briefe-epub</a> geladen
                         werden.</p>

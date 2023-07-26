@@ -9,8 +9,6 @@
 
     <xsl:mode on-no-match="shallow-skip"/>
 
-    <!--<xsl:variable name="folderURI" select="resolve-uri('.', base-uri())"/>-->
-
     <xsl:template match="/">
         <xsl:element name="package" namespace="http://www.idpf.org/2007/opf">
             <xsl:attribute name="version">
@@ -96,17 +94,17 @@
                         <xsl:text>application/xhtml+xml</xsl:text>
                     </xsl:attribute>
                 </xsl:element>
-                <!--<xsl:element name="item" namespace="http://www.idpf.org/2007/opf">
+                <xsl:element name="item" namespace="http://www.idpf.org/2007/opf">
                     <xsl:attribute name="id">
-                        <xsl:text>einleitung</xsl:text>
+                        <xsl:text>vorbemerkung</xsl:text>
                     </xsl:attribute>
                     <xsl:attribute name="href">
-                        <xsl:text>texts/einleitung.xhtml</xsl:text>
+                        <xsl:text>texts/vorbemerkung.xhtml</xsl:text>
                     </xsl:attribute>
                     <xsl:attribute name="media-type">
                         <xsl:text>application/xhtml+xml</xsl:text>
                     </xsl:attribute>
-                </xsl:element>-->
+                </xsl:element>
                 <xsl:element name="item" namespace="http://www.idpf.org/2007/opf">
                     <xsl:attribute name="id">
                         <xsl:text>toc-years</xsl:text>
@@ -191,11 +189,11 @@
                         <xsl:text>rechte</xsl:text>
                     </xsl:attribute>
                 </xsl:element>
-                <!--<xsl:element name="itemref" namespace="http://www.idpf.org/2007/opf">
+                <xsl:element name="itemref" namespace="http://www.idpf.org/2007/opf">
                     <xsl:attribute name="idref">
-                        <xsl:text>einleitung</xsl:text>
+                        <xsl:text>vorbemerkung</xsl:text>
                     </xsl:attribute>
-                </xsl:element>-->
+                </xsl:element>
                 <xsl:element name="itemref" namespace="http://www.idpf.org/2007/opf">
                     <xsl:attribute name="idref">
                         <xsl:text>toc-years</xsl:text>
