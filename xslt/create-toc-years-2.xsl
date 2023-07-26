@@ -16,7 +16,7 @@
             <body>
                 <div>
                     <h1>Korrespondenzstücke nach Jahren</h1>
-                    <ol class="toc-list">
+                    <ul class="toc-list">
                         <xsl:for-each
                             select="//xhtml:li[generate-id() = generate-id(key('year-key', xhtml:a/xhtml:span[@class = 'title'])[1])]">
                             <li>
@@ -27,7 +27,7 @@
                                 </a>
                             </li>
                         </xsl:for-each>
-                    </ol>
+                    </ul>
                 </div>
             </body>
         </html>

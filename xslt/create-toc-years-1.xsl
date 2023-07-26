@@ -16,7 +16,7 @@
             <body>
                 <div>
                     <h1>Korrespondenzstücke nach Jahren</h1>
-                    <ol class="toc-list">
+                    <ul class="toc-list">
                         <!-- Group and sort relevant documents by year and ISO date -->
                         <xsl:for-each-group select="$relevant-docs"
                             group-by="substring(xhtml:head/xhtml:meta[@name = 'date']/@content, 1, 10)">
@@ -47,7 +47,7 @@
                                 </xsl:when>
                             </xsl:choose>
                         </xsl:for-each-group>
-                    </ol>
+                    </ul>
                 </div>
             </body>
         </html>
