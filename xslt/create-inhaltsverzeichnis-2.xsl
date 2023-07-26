@@ -20,7 +20,7 @@
             </xsl:attribute>
             <xsl:element name="navLabel" namespace="http://www.daisy.org/z3986/2005/ncx/">
                 <xsl:element name="text" namespace="http://www.daisy.org/z3986/2005/ncx/">
-                    <xsl:text>Inhaltsverzeichnis</xsl:text>
+                    <xsl:text>Alle Korrespondenzstücke</xsl:text>
                 </xsl:element>
             </xsl:element>
             <xsl:element name="content" namespace="http://www.daisy.org/z3986/2005/ncx/">

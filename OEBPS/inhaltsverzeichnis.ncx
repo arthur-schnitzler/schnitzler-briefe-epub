@@ -17305,7 +17305,7 @@
           </navPoint>
           <navPoint id="toc" playOrder="2854">
                <navLabel>
-                    <text>Inhaltsverzeichnis</text>
+                    <text>Alle Korrespondenzstücke</text>
                </navLabel>
                <content src="texts/inhalt.xhtml"/>
           </navPoint>
