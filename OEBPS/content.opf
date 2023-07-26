@@ -18,6 +18,8 @@
         <item id="inhaltsverzeichnis" href="inhaltsverzeichnis.ncx"
             media-type="application/x-dtbncx+xml"/>
         <item id="titel" href="texts/titel.xhtml" media-type="application/xhtml+xml"/>
+        <item id="rechte" href="texts/rechte.xhtml" media-type="application/xhtml+xml"/>
+        <item id="toc-years" href="texts/toc-years.xhtml" media-type="application/xhtml+xml"/>
         <item id="L02551" href="texts/L02551.xhtml" media-type="application/xhtml+xml"/>
         <item id="L02639" href="texts/L02639.xhtml" media-type="application/xhtml+xml"/>
         <item id="L02640" href="texts/L02640.xhtml" media-type="application/xhtml+xml"/>
@@ -2866,7 +2868,7 @@
         <item id="L02546" href="texts/L02546.xhtml" media-type="application/xhtml+xml"/>
         <item id="L02547" href="texts/L02547.xhtml" media-type="application/xhtml+xml"/>
         <item id="L02548" href="texts/L02548.xhtml" media-type="application/xhtml+xml"/>
-        <item id="rechte" href="texts/rechte.xhtml" media-type="application/xhtml+xml"/>
+        <item id="inhalt" href="texts/inhalt.xhtml" media-type="application/xhtml+xml"/>
         <item id="css" href="styles/stylesheet.css" media-type="text/css"/>
         <item id="cover.jpg" href="images/cover.jpg" media-type="image/jpeg"/>
     </manifest>
@@ -2874,6 +2876,7 @@
         <itemref idref="cover-html" linear="no"/>
         <itemref idref="titel"/>
         <itemref idref="rechte"/>
+        <itemref idref="toc-years"/>
         <itemref idref="L02551"/>
         <itemref idref="L02639"/>
         <itemref idref="L02640"/>
@@ -5722,6 +5725,7 @@
         <itemref idref="L02546"/>
         <itemref idref="L02547"/>
         <itemref idref="L02548"/>
+        <itemref idref="inhalt"/>
     </spine>
     <guide>
         <reference type="cover" title="Cover" href="texts/cover.xhtml"/>
