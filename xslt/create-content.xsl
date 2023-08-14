@@ -5,7 +5,7 @@
     xmlns:opf="http://www.idpf.org/2007/opf" xmlns:dc="http://purl.org/dc/elements/1.1/"
     version="3.0" exclude-result-prefixes="tei xhtml opf">
 
-    <xsl:output method="xml" omit-xml-declaration="yes"/>
+    <xsl:output method="xml" omit-xml-declaration="yes" indent="yes"/>
 
     <xsl:mode on-no-match="shallow-skip"/>
 

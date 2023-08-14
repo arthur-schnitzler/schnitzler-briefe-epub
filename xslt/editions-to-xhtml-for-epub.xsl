@@ -105,7 +105,7 @@
                 <!-- voriger Brief -->
                 <xsl:if test="$correspContext/tei:ref/@subtype = 'previous_letter'">
                     <br/>
-                    <div class="previous-letter">
+                    <div class="previous-letter" style="font-size: smaller;">
                         <ul>
                             <xsl:if
                                 test="$correspContext/tei:ref[@type = 'withinCollection' and @subtype = 'previous_letter'][1]">
@@ -134,7 +134,8 @@
                 </xsl:if>
                 <!-- nächster Brief -->
                 <xsl:if test="$correspContext/tei:ref/@subtype = 'next_letter'">
-                    <div class="next-letter">
+                    <br/>
+                    <div class="next-letter" style="font-size: smaller;">
                         <ul>
                             <xsl:if
                                 test="$correspContext/tei:ref[@type = 'withinCollection' and @subtype = 'next_letter'][1]">
@@ -177,12 +178,6 @@
                 <xsl:attribute name="href">
                     <xsl:value-of select="concat($eintrag/@target, '.xhtml')"/>
                 </xsl:attribute>
-                <xsl:choose>
-                    <xsl:when test="contains($eintrag/@subtype, 'next')">
-                        <i class="fas fa-chevron-right"/>&#160; </xsl:when>
-                    <xsl:when test="contains($eintrag/@subtype, 'previous')">
-                        <i class="fas fa-chevron-left"/>&#160; </xsl:when>
-                </xsl:choose>
                 <xsl:value-of select="$eintrag"/>
             </xsl:element>
         </xsl:element>

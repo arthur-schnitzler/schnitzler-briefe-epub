@@ -5,7 +5,7 @@
     xmlns:ncx="http://www.daisy.org/z3986/2005/ncx/" version="3.0"
     exclude-result-prefixes="tei xhtml ncx">
 
-    <xsl:output method="xml" omit-xml-declaration="yes"/>
+    <xsl:output method="xhtml" omit-xml-declaration="yes" indent="yes"/>
 
     <xsl:mode on-no-match="shallow-copy"/>
 

@@ -4,7 +4,7 @@
     xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:xhtml="http://www.w3.org/1999/xhtml" version="3.0"
     exclude-result-prefixes="tei xhtml">
 
-    <xsl:output method="xhtml"/>
+    <xsl:output method="xhtml" indent="yes"/>
 
     <xsl:mode on-no-match="shallow-skip"/>
 
