@@ -8,6 +8,9 @@
 
     <xsl:mode on-no-match="shallow-skip"/>
 
+    <xsl:variable name="correspContext" as="node()?"
+        select="descendant::tei:correspDesc[1]/tei:correspContext"/>
+
     <xsl:template match="/">
         <html xmlns="http://www.w3.org/1999/xhtml">
             <head>
@@ -36,9 +39,11 @@
                             <xsl:value-of
                                 select="//tei:correspAction[@type = 'sent']//tei:date/@notBefore"/>
                         </xsl:if>
-                        <xsl:if test="//tei:correspAction[@type = 'sent']//tei:date[not(@notBefore)]/@notAfter">
+                        <xsl:if
+                            test="//tei:correspAction[@type = 'sent']//tei:date[not(@notBefore)]/@notAfter">
                             <xsl:value-of
-                                select="//tei:correspAction[@type = 'sent']//tei:date[not(@notBefore)]/@notAfter"/>
+                                select="//tei:correspAction[@type = 'sent']//tei:date[not(@notBefore)]/@notAfter"
+                            />
                         </xsl:if>
                     </xsl:attribute>
                 </meta>
@@ -97,8 +102,90 @@
                             mode="kommentaranhang"/>
                     </div>
                 </xsl:if>
+                <!-- voriger Brief -->
+                <xsl:if test="$correspContext/tei:ref/@subtype = 'previous_letter'">
+                    <br/>
+                    <div class="previous-letter">
+                        <ul>
+                            <xsl:if
+                                test="$correspContext/tei:ref[@type = 'withinCollection' and @subtype = 'previous_letter'][1]">
+                                <span>Vorheriger Brief in chronologischer Reihenfolge</span>
+                                <xsl:for-each
+                                    select="$correspContext/tei:ref[@type = 'withinCollection' and @subtype = 'previous_letter']">
+                                    <xsl:call-template name="mam:nav-li-item">
+                                        <xsl:with-param name="eintrag" select="."/>
+                                        <xsl:with-param name="direction" select="'prev-doc'"/>
+                                    </xsl:call-template>
+                                </xsl:for-each>
+                            </xsl:if>
+                            <xsl:if
+                                test="$correspContext/tei:ref[@type = 'withinCorrespondence' and @subtype = 'previous_letter'][1]">
+                                <span>Vorheriger Brief in der Korrespondenz</span>
+                                <xsl:for-each
+                                    select="$correspContext/tei:ref[@type = 'withinCorrespondence' and @subtype = 'previous_letter']">
+                                    <xsl:call-template name="mam:nav-li-item">
+                                        <xsl:with-param name="eintrag" select="."/>
+                                        <xsl:with-param name="direction" select="'prev-doc2'"/>
+                                    </xsl:call-template>
+                                </xsl:for-each>
+                            </xsl:if>
+                        </ul>
+                    </div>
+                </xsl:if>
+                <!-- nächster Brief -->
+                <xsl:if test="$correspContext/tei:ref/@subtype = 'next_letter'">
+                    <div class="next-letter">
+                        <ul>
+                            <xsl:if
+                                test="$correspContext/tei:ref[@type = 'withinCollection' and @subtype = 'next_letter'][1]">
+                                <span>Nächster Brief in chronologischer Reihenfolge</span>
+                                <xsl:for-each
+                                    select="$correspContext/tei:ref[@type = 'withinCollection' and @subtype = 'next_letter']">
+                                    <xsl:call-template name="mam:nav-li-item">
+                                        <xsl:with-param name="eintrag" select="."/>
+                                        <xsl:with-param name="direction" select="'next-doc'"/>
+                                    </xsl:call-template>
+                                </xsl:for-each>
+                            </xsl:if>
+                            <xsl:if
+                                test="$correspContext/tei:ref[@type = 'withinCorrespondence' and @subtype = 'next_letter'][1]">
+                                <span>Nächster Brief in der Korrespondenz</span>
+                                <xsl:for-each
+                                    select="$correspContext/tei:ref[@type = 'withinCorrespondence' and @subtype = 'next_letter']">
+                                    <xsl:call-template name="mam:nav-li-item">
+                                        <xsl:with-param name="eintrag" select="."/>
+                                        <xsl:with-param name="direction" select="'next-doc2'"/>
+                                    </xsl:call-template>
+                                </xsl:for-each>
+                            </xsl:if>
+                        </ul>
+                    </div>
+                </xsl:if>
             </body>
         </html>
+    </xsl:template>
+
+    <!-- Template für Briefnavigation -->
+    <xsl:template name="mam:nav-li-item">
+        <xsl:param name="eintrag" as="node()"/>
+        <xsl:param name="direction"/>
+        <xsl:element name="li">
+            <xsl:element name="a">
+                <xsl:attribute name="id">
+                    <xsl:value-of select="$direction"/>
+                </xsl:attribute>
+                <xsl:attribute name="href">
+                    <xsl:value-of select="concat($eintrag/@target, '.xhtml')"/>
+                </xsl:attribute>
+                <xsl:choose>
+                    <xsl:when test="contains($eintrag/@subtype, 'next')">
+                        <i class="fas fa-chevron-right"/>&#160; </xsl:when>
+                    <xsl:when test="contains($eintrag/@subtype, 'previous')">
+                        <i class="fas fa-chevron-left"/>&#160; </xsl:when>
+                </xsl:choose>
+                <xsl:value-of select="$eintrag"/>
+            </xsl:element>
+        </xsl:element>
     </xsl:template>
 
     <!-- copy -->
