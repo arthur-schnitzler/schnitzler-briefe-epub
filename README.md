@@ -7,6 +7,9 @@ The GitHub-Action "Create EPUB" fetches data from https://github.com/arthur-schn
 With these XHTML files it produces an E-Book of all correspondences that have the status "approved".
 
 ## If working manually:
+- Reproduce the workflow defined here: https://github.com/arthur-schnitzler/schnitzler-briefe-epub/blob/main/.github/workflows/epub.yaml
+
+… or, if you want to do everything manually:
 
 - Install Saxon by running
 ```
