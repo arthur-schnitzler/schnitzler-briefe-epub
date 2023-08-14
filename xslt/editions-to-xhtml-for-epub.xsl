@@ -104,66 +104,73 @@
                 </xsl:if>
                 <xsl:if
                     test="$correspContext/tei:ref/@subtype = 'previous_letter' or $correspContext/tei:ref/@subtype = 'next_letter'">
-                    <br/>
-                    <h4>Weiterblättern</h4>
-                    <!-- voriger Brief -->
-                    <xsl:if test="$correspContext/tei:ref/@subtype = 'previous_letter'">
-                        <div class="previous-letter" style="font-size: smaller;">
-                            <ul>
-                                <xsl:if
-                                    test="$correspContext/tei:ref[@type = 'withinCollection' and @subtype = 'previous_letter'][1]">
-                                    <span>Vorheriger Brief in chronologischer Reihenfolge:</span>
-                                    <xsl:for-each
-                                        select="$correspContext/tei:ref[@type = 'withinCollection' and @subtype = 'previous_letter']">
-                                        <xsl:call-template name="mam:nav-li-item">
-                                            <xsl:with-param name="eintrag" select="."/>
-                                            <xsl:with-param name="direction" select="'prev-doc'"/>
-                                        </xsl:call-template>
-                                    </xsl:for-each>
-                                </xsl:if>
-                                <xsl:if
-                                    test="$correspContext/tei:ref[@type = 'withinCorrespondence' and @subtype = 'previous_letter'][1]">
-                                    <span>Vorheriger Brief in der Korrespondenz:</span>
-                                    <xsl:for-each
-                                        select="$correspContext/tei:ref[@type = 'withinCorrespondence' and @subtype = 'previous_letter']">
-                                        <xsl:call-template name="mam:nav-li-item">
-                                            <xsl:with-param name="eintrag" select="."/>
-                                            <xsl:with-param name="direction" select="'prev-doc2'"/>
-                                        </xsl:call-template>
-                                    </xsl:for-each>
-                                </xsl:if>
-                            </ul>
-                        </div>
-                    </xsl:if>
-                    <!-- nächster Brief -->
-                    <xsl:if test="$correspContext/tei:ref/@subtype = 'next_letter'">
-                        <div class="next-letter" style="font-size: smaller;">
-                            <ul>
-                                <xsl:if
-                                    test="$correspContext/tei:ref[@type = 'withinCollection' and @subtype = 'next_letter'][1]">
-                                    <span>Nächster Brief in chronologischer Reihenfolge:</span>
-                                    <xsl:for-each
-                                        select="$correspContext/tei:ref[@type = 'withinCollection' and @subtype = 'next_letter']">
-                                        <xsl:call-template name="mam:nav-li-item">
-                                            <xsl:with-param name="eintrag" select="."/>
-                                            <xsl:with-param name="direction" select="'next-doc'"/>
-                                        </xsl:call-template>
-                                    </xsl:for-each>
-                                </xsl:if>
-                                <xsl:if
-                                    test="$correspContext/tei:ref[@type = 'withinCorrespondence' and @subtype = 'next_letter'][1]">
-                                    <span>Nächster Brief in der Korrespondenz:</span>
-                                    <xsl:for-each
-                                        select="$correspContext/tei:ref[@type = 'withinCorrespondence' and @subtype = 'next_letter']">
-                                        <xsl:call-template name="mam:nav-li-item">
-                                            <xsl:with-param name="eintrag" select="."/>
-                                            <xsl:with-param name="direction" select="'next-doc2'"/>
-                                        </xsl:call-template>
-                                    </xsl:for-each>
-                                </xsl:if>
-                            </ul>
-                        </div>
-                    </xsl:if>
+                    <div class="correspContext" style="font-size: smaller;">
+                        <br/>
+                        <h4>Blättern</h4>
+                        <!-- voriger Brief -->
+                        <xsl:if test="$correspContext/tei:ref/@subtype = 'previous_letter'">
+                            <div class="previous-letter">
+                                <ul>
+                                    <xsl:if
+                                        test="$correspContext/tei:ref[@type = 'withinCollection' and @subtype = 'previous_letter'][1]">
+                                        <span>Vorheriger Brief in chronologischer
+                                            Reihenfolge:</span>
+                                        <xsl:for-each
+                                            select="$correspContext/tei:ref[@type = 'withinCollection' and @subtype = 'previous_letter']">
+                                            <xsl:call-template name="mam:nav-li-item">
+                                                <xsl:with-param name="eintrag" select="."/>
+                                                <xsl:with-param name="direction" select="'prev-doc'"
+                                                />
+                                            </xsl:call-template>
+                                        </xsl:for-each>
+                                    </xsl:if>
+                                    <xsl:if
+                                        test="$correspContext/tei:ref[@type = 'withinCorrespondence' and @subtype = 'previous_letter'][1]">
+                                        <span>Vorheriger Brief in der Korrespondenz:</span>
+                                        <xsl:for-each
+                                            select="$correspContext/tei:ref[@type = 'withinCorrespondence' and @subtype = 'previous_letter']">
+                                            <xsl:call-template name="mam:nav-li-item">
+                                                <xsl:with-param name="eintrag" select="."/>
+                                                <xsl:with-param name="direction"
+                                                  select="'prev-doc2'"/>
+                                            </xsl:call-template>
+                                        </xsl:for-each>
+                                    </xsl:if>
+                                </ul>
+                            </div>
+                        </xsl:if>
+                        <!-- nächster Brief -->
+                        <xsl:if test="$correspContext/tei:ref/@subtype = 'next_letter'">
+                            <div class="next-letter">
+                                <ul>
+                                    <xsl:if
+                                        test="$correspContext/tei:ref[@type = 'withinCollection' and @subtype = 'next_letter'][1]">
+                                        <span>Nächster Brief in chronologischer Reihenfolge:</span>
+                                        <xsl:for-each
+                                            select="$correspContext/tei:ref[@type = 'withinCollection' and @subtype = 'next_letter']">
+                                            <xsl:call-template name="mam:nav-li-item">
+                                                <xsl:with-param name="eintrag" select="."/>
+                                                <xsl:with-param name="direction" select="'next-doc'"
+                                                />
+                                            </xsl:call-template>
+                                        </xsl:for-each>
+                                    </xsl:if>
+                                    <xsl:if
+                                        test="$correspContext/tei:ref[@type = 'withinCorrespondence' and @subtype = 'next_letter'][1]">
+                                        <span>Nächster Brief in der Korrespondenz:</span>
+                                        <xsl:for-each
+                                            select="$correspContext/tei:ref[@type = 'withinCorrespondence' and @subtype = 'next_letter']">
+                                            <xsl:call-template name="mam:nav-li-item">
+                                                <xsl:with-param name="eintrag" select="."/>
+                                                <xsl:with-param name="direction"
+                                                  select="'next-doc2'"/>
+                                            </xsl:call-template>
+                                        </xsl:for-each>
+                                    </xsl:if>
+                                </ul>
+                            </div>
+                        </xsl:if>
+                    </div>
                 </xsl:if>
             </body>
         </html>
