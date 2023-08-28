@@ -234,7 +234,8 @@
                     <xsl:if test="descendant::tei:objectType">
                         <tr>
                             <th>Typ</th>
-                            <td><xsl:apply-templates select="tei:objectType"/>
+                            <td>
+                                <xsl:apply-templates select="tei:objectType"/>
                             </td>
                         </tr>
                     </xsl:if>
@@ -960,46 +961,48 @@
             <xsl:text>)</xsl:text>
         </xsl:if>
     </xsl:function>
-    <xsl:template match="tei:objectType"><!-- VVV -->
+    <xsl:template match="tei:objectType">
+        <!-- VVV -->
         <xsl:choose>
-            <xsl:when test="text() != ''"> <!-- für den Fall, dass Textinhalt, wird einfach dieser ausgegeben -->
+            <xsl:when test="text() != ''">
+                <!-- für den Fall, dass Textinhalt, wird einfach dieser ausgegeben -->
                 <xsl:value-of select="normalize-space(.)"/>
             </xsl:when>
             <xsl:when test="@ana">
                 <xsl:choose>
-                    <xsl:when test="@ana='fotografie'">
+                    <xsl:when test="@ana = 'fotografie'">
                         <xsl:text>Fotografie</xsl:text>
                     </xsl:when>
-                    <xsl:when test="@ana='entwurf' and @corresp='brief'">
+                    <xsl:when test="@ana = 'entwurf' and @corresp = 'brief'">
                         <xsl:text>Briefentwurf</xsl:text>
                     </xsl:when>
-                    <xsl:when test="@ana='entwurf' and @corresp='telegramm'">
+                    <xsl:when test="@ana = 'entwurf' and @corresp = 'telegramm'">
                         <xsl:text>Telegrammentwurf</xsl:text>
                     </xsl:when>
-                    <xsl:when test="@ana='bildpostkarte'">
+                    <xsl:when test="@ana = 'bildpostkarte'">
                         <xsl:text>Bildpostkarte</xsl:text>
                     </xsl:when>
-                    <xsl:when test="@ana='postkarte'">
+                    <xsl:when test="@ana = 'postkarte'">
                         <xsl:text>Postkarte</xsl:text>
                     </xsl:when>
-                    <xsl:when test="@ana='briefkarte'">
+                    <xsl:when test="@ana = 'briefkarte'">
                         <xsl:text>Briefkarte</xsl:text>
                     </xsl:when>
-                    <xsl:when test="@ana='visitenkarte'">
+                    <xsl:when test="@ana = 'visitenkarte'">
                         <xsl:text>Visitenkarte</xsl:text>
                     </xsl:when>
-                    <xsl:when test="@corresp='widmung'">
+                    <xsl:when test="@corresp = 'widmung'">
                         <xsl:choose>
-                            <xsl:when test="@ana='widmung_vorsatzblatt'">
+                            <xsl:when test="@ana = 'widmung_vorsatzblatt'">
                                 <xsl:text>Widmung am Vorsatzblatt</xsl:text>
                             </xsl:when>
-                            <xsl:when test="@ana='widmung_titelblatt'">
+                            <xsl:when test="@ana = 'widmung_titelblatt'">
                                 <xsl:text>Widmung am Titelblatt</xsl:text>
                             </xsl:when>
-                            <xsl:when test="@ana='widmung_schmutztitel'">
+                            <xsl:when test="@ana = 'widmung_schmutztitel'">
                                 <xsl:text>Widmung am Schmutztitel</xsl:text>
                             </xsl:when>
-                            <xsl:when test="@ana='widmung_umschlag'">
+                            <xsl:when test="@ana = 'widmung_umschlag'">
                                 <xsl:text>Widmung am Umschlag</xsl:text>
                             </xsl:when>
                         </xsl:choose>
@@ -1007,36 +1010,154 @@
                 </xsl:choose>
             </xsl:when>
             <!-- ab hier ist nurmehr @corresp zu berücksichtigen, alle @ana-Fälle sind erledigt -->
-            <xsl:when test="@corresp='anderes'">
+            <xsl:when test="@corresp = 'anderes'">
                 <xsl:text>Sonderfall</xsl:text>
             </xsl:when>
-            <xsl:when test="@corresp='bild'">
+            <xsl:when test="@corresp = 'bild'">
                 <xsl:text>Bild</xsl:text>
             </xsl:when>
-            <xsl:when test="@corresp='brief'">
+            <xsl:when test="@corresp = 'brief'">
                 <xsl:text>Brief</xsl:text>
             </xsl:when>
-            <xsl:when test="@corresp='karte'">
+            <xsl:when test="@corresp = 'karte'">
                 <xsl:text>Karte</xsl:text>
             </xsl:when>
-            <xsl:when test="@corresp='kartenbrief'">
+            <xsl:when test="@corresp = 'kartenbrief'">
                 <xsl:text>Kartenbrief</xsl:text>
             </xsl:when>
-            <xsl:when test="@corresp='telegramm'">
+            <xsl:when test="@corresp = 'telegramm'">
                 <xsl:text>Telegramm</xsl:text>
             </xsl:when>
-            <xsl:when test="@corresp='umschlag'">
+            <xsl:when test="@corresp = 'umschlag'">
                 <xsl:text>Umschlag</xsl:text>
             </xsl:when>
-            <xsl:when test="@corresp='widmung'">
+            <xsl:when test="@corresp = 'widmung'">
                 <xsl:text>Widmung</xsl:text>
             </xsl:when>
-            
+
         </xsl:choose>
-        
+
     </xsl:template>
-    
-    
+
+    <!-- objectDesc -->
+    <xsl:template match="tei:objectDesc">
+        <!-- VVV -->
+        <xsl:if test="@form">
+            <xsl:choose>
+                <xsl:when test="@form = 'durchschlag'">
+                    <xsl:text>Durchschlag</xsl:text>
+                </xsl:when>
+                <xsl:when test="@form = 'fotografische_vervielfaeltigung'">
+                    <xsl:text>Fotografische Vervielfältigung</xsl:text>
+                </xsl:when>
+                <xsl:when test="@form = 'fotokopie'">
+                    <xsl:text>Fotokopie</xsl:text>
+                </xsl:when>
+                <xsl:when test="@form = 'hs_abschrift'">
+                    <xsl:text>Handschriftliche Abschrift</xsl:text>
+                </xsl:when>
+                <xsl:when test="@form = 'ms_abschrift'">
+                    <xsl:text>Maschinenschriftliche Abschrift</xsl:text>
+                </xsl:when>
+            </xsl:choose>
+            <xsl:if test="tei:supportDesc">
+                <xsl:text>, </xsl:text>
+            </xsl:if>
+        </xsl:if>
+        <xsl:if test="tei:supportDesc">
+            <xsl:apply-templates select="tei:supportDesc"/>
+        </xsl:if>
+    </xsl:template>
+    <xsl:template match="tei:supportDesc">
+        <xsl:choose>
+            <xsl:when test="tei:extent/tei:measure[2] or not(tei:extent/tei:measure/@quantity = 1)">
+                <!-- das übergeht Widmung, Kartenbrief und Karte, wenn nur eine Angabe -->
+                <xsl:apply-templates select="tei:extent"/>
+            </xsl:when>
+        </xsl:choose>
+        <xsl:if test="tei:support">
+            <xsl:apply-templates select="tei:support"/>
+        </xsl:if>
+        <xsl:if test="tei:condition/@ana = 'fragment'">
+            <xsl:text>, Fragment</xsl:text>
+        </xsl:if>
+    </xsl:template>
+    <xsl:template match="tei:extent">
+        <xsl:variable name="unitOrder" select="'blatt seite karte kartenbrief widmung umschlag'"/>
+        <xsl:variable name="measures" select="." as="node()"/>
+        <xsl:for-each select="tokenize($unitOrder, ' ')">
+            <xsl:variable name="unit" select="." as="xs:string"/>
+            <xsl:apply-templates select="$measures/tei:measure[@unit = $unit][1]"/>
+            <xsl:variable name="rest-unit-order"
+                select="normalize-space(substring-after($unitOrder, $unit))" as="xs:string?"/>
+            <xsl:variable name="kommakomma" as="xs:boolean">
+                <xsl:choose>
+                    <xsl:when test="
+                            (
+                            contains($rest-unit-order, 'seite') and $measures/tei:measure[@unit = 'seite'][1]
+                            ) or (
+                            contains($rest-unit-order, 'karte') and $measures/tei:measure[@unit = 'karte'][1]
+                            ) or (
+                            contains($rest-unit-order, 'kartenbrief') and $measures/tei:measure[@unit = 'kartenbrief'][1]
+                            ) or (
+                            contains($rest-unit-order, 'widmung') and $measures/tei:measure[@unit = 'widmung'][1]
+                            ) or (
+                            contains($rest-unit-order, 'umschlag') and $measures/tei:measure[@unit = 'umschlag'][1]
+                            )">
+                        <xsl:value-of select="true()"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="false()"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
+            <xsl:if test="$kommakomma">
+                <xsl:text>, </xsl:text>
+            </xsl:if>
+        </xsl:for-each>
+    </xsl:template>
+    <xsl:template match="tei:measure">
+        <xsl:choose>
+            <xsl:when test="@unit = 'seite' and @quantity = '1'">
+                <xsl:text>1&#160;Seite</xsl:text>
+            </xsl:when>
+            <xsl:when test="@unit = 'blatt' and @quantity = '1'">
+                <xsl:text>1&#160;Blatt</xsl:text>
+            </xsl:when>
+            <xsl:when test="@unit = 'umschlag' and @quantity = '1'">
+                <xsl:text>Umschlag</xsl:text>
+            </xsl:when>
+            <!-- hier fehlen die Varianten für »widmung«, »kartenbrief« oder »karte«  und @quantity='1' -->
+            <xsl:when test="@unit = 'seite'">
+                <xsl:value-of select="@quantity"/>
+                <xsl:text>&#160;Seiten</xsl:text>
+            </xsl:when>
+            <xsl:when test="@unit = 'blatt'">
+                <xsl:value-of select="@quantity"/>
+                <xsl:text>&#160;Blätter</xsl:text>
+            </xsl:when>
+            <xsl:when test="@unit = 'umschlag'">
+                <xsl:value-of select="@quantity"/>
+                <xsl:text>&#160;Umschläge</xsl:text>
+            </xsl:when>
+            <xsl:when test="@unit = 'widmung' and not(@quantity = '1')">
+                <xsl:value-of select="@quantity"/>
+                <xsl:text>&#160;Widmungen</xsl:text>
+            </xsl:when>
+            <xsl:when test="@unit = 'kartenbrief' and not(@quantity = '1')">
+                <xsl:value-of select="@quantity"/>
+                <xsl:text>&#160;Kartenbriefe</xsl:text>f </xsl:when>
+            <xsl:when test="@unit = 'karte' and not(@quantity = '1')">
+                <xsl:value-of select="@quantity"/>
+                <xsl:text>&#160;Karten</xsl:text>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
+    <xsl:template match="tei:support">
+        <xsl:text> (</xsl:text>
+        <xsl:apply-templates/>
+        <xsl:text>)</xsl:text>
+    </xsl:template>
 
     <!-- tables -->
     <xsl:template match="tei:table">
