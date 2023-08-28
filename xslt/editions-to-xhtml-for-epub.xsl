@@ -62,7 +62,9 @@
             <body style="font-family: serif; text-align: left;">
                 <!-- Titel -->
                 <h4>
-                    <xsl:text>[</xsl:text><xsl:value-of select="tei:TEI/@xml:id"/><xsl:text>]</xsl:text>
+                    <xsl:text>[</xsl:text>
+                    <xsl:value-of select="tei:TEI/@xml:id"/>
+                    <xsl:text>]</xsl:text>
                 </h4>
                 <h2>
                     <xsl:copy-of select="//tei:titleStmt/tei:title[@level = 'a']/text()"/>
@@ -93,54 +95,49 @@
                 </xsl:if>
                 <!-- correspDesc -->
                 <div class="msDesc" style="font-size: smaller;">
-                <h4>Versandweg</h4>
-                <table class="table table-striped">
-                    <tbody>
-                        <xsl:for-each select="descendant::tei:correspAction">
-                            <tr>
-                                <th>
-                                    <xsl:choose>
-                                        <xsl:when test="@type = 'sent'"> Versand: </xsl:when>
-                                        <xsl:when test="@type = 'received'"> Empfangen: </xsl:when>
-                                        <xsl:when test="@type = 'forwarded'">
-                                            Weitergeleitet: </xsl:when>
-                                        <xsl:when test="@type = 'redirected'"> Umgeleitet: </xsl:when>
-                                        <xsl:when test="@type = 'delivered'"> Zustellung: </xsl:when>
-                                        <xsl:when test="@type = 'transmitted'">
-                                            Übermittelt: </xsl:when>
-                                    </xsl:choose>
-                                </th>
-                                <td> </td>
-                                <td>
-                                    <xsl:if test="./tei:date">
-                                        <xsl:value-of select="./tei:date"/>
-                                        <br/>
-                                    </xsl:if>
-                                    <xsl:if test="./tei:persName">
-                                        <xsl:value-of select="./tei:persName"
-                                            separator="; "/>
-                                        <br/>
-                                    </xsl:if>
-                                    <xsl:if test="./tei:placeName">
-                                        <xsl:value-of select="./tei:placeName"
-                                            separator="; "/>
-                                        <br/>
-                                    </xsl:if>
-                                </td>
-                            </tr>
-                        </xsl:for-each>
-                    </tbody>
-                </table>
+                    <h4>Versandweg</h4>
+                    <table class="table table-striped">
+                        <tbody>
+                            <xsl:for-each select="descendant::tei:correspAction">
+                                <tr>
+                                    <th>
+                                        <xsl:choose>
+                                            <xsl:when test="@type = 'sent'"> Versand: </xsl:when>
+                                            <xsl:when test="@type = 'received'"> Empfangen: </xsl:when>
+                                            <xsl:when test="@type = 'forwarded'"> Weitergeleitet: </xsl:when>
+                                            <xsl:when test="@type = 'redirected'"> Umgeleitet: </xsl:when>
+                                            <xsl:when test="@type = 'delivered'"> Zustellung: </xsl:when>
+                                            <xsl:when test="@type = 'transmitted'"> Übermittelt:
+                                            </xsl:when>
+                                        </xsl:choose>
+                                    </th>
+                                    <td> </td>
+                                    <td>
+                                        <xsl:if test="./tei:date">
+                                            <xsl:value-of select="./tei:date"/>
+                                            <br/>
+                                        </xsl:if>
+                                        <xsl:if test="./tei:persName">
+                                            <xsl:value-of select="./tei:persName" separator="; "/>
+                                            <br/>
+                                        </xsl:if>
+                                        <xsl:if test="./tei:placeName">
+                                            <xsl:value-of select="./tei:placeName" separator="; "/>
+                                            <br/>
+                                        </xsl:if>
+                                    </td>
+                                </tr>
+                            </xsl:for-each>
+                        </tbody>
+                    </table>
                 </div>
                 <!-- msDesc -->
                 <xsl:if test="descendant::tei:msDesc">
                     <div class="msDesc" style="font-size: smaller;">
-                        
                         <h4>Manuskriptbeschreibung</h4>
                         <xsl:apply-templates select="//tei:msDesc"/>
                     </div>
                 </xsl:if>
-               
                 <xsl:if test="$correspContext/tei:ref[@type = 'withinCorrespondence']">
                     <div class="correspContext" style="font-size: smaller;">
                         <br/>
@@ -239,23 +236,23 @@
     <xsl:template name="mam:nav-li-item">
         <xsl:param name="eintrag" as="node()"/>
         <xsl:param name="direction"/>
-            <xsl:element name="a">
-                <xsl:attribute name="id">
-                    <xsl:value-of select="$direction"/>
-                </xsl:attribute>
-                <xsl:attribute name="href">
-                    <xsl:value-of select="concat($eintrag/@target, '.xhtml')"/>
-                </xsl:attribute>
-                <xsl:choose>
-                    <xsl:when test="starts-with($direction, 'next-doc')">
-                        <xsl:text> &gt; </xsl:text>
-                    </xsl:when>
-                    <xsl:when test="starts-with($direction, 'prev-doc')">
-                        <xsl:text> &lt; </xsl:text>
-                    </xsl:when>
-                </xsl:choose>
-                <!--<xsl:value-of select="$eintrag"/>-->
-            </xsl:element>
+        <xsl:element name="a">
+            <xsl:attribute name="id">
+                <xsl:value-of select="$direction"/>
+            </xsl:attribute>
+            <xsl:attribute name="href">
+                <xsl:value-of select="concat($eintrag/@target, '.xhtml')"/>
+            </xsl:attribute>
+            <xsl:choose>
+                <xsl:when test="starts-with($direction, 'next-doc')">
+                    <xsl:text> &gt; </xsl:text>
+                </xsl:when>
+                <xsl:when test="starts-with($direction, 'prev-doc')">
+                    <xsl:text> &lt; </xsl:text>
+                </xsl:when>
+            </xsl:choose>
+            <!--<xsl:value-of select="$eintrag"/>-->
+        </xsl:element>
     </xsl:template>
     <!-- copy -->
     <xsl:template match="@* | node()">
@@ -278,7 +275,7 @@
         <xsl:if test="descendant::tei:witness">
             <xsl:for-each select="//tei:witness">
                 <xsl:choose>
-                    <xsl:when test="position()=1 and position()=last()">
+                    <xsl:when test="position() = 1 and position() = last()">
                         <h5>Textzeuge</h5>
                     </xsl:when>
                     <xsl:otherwise>
@@ -1105,7 +1102,6 @@
     </xsl:template>
     <!-- objectDesc -->
     <xsl:template match="tei:objectDesc">
-        <!-- VVV -->
         <xsl:if test="@form">
             <xsl:choose>
                 <xsl:when test="@form = 'durchschlag'">
@@ -1124,13 +1120,11 @@
                     <xsl:text>Maschinenschriftliche Abschrift</xsl:text>
                 </xsl:when>
             </xsl:choose>
-            <xsl:if test="tei:supportDesc">
+            <xsl:if test="child::tei:supportDesc">
                 <xsl:text>, </xsl:text>
             </xsl:if>
         </xsl:if>
-        <xsl:if test="tei:supportDesc">
-            <xsl:apply-templates select="tei:supportDesc"/>
-        </xsl:if>
+        <xsl:apply-templates select="child::tei:supportDesc"/>
     </xsl:template>
     <xsl:template match="tei:supportDesc">
         <xsl:choose>
@@ -1317,14 +1311,16 @@
                 </xsl:choose>
             </xsl:variable>
             <span class="lemma">
-                <i><xsl:choose>
-                    <xsl:when test="string-length($lemma) &gt; 0">
-                        <xsl:value-of select="$lemma"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:text>XXXX Lemmafehler</xsl:text>
-                    </xsl:otherwise>
-                </xsl:choose></i>
+                <i>
+                    <xsl:choose>
+                        <xsl:when test="string-length($lemma) &gt; 0">
+                            <xsl:value-of select="$lemma"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>XXXX Lemmafehler</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </i>
                 <xsl:text>]&#160;</xsl:text>
             </span>
             <span class="kommentar-text">
@@ -1618,9 +1614,13 @@
                     <xsl:value-of select="@place"/>
                 </xsl:attribute>
             </xsl:if>
-            <sup><xsl:text>&#8595;</xsl:text></sup>
+            <sup>
+                <xsl:text>&#8595;</xsl:text>
+            </sup>
             <xsl:apply-templates/>
-            <sup><xsl:text>&#8595;</xsl:text></sup>
+            <sup>
+                <xsl:text>&#8595;</xsl:text>
+            </sup>
         </span>
     </xsl:template>
     <!-- geogNames übernehmen wie places -->
@@ -2194,10 +2194,14 @@
     </xsl:template>
     <!-- subst -->
     <xsl:template match="tei:subst">
-        <sup><xsl:text>&#8593;</xsl:text></sup>
+        <sup>
+            <xsl:text>&#8593;</xsl:text>
+        </sup>
         <xsl:apply-templates select="tei:del" mode="subst"/>
         <xsl:apply-templates select="tei:add" mode="subst"/>
-        <sup><xsl:text>&#8595;</xsl:text></sup>
+        <sup>
+            <xsl:text>&#8595;</xsl:text>
+        </sup>
     </xsl:template>
     <xsl:template match="tei:del" mode="subst">
         <sup>
@@ -2205,7 +2209,7 @@
         </sup>
     </xsl:template>
     <xsl:template match="tei:add" mode="subst">
-            <xsl:apply-templates/>
+        <xsl:apply-templates/>
     </xsl:template>
     <!-- ignore these elements -->
     <xsl:template match="tei:graphic"/>
