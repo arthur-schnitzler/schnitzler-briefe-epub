@@ -3,14 +3,10 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions"
     xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:mam="whatever" version="3.0"
     exclude-result-prefixes="#all">
-
     <xsl:output method="xhtml" omit-xml-declaration="no" indent="yes"/>
-
     <xsl:mode on-no-match="shallow-skip"/>
-
     <xsl:variable name="correspContext" as="node()?"
         select="descendant::tei:correspDesc[1]/tei:correspContext"/>
-
     <xsl:template match="/">
         <html xmlns="http://www.w3.org/1999/xhtml">
             <head>
@@ -66,8 +62,7 @@
             <body style="font-family: serif; text-align: left;">
                 <!-- Titel -->
                 <h4>
-                    <xsl:text>Korrespondenzstück </xsl:text>
-                    <xsl:value-of select="tei:TEI/@xml:id"/>
+                    <xsl:text>[</xsl:text><xsl:value-of select="tei:TEI/@xml:id"/><xsl:text>]</xsl:text>
                 </h4>
                 <h2>
                     <xsl:copy-of select="//tei:titleStmt/tei:title[@level = 'a']/text()"/>
@@ -83,15 +78,8 @@
                         />
                     </div>
                 </xsl:if>
-                <!-- msDesc -->
-                <xsl:if test="//tei:msDesc">
-                    <div class="msDesc" style="font-size: smaller;">
-                        <br/>
-                        <br/>
-                        <h4>Manuskriptbeschreibung</h4>
-                        <xsl:apply-templates select="//tei:msDesc"/>
-                    </div>
-                </xsl:if>
+                <br/>
+                <br/>
                 <!-- Kommentar -->
                 <xsl:if test="//tei:note[@type = 'commentary' or @type = 'textConst']">
                     <div class="kommentar" style="font-size: smaller;">
@@ -100,14 +88,94 @@
                         <xsl:apply-templates
                             select="//tei:note[@type = 'textConst' or @type = 'commentary']"
                             mode="kommentaranhang"/>
+                        <br/>
                     </div>
                 </xsl:if>
-                <xsl:if
-                    test="$correspContext/tei:ref/@subtype = 'previous_letter' or $correspContext/tei:ref/@subtype = 'next_letter'">
+                <!-- correspDesc -->
+                <div class="msDesc" style="font-size: smaller;">
+                <h4>Versandweg</h4>
+                <table class="table table-striped">
+                    <tbody>
+                        <xsl:for-each select="descendant::tei:correspAction">
+                            <tr>
+                                <th>
+                                    <xsl:choose>
+                                        <xsl:when test="@type = 'sent'"> Versand: </xsl:when>
+                                        <xsl:when test="@type = 'received'"> Empfangen: </xsl:when>
+                                        <xsl:when test="@type = 'forwarded'">
+                                            Weitergeleitet: </xsl:when>
+                                        <xsl:when test="@type = 'redirected'"> Umgeleitet: </xsl:when>
+                                        <xsl:when test="@type = 'delivered'"> Zustellung: </xsl:when>
+                                        <xsl:when test="@type = 'transmitted'">
+                                            Übermittelt: </xsl:when>
+                                    </xsl:choose>
+                                </th>
+                                <td> </td>
+                                <td>
+                                    <xsl:if test="./tei:date">
+                                        <xsl:value-of select="./tei:date"/>
+                                        <br/>
+                                    </xsl:if>
+                                    <xsl:if test="./tei:persName">
+                                        <xsl:value-of select="./tei:persName"
+                                            separator="; "/>
+                                        <br/>
+                                    </xsl:if>
+                                    <xsl:if test="./tei:placeName">
+                                        <xsl:value-of select="./tei:placeName"
+                                            separator="; "/>
+                                        <br/>
+                                    </xsl:if>
+                                </td>
+                            </tr>
+                        </xsl:for-each>
+                    </tbody>
+                </table>
+                </div>
+                <!-- msDesc -->
+                <xsl:if test="descendant::tei:msDesc">
+                    <div class="msDesc" style="font-size: smaller;">
+                        
+                        <h4>Manuskriptbeschreibung</h4>
+                        <xsl:apply-templates select="//tei:msDesc"/>
+                    </div>
+                </xsl:if>
+               
+                <xsl:if test="$correspContext/tei:ref[@type = 'withinCorrespondence']">
                     <div class="correspContext" style="font-size: smaller;">
                         <br/>
-                        <h4>Blättern</h4>
-                        <!-- voriger Brief -->
+                        <xsl:for-each
+                            select="$correspContext/tei:ref[@type = 'belongsToCorrespondence']">
+                            <xsl:variable name="target" select="@target"/>
+                            <xsl:if
+                                test="$correspContext/tei:ref[@source = $target and @subtype = 'previous_letter']">
+                                <xsl:call-template name="mam:nav-li-item">
+                                    <xsl:with-param name="eintrag" select="."/>
+                                    <xsl:with-param name="direction" select="'prev-doc2'"/>
+                                </xsl:call-template>
+                                <xsl:text> </xsl:text>
+                            </xsl:if>
+                            <xsl:text>Blättern in der Korrespondenz </xsl:text>
+                            <xsl:choose>
+                                <xsl:when test="contains(., ', ')">
+                                    <xsl:value-of select="tokenize(., ', ')[1]"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="."/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                            <xsl:if
+                                test="$correspContext/tei:ref[@source = $target and @subtype = 'next_letter']">
+                                <xsl:text> </xsl:text>
+                                <xsl:call-template name="mam:nav-li-item">
+                                    <xsl:with-param name="eintrag" select="."/>
+                                    <xsl:with-param name="direction" select="'next-doc2'"/>
+                                </xsl:call-template>
+                            </xsl:if>
+                        </xsl:for-each>
+                    </div>
+                    <!--<h4>Blättern</h4>
+                        <!-\- voriger Brief -\->
                         <xsl:if test="$correspContext/tei:ref/@subtype = 'previous_letter'">
                             <div class="previous-letter">
                                 <ul>
@@ -127,19 +195,12 @@
                                     <xsl:if
                                         test="$correspContext/tei:ref[@type = 'withinCorrespondence' and @subtype = 'previous_letter'][1]">
                                         <span>Vorheriger Brief in der Korrespondenz:</span>
-                                        <xsl:for-each
-                                            select="$correspContext/tei:ref[@type = 'withinCorrespondence' and @subtype = 'previous_letter']">
-                                            <xsl:call-template name="mam:nav-li-item">
-                                                <xsl:with-param name="eintrag" select="."/>
-                                                <xsl:with-param name="direction"
-                                                  select="'prev-doc2'"/>
-                                            </xsl:call-template>
-                                        </xsl:for-each>
+                                        
                                     </xsl:if>
                                 </ul>
                             </div>
                         </xsl:if>
-                        <!-- nächster Brief -->
+                        <!-\- nächster Brief -\->
                         <xsl:if test="$correspContext/tei:ref/@subtype = 'next_letter'">
                             <div class="next-letter">
                                 <ul>
@@ -169,18 +230,15 @@
                                     </xsl:if>
                                 </ul>
                             </div>
-                        </xsl:if>
-                    </div>
+                        </xsl:if>-->
                 </xsl:if>
             </body>
         </html>
     </xsl:template>
-
     <!-- Template für Briefnavigation -->
     <xsl:template name="mam:nav-li-item">
         <xsl:param name="eintrag" as="node()"/>
         <xsl:param name="direction"/>
-        <xsl:element name="li">
             <xsl:element name="a">
                 <xsl:attribute name="id">
                     <xsl:value-of select="$direction"/>
@@ -188,35 +246,45 @@
                 <xsl:attribute name="href">
                     <xsl:value-of select="concat($eintrag/@target, '.xhtml')"/>
                 </xsl:attribute>
-                <xsl:value-of select="$eintrag"/>
+                <xsl:choose>
+                    <xsl:when test="starts-with($direction, 'next-doc')">
+                        <xsl:text> &gt; </xsl:text>
+                    </xsl:when>
+                    <xsl:when test="starts-with($direction, 'prev-doc')">
+                        <xsl:text> &lt; </xsl:text>
+                    </xsl:when>
+                </xsl:choose>
+                <!--<xsl:value-of select="$eintrag"/>-->
             </xsl:element>
-        </xsl:element>
     </xsl:template>
-
     <!-- copy -->
     <xsl:template match="@* | node()">
         <xsl:copy>
             <xsl:apply-templates select="@* | node()"/>
         </xsl:copy>
     </xsl:template>
-
     <!-- normalize space -->
     <xsl:template match="text()">
         <xsl:if test="normalize-space(.)">
             <xsl:value-of select="."/>
         </xsl:if>
     </xsl:template>
-
     <!-- body -->
     <xsl:template match="tei:body">
         <xsl:apply-templates/>
     </xsl:template>
-
     <!-- msDesc -->
     <xsl:template match="tei:msDesc">
-        <xsl:if test="//tei:witness">
+        <xsl:if test="descendant::tei:witness">
             <xsl:for-each select="//tei:witness">
-                <h5>Textzeuge <xsl:value-of select="@n"/></h5>
+                <xsl:choose>
+                    <xsl:when test="position()=1 and position()=last()">
+                        <h5>Textzeuge</h5>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <h5>Textzeuge <xsl:value-of select="@n"/></h5>
+                    </xsl:otherwise>
+                </xsl:choose>
                 <table class="witness">
                     <xsl:if test="//tei:msIdentifier">
                         <tr>
@@ -575,7 +643,6 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:function>
-
     <!-- auch noch physDesc -->
     <xsl:template match="tei:incident/tei:desc/tei:stamp">
         <xsl:text>Stempel </xsl:text>
@@ -1034,11 +1101,8 @@
             <xsl:when test="@corresp = 'widmung'">
                 <xsl:text>Widmung</xsl:text>
             </xsl:when>
-
         </xsl:choose>
-
     </xsl:template>
-
     <!-- objectDesc -->
     <xsl:template match="tei:objectDesc">
         <!-- VVV -->
@@ -1158,7 +1222,6 @@
         <xsl:apply-templates/>
         <xsl:text>)</xsl:text>
     </xsl:template>
-
     <!-- tables -->
     <xsl:template match="tei:table">
         <xsl:variable name="maxCells" select="max(tei:row/count(tei:cell))"/>
@@ -1168,7 +1231,6 @@
             </xsl:apply-templates>
         </table>
     </xsl:template>
-
     <xsl:template match="tei:row">
         <xsl:param name="maxCells"/>
         <tr>
@@ -1181,13 +1243,11 @@
             </xsl:if>
         </tr>
     </xsl:template>
-
     <xsl:template match="tei:cell">
         <td>
             <xsl:apply-templates/>
         </td>
     </xsl:template>
-
     <xsl:template name="createEmptyCells">
         <xsl:param name="count"/>
         <xsl:if test="$count > 0">
@@ -1197,7 +1257,6 @@
             </xsl:call-template>
         </xsl:if>
     </xsl:template>
-
     <!-- exclude notes (except for footnotes) in the main text, but include them in the footnote/comment section -->
     <xsl:template match="tei:note[@type = 'footnote']">
         <sup style="font-size: 0.8em;">
@@ -1258,14 +1317,14 @@
                 </xsl:choose>
             </xsl:variable>
             <span class="lemma">
-                <xsl:choose>
+                <i><xsl:choose>
                     <xsl:when test="string-length($lemma) &gt; 0">
                         <xsl:value-of select="$lemma"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:text>XXXX Lemmafehler</xsl:text>
                     </xsl:otherwise>
-                </xsl:choose>
+                </xsl:choose></i>
                 <xsl:text>]&#160;</xsl:text>
             </span>
             <span class="kommentar-text">
@@ -1276,31 +1335,24 @@
             </span>
         </p>
     </xsl:template>
-
     <xsl:template match="tei:c[@rendition = '#prozent']" mode="lemma">
         <xsl:text>%</xsl:text>
     </xsl:template>
-
     <xsl:template match="tei:l" mode="lemma">
         <xsl:apply-templates/>
         <xsl:text> </xsl:text>
     </xsl:template>
-
     <xsl:template match="tei:c[@rendition = '#dots']" mode="lemma">
         <xsl:value-of select="mam:dots(@n)"/>
     </xsl:template>
-
     <xsl:template match="tei:c[@rendition = '#langesS']" mode="lemma">
         <xsl:apply-templates/>
     </xsl:template>
-
     <xsl:template match="tei:c[@rendition = '#kaufmannsund']" mode="lemma">
         <xsl:text>&amp;</xsl:text>
     </xsl:template>
-
     <xsl:template match="tei:c[@rendition = '#tilde']" mode="lemma">~</xsl:template>
     <xsl:template match="tei:c[@rendition = '#tilde']">~</xsl:template>
-
     <xsl:template match="tei:c[@rendition = '#geschwungene-klammer-auf']" mode="lemma">
         <xsl:text>{</xsl:text>
     </xsl:template>
@@ -1310,22 +1362,16 @@
     <xsl:template match="tei:space[@unit = 'chars' and @quantity = '1']" mode="lemma">
         <xsl:text> </xsl:text>
     </xsl:template>
-
-
-
     <xsl:template match="tei:c[@rendition = '#gemination-m']" mode="lemma">
         <span class="gemination">mm</span>
     </xsl:template>
-
     <xsl:template match="tei:c[@rendition = '#gemination-n']" mode="lemma">
         <span class="gemination">nn</span>
     </xsl:template>
-
     <!-- anchor löschen -->
     <xsl:template match="tei:anchor">
         <xsl:apply-templates/>
     </xsl:template>
-
     <!-- title -->
     <xsl:template match="tei:body//tei:title">
         <xsl:if test=".[@level = 'm']">
@@ -1349,7 +1395,6 @@
             </span>
         </xsl:if>
     </xsl:template>
-
     <!-- title in Kommentaren -->
     <xsl:template match="tei:title">
         <xsl:if test=".[@level = 'm']">
@@ -1373,45 +1418,38 @@
             </span>
         </xsl:if>
     </xsl:template>
-
     <!-- bibl -->
     <xsl:template match="tei:bibl">
         <span class="bibl">
             <xsl:apply-templates/>
         </span>
     </xsl:template>
-
     <!-- pubPlace -->
     <xsl:template match="tei:pubPlace">
         <span class="pubPlace">
             <xsl:apply-templates/>
         </span>
     </xsl:template>
-
     <!-- publisher -->
     <xsl:template match="tei:publisher">
         <span class="publisher">
             <xsl:apply-templates/>
         </span>
     </xsl:template>
-
     <!-- div address -->
     <xsl:template match="tei:div[@type = 'address']">
         <div class="address">
             <xsl:apply-templates/>
         </div>
     </xsl:template>
-
     <!-- div image -->
     <xsl:template match="tei:div[@type = 'image']"/>
-
     <!-- address -->
     <xsl:template match="tei:address">
         <p class="address">
             <xsl:apply-templates/>
         </p>
     </xsl:template>
-
     <!-- addrLine -->
     <xsl:template match="tei:addrLine">
         <span class="addrLine">
@@ -1419,7 +1457,6 @@
         </span>
         <br/>
     </xsl:template>
-
     <!-- writing sessions -->
     <xsl:template match="tei:div[@type = 'writingSession']">
         <div>
@@ -1432,14 +1469,12 @@
             <xsl:apply-templates/>
         </div>
     </xsl:template>
-
     <!-- beschädigte Stellen mit kleinen Punkten unterstreichen -->
     <xsl:template match="tei:damage">
         <span class="damage" style="text-decoration: underline; text-decoration-style: dotted;">
             <xsl:apply-templates/>
         </span>
     </xsl:template>
-
     <!-- Umgang mit Lücken -->
     <xsl:template match="tei:gap">
         <xsl:choose>
@@ -1481,21 +1516,18 @@
     <xsl:template match="tei:gap[@reason = 'outOfScope']">
         <span class="outOfScope">[…]</span>
     </xsl:template>
-
     <!-- Datumsangaben -->
     <xsl:template match="tei:date">
         <span class="date">
             <xsl:apply-templates/>
         </span>
     </xsl:template>
-
     <!-- Umgang mit Streichungen -->
     <xsl:template match="tei:del">
         <del style="text-decoration: line-through;">
             <xsl:apply-templates/>
         </del>
     </xsl:template>
-
     <!-- Umgang mit handShift -->
     <xsl:template match="tei:handShift[not(@scribe)]">
         <xsl:choose>
@@ -1535,7 +1567,6 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:function>
-
     <!-- Umgang mit space -->
     <xsl:template match="tei:space">
         <span class="space">
@@ -1576,7 +1607,6 @@
     <xsl:template match="tei:milestone[@rend = 'line']">
         <xsl:text>&amp;#10;</xsl:text>
     </xsl:template>
-
     <!-- Umgang mit Einfügungen -->
     <xsl:template match="tei:add">
         <span>
@@ -1588,19 +1618,17 @@
                     <xsl:value-of select="@place"/>
                 </xsl:attribute>
             </xsl:if>
-            <xsl:text>&#8595;</xsl:text>
+            <sup><xsl:text>&#8595;</xsl:text></sup>
             <xsl:apply-templates/>
-            <xsl:text>&#8595;</xsl:text>
+            <sup><xsl:text>&#8595;</xsl:text></sup>
         </span>
     </xsl:template>
-
     <!-- geogNames übernehmen wie places -->
     <xsl:template match="tei:geogName">
         <span class="place">
             <xsl:apply-templates/>
         </span>
     </xsl:template>
-
     <!-- Entitätsferenzen -->
     <xsl:template match="tei:rs">
         <span>
@@ -1640,7 +1668,6 @@
             <xsl:apply-templates/>
         </span>
     </xsl:template>
-
     <!-- Hervorhebungen -->
     <xsl:template match="tei:hi">
         <span>
@@ -1712,24 +1739,15 @@
                 <xsl:attribute name="class">
                     <xsl:text>stamp</xsl:text>
                 </xsl:attribute>
-                <xsl:attribute name="style">
-                    <xsl:text>font-family: sans-serif;</xsl:text>
-                </xsl:attribute>
             </xsl:if>
             <xsl:if test=".[@rend = 'pre-print']">
                 <xsl:attribute name="class">
                     <xsl:text>pre-print</xsl:text>
                 </xsl:attribute>
-                <xsl:attribute name="style">
-                    <xsl:text>font-family: sans-serif;</xsl:text>
-                </xsl:attribute>
             </xsl:if>
             <xsl:if test=".[@rend = 'italics']">
                 <xsl:attribute name="class">
                     <xsl:text>italics</xsl:text>
-                </xsl:attribute>
-                <xsl:attribute name="style">
-                    <xsl:text>font-style: italic;</xsl:text>
                 </xsl:attribute>
             </xsl:if>
             <xsl:if test=".[@rend = 'underline']">
@@ -1752,7 +1770,6 @@
             <xsl:apply-templates/>
         </span>
     </xsl:template>
-
     <!-- Absätze -->
     <xsl:template
         match="tei:p[not(ancestor::tei:typeDesc) and not(ancestor::tei:desc) and not(ancestor::tei:note) and not(ancestor::tei:quote) and (not(@*) or @rend = 'inline' or @rend = 'left')]">
@@ -1777,16 +1794,17 @@
                     <xsl:if test=".[@rend = 'right']">
                         <xsl:text>text-align: right;</xsl:text>
                     </xsl:if>
-                </xsl:attribute></xsl:if>
+                </xsl:attribute>
+            </xsl:if>
             <xsl:apply-templates/>
         </p>
     </xsl:template>
-
     <!-- p in Kommentaren -->
     <xsl:template match="tei:p[ancestor::tei:note and not(ancestor::tei:quote)]">
-        <p><xsl:apply-templates/></p>
+        <p>
+            <xsl:apply-templates/>
+        </p>
     </xsl:template>
-
     <!-- p in quote -->
     <xsl:template match="tei:quote/tei:p[position() != last()]">
         <span class="p-in-quote">
@@ -1794,20 +1812,17 @@
             <xsl:text> / </xsl:text>
         </span>
     </xsl:template>
-
     <xsl:template match="tei:quote/tei:p[position() = last()]">
         <span class="p-in-quote">
             <xsl:apply-templates/>
         </span>
     </xsl:template>
-
     <!-- postscript -->
     <xsl:template match="tei:postscript">
         <div class="postscript">
             <xsl:apply-templates/>
         </div>
     </xsl:template>
-
     <!-- supplied -->
     <xsl:template match="tei:supplied[not(@*)]">
         <span class="supplied">
@@ -1823,7 +1838,6 @@
             <xsl:text>]</xsl:text>
         </span>
     </xsl:template>
-
     <!-- Gedichte -->
     <xsl:template match="tei:lg[@type = 'poem']">
         <div class="poem" style="display: block; margin: 1em 0;">
@@ -1841,7 +1855,6 @@
         </span>
         <br/>
     </xsl:template>
-
     <!-- dateline -->
     <xsl:template match="tei:dateline[@rend = 'inline']">
         <span class="dateline">
@@ -1869,7 +1882,6 @@
             <xsl:apply-templates/>
         </p>
     </xsl:template>
-
     <!-- salute -->
     <xsl:template match="tei:salute[@rend = 'inline' and not(ancestor::tei:p)]">
         <span class="salute">
@@ -1899,7 +1911,6 @@
         </span>
         <br/>
     </xsl:template>
-
     <!-- salute in Absätzen -->
     <xsl:template match="tei:salute[@rend = 'inline' and ancestor::tei:p]">
         <span class="salute">
@@ -1927,13 +1938,11 @@
             <xsl:apply-templates/>
         </span>
     </xsl:template>
-
     <!-- Seitenumbruch -->
     <xsl:template match="tei:pb">
         <xsl:text>&#124;</xsl:text>
         <xsl:apply-templates/>
     </xsl:template>
-
     <!-- seg / side by side -->
     <xsl:template match="tei:seg[@rend = 'left']">
         <span class="seg-left" style="float: left; width: 50%">
@@ -1945,7 +1954,6 @@
             <xsl:apply-templates/>
         </span>
     </xsl:template>
-
     <!-- refs -->
     <xsl:template
         match="tei:ref[not(@type = 'schnitzler-tagebuch') and not(@type = 'schnitzler-briefe') and not(@type = 'schnitzler-bahr') and not(@type = 'schnitzler-lektueren')]">
@@ -2111,7 +2119,6 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-
     <!-- c -->
     <xsl:template match="tei:c[@rendition = '#kaufmannsund']">
         <xsl:text>&amp;</xsl:text>
@@ -2139,7 +2146,6 @@
             <xsl:value-of select="mam:dots($anzahl - 1)"/>
         </xsl:if>
     </xsl:function>
-
     <!-- opener -->
     <xsl:template match="tei:opener">
         <div class="opener">
@@ -2147,26 +2153,22 @@
         </div>
         <br/>
     </xsl:template>
-
     <!-- closer -->
     <xsl:template match="tei:closer">
         <div class="closer">
             <xsl:apply-templates/>
         </div>
     </xsl:template>
-
     <!-- time -->
     <xsl:template match="tei:time">
         <span class="time">
             <xsl:apply-templates/>
         </span>
     </xsl:template>
-
     <!-- lb -->
     <xsl:template match="tei:lb">
         <br/>
     </xsl:template>
-
     <!-- signed -->
     <xsl:template match="tei:signed">
         <br/>
@@ -2174,34 +2176,41 @@
             <xsl:apply-templates/>
         </span>
     </xsl:template>
-
     <!-- unclear -->
     <xsl:template match="tei:unclear">
         <span class="unclear" style="color: grey;">
             <xsl:apply-templates/>
         </span>
     </xsl:template>
-
     <!-- quote -->
     <xsl:template match="tei:quote[not(/tei:p)]">
         <span class="quote">
             <xsl:apply-templates/>
         </span>
     </xsl:template>
-
     <!-- frame -->
     <xsl:template match="tei:frame">
         <xsl:apply-templates/>
     </xsl:template>
-
     <!-- subst -->
     <xsl:template match="tei:subst">
-        <xsl:apply-templates/>
+        <sup><xsl:text>&#8593;</xsl:text></sup>
+        <xsl:apply-templates select="tei:del" mode="subst"/>
+        <xsl:apply-templates select="tei:add" mode="subst"/>
+        <sup><xsl:text>&#8595;</xsl:text></sup>
     </xsl:template>
-
+    <xsl:template match="tei:del" mode="subst">
+        <sup>
+            <xsl:apply-templates/>
+        </sup>
+    </xsl:template>
+    <xsl:template match="tei:add" mode="subst">
+            <xsl:apply-templates/>
+    </xsl:template>
     <!-- ignore these elements -->
     <xsl:template match="tei:graphic"/>
     <xsl:template match="tei:figure"/>
-    <xsl:template match="tei:foreign"/>
-
+    <xsl:template match="tei:foreign">
+        <xsl:apply-templates/>
+    </xsl:template>
 </xsl:stylesheet>

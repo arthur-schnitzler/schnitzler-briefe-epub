@@ -23,20 +23,19 @@
             </head>
             <body>
                 <div>
-                    <h1>Arthur Schnitzler: Briefwechsel mit Autorinnen und Autoren</h1>
+                    <h1>Arthur Schnitzler: Briefwechsel mit Autorinnen und Autoren (1888–1931)</h1>
                 </div>
                 <div>
                     <p>Herausgegeben von Martin Anton Müller, Gerd-Hermann Susen und Laura
                         Untner</p>
                 </div>
                 <div>
-                    <p>Dieses E-Book wird, wie die digitale Edition, auf der sie basiert,
-                        fortlaufend aktualisiert. Zuletzt: <xsl:value-of select="fn:current-date()"
-                        />.</p>
-                    <p>Die dem E-Book zugrundeliegenden Daten können unter <a
-                            href="https://github.com/arthur-schnitzler/schnitzler-briefe-epub"
-                            >https://github.com/arthur-schnitzler/schnitzler-briefe-epub</a> geladen
-                        werden.</p>
+                    <p>E-Book basierend auf <a
+                        href="https://schnitzler-briefe.acdh.oeaw.ac.at/"
+                        >https://schnitzler-briefe.acdh.oeaw.ac.at/</a>.</p>
+                    <p>Stand: <xsl:value-of select="xs:date(fn:current-date())"/>.
+                        </p>
+                    
                 </div>
             </body>
         </html>

@@ -2,3 +2,26 @@ html {
     background-color: white;
     font-family: "serif";
 }
+
+td, th {
+  vertical-align: top;
+}
+
+th {
+  font-style: italic;
+}
+
+.stamp {
+  color: gray;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.pre-print {
+  color: gray;
+  font-weight: bold;
+}
+
+.italics {
+  font-style: italic;
+}
