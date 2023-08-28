@@ -1120,11 +1120,18 @@
                     <xsl:text>Maschinenschriftliche Abschrift</xsl:text>
                 </xsl:when>
             </xsl:choose>
-            <xsl:if test="child::tei:supportDesc">
+            <xsl:if test="child::tei:supportDesc[not(child::*[2])]/tei:extent[not(child::*[2])]/tei:measure/@quantity = 1">
                 <xsl:text>, </xsl:text>
             </xsl:if>
         </xsl:if>
-        <xsl:apply-templates select="child::tei:supportDesc"/>
+        <xsl:choose>
+            <xsl:when test="child::tei:supportDesc[not(child::*[2])]/tei:extent[not(child::*[2])]/tei:measure/@quantity = 1">
+                <!-- das übergeht Widmung, Kartenbrief und Karte, wenn nur eine Angabe, 1. TEIL -->
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="child::tei:supportDesc"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="tei:supportDesc">
         <xsl:choose>

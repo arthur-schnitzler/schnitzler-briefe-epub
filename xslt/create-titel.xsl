@@ -33,8 +33,8 @@
                     <p>E-Book basierend auf <a
                         href="https://schnitzler-briefe.acdh.oeaw.ac.at/"
                         >https://schnitzler-briefe.acdh.oeaw.ac.at/</a>.</p>
-                    <p>Stand: <xsl:value-of select="xs:date(fn:current-date())"/>.
-                        </p>
+                    <xsl:variable name="currentDate" select="current-date()"/>
+                    <p>Stand: <xsl:value-of select="format-date($currentDate, '[D01]. [MNn] [Y]')"/>.</p>
                     
                 </div>
             </body>
