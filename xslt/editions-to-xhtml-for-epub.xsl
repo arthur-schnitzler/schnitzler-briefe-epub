@@ -1968,7 +1968,7 @@
         </span>
     </xsl:template>
     <xsl:template match="tei:seg[@rend = 'right']">
-        <span class="seg-left" style="float: left; width: 50%">
+        <span class="seg-left" style="float: right; width: 50%">
             <xsl:apply-templates/>
         </span>
     </xsl:template>
