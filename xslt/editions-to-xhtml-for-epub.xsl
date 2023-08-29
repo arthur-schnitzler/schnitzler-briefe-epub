@@ -53,11 +53,13 @@
                 </meta>
                 <meta name="series"
                     content="Arthur Schnitzlers Briefwechsel mit Autorinnen und Autoren"/>
-                <meta name="editor" content="Martin Anton Müller"/>
-                <meta name="editor" content="Gerd-Hermann Susen"/>
-                <meta name="editor" content="Laura Untner"/>
+                <meta name="author" content="Schnitzler, Arthur"/>
+                <meta name="editor" content="Müller, Martin Anton"/>
+                <meta name="editor" content="Susen, Gerd-Hermann"/>
+                <meta name="editor" content="Untner, Laura"/>
                 <meta name="publisher"
-                    content="Austrian Centre for Digital Humanities and Cultural Heritage"/>
+                    content="Austrian Centre for Digital Humanities and Cultural Heritage (ACDH-CH)"
+                />
             </head>
             <body style="font-family: serif; text-align: left;">
                 <!-- Titel -->
@@ -96,40 +98,52 @@
                 <!-- correspDesc -->
                 <div class="correspDesc" style="font-size: smaller;">
                     <h4>Versandweg</h4>
-                    <table class="table table-striped">
-                        <tbody>
-                            <xsl:for-each select="descendant::tei:correspAction">
-                                <tr>
-                                    <th>
-                                        <xsl:choose>
-                                            <xsl:when test="@type = 'sent'"> Versendet: </xsl:when>
-                                            <xsl:when test="@type = 'received'"> Empfangen: </xsl:when>
-                                            <xsl:when test="@type = 'forwarded'"> Weitergeleitet: </xsl:when>
-                                            <xsl:when test="@type = 'redirected'"> Umgeleitet: </xsl:when>
-                                            <xsl:when test="@type = 'delivered'"> Zugestellt: </xsl:when>
-                                            <xsl:when test="@type = 'transmitted'"> Übermittelt:
-                                            </xsl:when>
-                                        </xsl:choose>
-                                    </th>
-                                    <td> </td>
-                                    <td>
-                                        <xsl:if test="./tei:date">
-                                            <xsl:value-of select="./tei:date"/>
-                                            <br/>
-                                        </xsl:if>
-                                        <xsl:if test="./tei:persName">
-                                            <xsl:value-of select="./tei:persName" separator="; "/>
-                                            <br/>
-                                        </xsl:if>
-                                        <xsl:if test="./tei:placeName">
-                                            <xsl:value-of select="./tei:placeName" separator="; "/>
-                                            <br/>
-                                        </xsl:if>
-                                    </td>
-                                </tr>
-                            </xsl:for-each>
-                        </tbody>
-                    </table>
+                    <dl>
+                        <xsl:for-each select="descendant::tei:correspAction">
+                            <dt>
+                                <i>
+                                    <xsl:choose>
+                                        <xsl:when test="@type = 'sent'">Versendet</xsl:when>
+                                        <xsl:when test="@type = 'received'">Empfangen</xsl:when>
+                                        <xsl:when test="@type = 'forwarded'"
+                                            >Weitergeleitet</xsl:when>
+                                        <xsl:when test="@type = 'redirected'">Umgeleitet</xsl:when>
+                                        <xsl:when test="@type = 'delivered'">Zugestellt</xsl:when>
+                                        <xsl:when test="@type = 'transmitted'"
+                                            >Übermittelt</xsl:when>
+                                    </xsl:choose>
+                                </i>
+                            </dt>
+                            <dd>
+                                <xsl:choose>
+                                    <xsl:when test="child::*[2]">
+                                        <ul>
+                                            <xsl:if test="./tei:date">
+                                                <li>
+                                                  <xsl:value-of select="./tei:date"/>
+                                                </li>
+                                            </xsl:if>
+                                            <xsl:if test="./tei:persName">
+                                                <li>
+                                                  <xsl:value-of select="./tei:persName"
+                                                  separator="; "/>
+                                                </li>
+                                            </xsl:if>
+                                            <xsl:if test="./tei:placeName">
+                                                <li>
+                                                  <xsl:value-of select="./tei:placeName"
+                                                  separator="; "/>
+                                                </li>
+                                            </xsl:if>
+                                        </ul>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:apply-templates/>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </dd>
+                        </xsl:for-each>
+                    </dl>
                 </div>
                 <!-- msDesc -->
                 <xsl:if test="descendant::tei:listWit">
@@ -144,10 +158,12 @@
                         <xsl:for-each
                             select="$correspContext/tei:ref[@type = 'belongsToCorrespondence']">
                             <xsl:variable name="target" select="@target"/>
-                            <p><xsl:if
+                            <p>
+                                <xsl:if
                                     test="$correspContext/tei:ref[@source = $target and @subtype = 'previous_letter']">
                                     <xsl:call-template name="mam:nav-li-item">
-                                        <xsl:with-param name="eintrag" select="."/>
+                                        <xsl:with-param name="eintrag"
+                                            select="$correspContext/tei:ref[@source = $target and @subtype = 'previous_letter']"/>
                                         <xsl:with-param name="direction" select="'prev-doc2'"/>
                                     </xsl:call-template>
                                     <xsl:text> </xsl:text>
@@ -165,10 +181,12 @@
                                     test="$correspContext/tei:ref[@source = $target and @subtype = 'next_letter']">
                                     <xsl:text> </xsl:text>
                                     <xsl:call-template name="mam:nav-li-item">
-                                        <xsl:with-param name="eintrag" select="."/>
+                                        <xsl:with-param name="eintrag"
+                                            select="$correspContext/tei:ref[@source = $target and @subtype = 'next_letter']"/>
                                         <xsl:with-param name="direction" select="'next-doc2'"/>
                                     </xsl:call-template>
-                                </xsl:if></p>
+                                </xsl:if>
+                            </p>
                         </xsl:for-each>
                     </div>
                 </xsl:if>
@@ -282,64 +300,58 @@
                         <h5>Textzeuge <xsl:value-of select="@n"/></h5>
                     </xsl:otherwise>
                 </xsl:choose>
-                <table class="witness">
-                    <xsl:if test="//tei:msIdentifier">
-                        <tr>
-                            <th style="text-align: left;">Signatur</th>
-                            <td style="vertical-align: top;">
-                                <xsl:for-each select="//tei:msIdentifier/child::*">
-                                    <xsl:value-of select="."/>
-                                    <xsl:if test="not(position() = last())">
-                                        <xsl:text>, </xsl:text>
-                                    </xsl:if>
-                                </xsl:for-each>
-                            </td>
-                        </tr>
+                <xsl:if test="//tei:msIdentifier">
+                    <p>
+                        <i>
+                            <xsl:text>Signatur</xsl:text>
+                        </i>
+                        <xsl:text>] </xsl:text>
+                        <xsl:for-each select="//tei:msIdentifier/child::*">
+                            <xsl:value-of select="."/>
+                            <xsl:if test="not(position() = last())">
+                                <xsl:text>, </xsl:text>
+                            </xsl:if>
+                        </xsl:for-each>
+                    </p>
+                </xsl:if>
+                <xsl:if test="descendant::tei:objectType">
+                    <p>
+                        <i>
+                            <xsl:text>Typ</xsl:text>
+                        </i>
+                        <xsl:text>] </xsl:text>
+                        <xsl:apply-templates select="tei:objectType"/>
+                    </p>
+                </xsl:if>
+                <xsl:if test="descendant::tei:physDesc">
+                    <p>
+                        <i>
+                            <xsl:text>Beschreibung</xsl:text>
+                        </i>
+                        <xsl:text>] </xsl:text>
+                        <xsl:apply-templates select="tei:msDesc/tei:physDesc/tei:objectDesc"/>
+                    </p>
+                    <xsl:if test="tei:msDesc/tei:physDesc/tei:typeDesc">
+                        <xsl:apply-templates select="tei:msDesc/tei:physDesc/tei:typeDesc"/>
                     </xsl:if>
-                    <xsl:if test="descendant::tei:objectType">
-                        <tr>
-                            <th>Typ</th>
-                            <td>
-                                <xsl:apply-templates select="tei:objectType"/>
-                            </td>
-                        </tr>
+                    <xsl:if test="tei:msDesc/tei:physDesc/tei:handDesc">
+                        <xsl:apply-templates select="tei:msDesc/tei:physDesc/tei:handDesc"/>
                     </xsl:if>
-                    <xsl:if test="descendant::tei:physDesc">
-                        <tr>
-                            <th style="text-align: left;">Beschreibung</th>
-                            <td style="vertical-align: top;">
-                                <xsl:apply-templates select="tei:msDesc/tei:physDesc/tei:objectDesc"
-                                />
-                            </td>
-                        </tr>
-                        <xsl:if test="tei:msDesc/tei:physDesc/tei:typeDesc">
-                            <xsl:apply-templates select="tei:msDesc/tei:physDesc/tei:typeDesc"/>
-                        </xsl:if>
-                        <xsl:if test="tei:msDesc/tei:physDesc/tei:handDesc">
-                            <xsl:apply-templates select="tei:msDesc/tei:physDesc/tei:handDesc"/>
-                        </xsl:if>
-                        <xsl:if test="tei:msDesc/tei:physDesc/tei:additions">
-                            <tr>
-                                <th style="text-align: left;">Zufügungen</th>
-                                <td/>
-                            </tr>
-                            <xsl:apply-templates select="tei:msDesc/tei:physDesc/tei:additions"/>
-                        </xsl:if>
+                    <xsl:if test="tei:msDesc/tei:physDesc/tei:additions">
+                        <p>
+                            <i>Zufügungen</i>
+                        </p>
+                        <xsl:apply-templates select="tei:msDesc/tei:physDesc/tei:additions"/>
                     </xsl:if>
-                </table>
+                </xsl:if>
             </xsl:for-each>
         </xsl:if>
         <xsl:if test="//tei:biblStruct">
             <xsl:for-each select="//tei:biblStruct">
                 <h5>Druck <xsl:value-of select="position()"/></h5>
-                <table class="print">
-                    <tr>
-                        <th/>
-                        <td style="vertical-align: top;">
-                            <xsl:value-of select="mam:bibliografische-angabe(.)"/>
-                        </td>
-                    </tr>
-                </table>
+                <p>
+                    <xsl:value-of select="mam:bibliografische-angabe(.)"/>
+                </p>
             </xsl:for-each>
         </xsl:if>
     </xsl:template>
@@ -642,22 +654,37 @@
     </xsl:function>
     <!-- auch noch physDesc -->
     <xsl:template match="tei:incident/tei:desc/tei:stamp">
-        <xsl:text>Stempel </xsl:text>
-        <xsl:value-of select="@n"/>
-        <xsl:text>:</xsl:text>
-        <br/>
-        <xsl:if test="tei:placeName"> Ort: <xsl:apply-templates select="./tei:placeName"/>
-            <br/>
-        </xsl:if>
-        <xsl:if test="tei:date"> Datum: <xsl:apply-templates select="./tei:date"/>
-            <br/>
-        </xsl:if>
-        <xsl:if test="tei:time"> Zeit: <xsl:apply-templates select="./tei:time"/>
-            <br/>
-        </xsl:if>
-        <xsl:if test="tei:addSpan"> Vorgang: <xsl:apply-templates select="./tei:addSpan"/>
-            <br/>
-        </xsl:if>
+        <i>
+            <xsl:text>Stempel </xsl:text>
+            <xsl:value-of select="@n"/>
+        </i>
+        <xsl:text>] </xsl:text>
+        <dl>
+            <xsl:if test="tei:placeName">
+                <dt>Ort</dt>
+                <dd>
+                    <xsl:apply-templates select="./tei:placeName"/>
+                </dd>
+            </xsl:if>
+            <xsl:if test="tei:date">
+                <dt>Datum</dt>
+                <dd>
+                    <xsl:apply-templates select="./tei:date"/>
+                </dd>
+            </xsl:if>
+            <xsl:if test="tei:time">
+                <dt>Zeit</dt>
+                <dd>
+                    <xsl:apply-templates select="./tei:time"/>
+                </dd>
+            </xsl:if>
+            <xsl:if test="tei:addSpan">
+                <dt>Vorgang</dt>
+                <dd>
+                    <xsl:apply-templates select="./tei:addSpan"/>
+                </dd>
+            </xsl:if>
+        </dl>
     </xsl:template>
     <xsl:template match="tei:addSpan">
         <span class="addSpan">
@@ -665,45 +692,48 @@
         </span>
     </xsl:template>
     <xsl:template match="tei:incident">
-        <tr>
+        <li>
             <xsl:apply-templates select="tei:desc"/>
-        </tr>
+        </li>
     </xsl:template>
     <xsl:template match="tei:additions">
-        <xsl:apply-templates select="tei:incident[@type = 'supplement']"/>
-        <xsl:apply-templates select="tei:incident[@type = 'postal']"/>
-        <xsl:apply-templates select="tei:incident[@type = 'receiver']"/>
-        <xsl:apply-templates select="tei:incident[@type = 'archival']"/>
-        <xsl:apply-templates select="tei:incident[@type = 'additional-information']"/>
-        <xsl:apply-templates select="tei:incident[@type = 'editorial']"/>
+        <ul>
+            <dl>
+                <xsl:apply-templates select="tei:incident[@type = 'supplement']"/>
+                <xsl:apply-templates select="tei:incident[@type = 'postal']"/>
+                <xsl:apply-templates select="tei:incident[@type = 'receiver']"/>
+                <xsl:apply-templates select="tei:incident[@type = 'archival']"/>
+                <xsl:apply-templates select="tei:incident[@type = 'additional-information']"/>
+                <xsl:apply-templates select="tei:incident[@type = 'editorial']"/>
+            </dl>
+        </ul>
     </xsl:template>
     <xsl:template match="tei:incident[@type = 'supplement']/tei:desc">
         <xsl:variable name="poschitzion"
             select="count(parent::tei:incident/preceding-sibling::tei:incident[@type = 'supplement'])"/>
         <xsl:choose>
             <xsl:when test="$poschitzion &gt; 0">
-                <td/>
-                <td style="vertical-align: top;">
+                <dd>
                     <xsl:value-of select="$poschitzion + 1"/>
                     <xsl:text>) </xsl:text>
                     <xsl:apply-templates/>
-                </td>
+                </dd>
             </xsl:when>
             <xsl:when
                 test="$poschitzion = 0 and not(parent::tei:incident/following-sibling::tei:incident[@type = 'supplement'])">
-                <th>Beilage</th>
-                <td style="vertical-align: top;">
+                <dt>Beilage</dt>
+                <dd>
                     <xsl:apply-templates/>
-                </td>
+                </dd>
             </xsl:when>
             <xsl:when
                 test="$poschitzion = 0 and parent::tei:incident/following-sibling::tei:incident[@type = 'supplement']">
-                <th>Beilagen</th>
-                <td style="vertical-align: top;">
+                <dt>Beilagen</dt>
+                <dd>
                     <xsl:value-of select="$poschitzion + 1"/>
                     <xsl:text>) </xsl:text>
                     <xsl:apply-templates/>
-                </td>
+                </dd>
             </xsl:when>
         </xsl:choose>
     </xsl:template>
@@ -712,28 +742,27 @@
             select="count(parent::tei:incident/preceding-sibling::tei:incident[@type = 'postal'])"/>
         <xsl:choose>
             <xsl:when test="$poschitzion &gt; 0">
-                <th/>
-                <td style="vertical-align: top;">
+                <dd>
                     <xsl:apply-templates/>
-                </td>
+                </dd>
             </xsl:when>
             <xsl:when
                 test="$poschitzion = 0 and not(parent::tei:incident/following-sibling::tei:incident[@type = 'postal'])">
-                <th>
+                <dt>
                     <xsl:text>Versand</xsl:text>
-                </th>
-                <td style="vertical-align: top;">
+                </dt>
+                <dd>
                     <xsl:apply-templates/>
-                </td>
+                </dd>
             </xsl:when>
             <xsl:when
                 test="$poschitzion = 0 and parent::tei:incident/following-sibling::tei:incident[@type = 'postal']">
-                <th>
+                <dt>
                     <xsl:text>Versand</xsl:text>
-                </th>
-                <td style="vertical-align: top;">
+                </dt>
+                <dd>
                     <xsl:apply-templates/>
-                </td>
+                </dd>
             </xsl:when>
         </xsl:choose>
     </xsl:template>
@@ -744,33 +773,33 @@
             select="count(parent::tei:incident/preceding-sibling::tei:incident[@type = 'receiver'])"/>
         <xsl:choose>
             <xsl:when test="$poschitzion &gt; 0">
-                <th>
+                <dt>
                     <xsl:value-of select="$receiver"/>
-                </th>
-                <td style="vertical-align: top;">
+                </dt>
+                <dd>
                     <xsl:value-of select="$poschitzion + 1"/>
                     <xsl:text>) </xsl:text>
                     <xsl:apply-templates/>
-                </td>
+                </dd>
             </xsl:when>
             <xsl:when
                 test="$poschitzion = 0 and parent::tei:incident/following-sibling::tei:incident[@type = 'receiver']">
-                <th>
+                <dt>
                     <xsl:value-of select="$receiver"/>
-                </th>
-                <td style="vertical-align: top;">
+                </dt>
+                <dd>
                     <xsl:value-of select="$poschitzion + 1"/>
                     <xsl:text>) </xsl:text>
                     <xsl:apply-templates/>
-                </td>
+                </dd>
             </xsl:when>
             <xsl:otherwise>
-                <th>
+                <dt>
                     <xsl:value-of select="$receiver"/>
-                </th>
-                <td style="vertical-align: top;">
+                </dt>
+                <dd>
                     <xsl:apply-templates/>
-                </td>
+                </dd>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -779,32 +808,31 @@
             select="count(parent::tei:incident/preceding-sibling::tei:incident[@type = 'archival'])"/>
         <xsl:choose>
             <xsl:when test="$poschitzion &gt; 0">
-                <td/>
-                <td style="vertical-align: top;">
+                <dd>
                     <xsl:value-of select="$poschitzion + 1"/>
                     <xsl:text>) </xsl:text>
                     <xsl:apply-templates/>
-                </td>
+                </dd>
             </xsl:when>
             <xsl:when
                 test="$poschitzion = 0 and not(parent::tei:incident/following-sibling::tei:incident[@type = 'archival'])">
-                <th>
+                <dt>
                     <xsl:text>Ordnung</xsl:text>
-                </th>
-                <td style="vertical-align: top;">
+                </dt>
+                <dd>
                     <xsl:apply-templates/>
-                </td>
+                </dd>
             </xsl:when>
             <xsl:when
                 test="$poschitzion = 0 and parent::tei:incident/following-sibling::tei:incident[@type = 'archival']">
-                <th>
+                <dt>
                     <xsl:text>Ordnung</xsl:text>
-                </th>
-                <td style="vertical-align: top;">
+                </dt>
+                <dd>
                     <xsl:value-of select="$poschitzion + 1"/>
                     <xsl:text>) </xsl:text>
                     <xsl:apply-templates/>
-                </td>
+                </dd>
             </xsl:when>
         </xsl:choose>
     </xsl:template>
@@ -813,32 +841,32 @@
             select="count(parent::tei:incident/preceding-sibling::tei:incident[@type = 'additional-information'])"/>
         <xsl:choose>
             <xsl:when test="$poschitzion &gt; 0">
-                <td/>
-                <td style="vertical-align: top;">
+                <dt/>
+                <dd>
                     <xsl:value-of select="$poschitzion + 1"/>
                     <xsl:text>) </xsl:text>
                     <xsl:apply-templates/>
-                </td>
+                </dd>
             </xsl:when>
             <xsl:when
                 test="$poschitzion = 0 and not(parent::tei:incident/following-sibling::tei:incident[@type = 'additional-information'])">
-                <th>
+                <dt>
                     <xsl:text>Zusatz</xsl:text>
-                </th>
-                <td style="vertical-align: top;">
+                </dt>
+                <dd>
                     <xsl:apply-templates/>
-                </td>
+                </dd>
             </xsl:when>
             <xsl:when
                 test="$poschitzion = 0 and parent::tei:incident/following-sibling::tei:incident[@type = 'additional-information']">
-                <th>
+                <dt>
                     <xsl:text>Zusatz</xsl:text>
-                </th>
-                <td style="vertical-align: top;">
+                </dt>
+                <dd>
                     <xsl:value-of select="$poschitzion + 1"/>
                     <xsl:text>) </xsl:text>
                     <xsl:apply-templates/>
-                </td>
+                </dd>
             </xsl:when>
         </xsl:choose>
     </xsl:template>
@@ -847,82 +875,83 @@
             select="count(parent::tei:incident/preceding-sibling::tei:incident[@type = 'editorial'])"/>
         <xsl:choose>
             <xsl:when test="$poschitzion &gt; 0">
-                <td/>
-                <td style="vertical-align: top;">
+                <dt/>
+                <dd>
                     <xsl:value-of select="$poschitzion + 1"/>
                     <xsl:text>) </xsl:text>
                     <xsl:apply-templates/>
-                </td>
+                </dd>
             </xsl:when>
             <xsl:when
                 test="$poschitzion = 0 and not(parent::tei:incident/following-sibling::tei:incident[@type = 'editorial'])">
-                <th>Editorischer Hinweis</th>
-                <td style="vertical-align: top;">
+                <dt>Editorischer Hinweis</dt>
+                <dd>
                     <xsl:apply-templates/>
-                </td>
+                </dd>
             </xsl:when>
             <xsl:when
                 test="$poschitzion = 0 and parent::tei:incident/following-sibling::tei:incident[@type = 'editorial']">
-                <th>Editorischer Hinweise</th>
-                <td style="vertical-align: top;">
+                <dt>Editorischer Hinweise</dt>
+                <dd>
                     <xsl:value-of select="$poschitzion + 1"/>
                     <xsl:text>) </xsl:text>
                     <xsl:apply-templates/>
-                </td>
+                </dd>
             </xsl:when>
         </xsl:choose>
     </xsl:template>
     <xsl:template match="tei:typeDesc">
-        <xsl:apply-templates/>
+        <li>
+            <xsl:apply-templates/>
+        </li>
     </xsl:template>
     <xsl:template match="tei:typeDesc/tei:p">
-        <tr>
+        <dl>
             <xsl:choose>
                 <xsl:when test="not(preceding-sibling::tei:p)">
-                    <th>Typografie</th>
+                    <dt>Typografie</dt>
                 </xsl:when>
                 <xsl:otherwise>
-                    <th/>
+                    <dt/>
                 </xsl:otherwise>
             </xsl:choose>
-            <td style="vertical-align: top;">
+            <dd>
                 <xsl:apply-templates/>
-            </td>
-        </tr>
+            </dd>
+        </dl>
     </xsl:template>
     <xsl:template match="tei:handDesc">
         <xsl:choose>
             <!-- Nur eine Handschrift, diese demnach vom Autor/der Autorin: -->
             <xsl:when test="not(child::tei:handNote[2]) and not(tei:handNote/@corresp)">
-                <tr>
-                    <th style="text-align: left;">Handschrift</th>
-                    <td style="vertical-align: top;">
+                <p>
+                    <i><xsl:text>Handschrift</xsl:text></i><xsl:text>] </xsl:text>
+                    
                         <xsl:value-of select="mam:handNote(tei:handNote)"/>
-                    </td>
-                </tr>
+                    
+                </p>
             </xsl:when>
             <!-- Nur eine Handschrift, diese nicht vom Autor/der Autorin: -->
             <xsl:when test="not(child::tei:handNote[2]) and (tei:handNote/@corresp)">
                 <xsl:choose>
                     <xsl:when test="handNote/@corresp = 'schreibkraft'">
-                        <tr>
-                            <th style="text-align: left;">Handschrift einer Schreibkraft</th>
-                            <td style="vertical-align: top;">
+                        <dl>
+                            <dt>Handschrift einer Schreibkraft</dt>
+                            <dd>
                                 <xsl:value-of select="mam:handNote(tei:handNote)"/>
-                            </td>
-                        </tr>
+                            </dd>
+                        </dl>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:variable name="sender"
                             select="ancestor::tei:teiHeader[1]/tei:profileDesc[1]/tei:correspDesc[1]/tei:correspAction[@type = 'sent']/tei:persName[@ref = tei:handNote/@corresp]"/>
-                        <tr>
-                            <th style="text-align: left;">Handschrift <xsl:value-of select="$sender"
-                                />
-                            </th>
-                            <td style="vertical-align: top;">
+                        <dl>
+                            <dt>Handschrift <xsl:value-of select="$sender"/>
+                            </dt>
+                            <dd>
                                 <xsl:value-of select="mam:handNote(tei:handNote)"/>
-                            </td>
-                        </tr>
+                            </dd>
+                        </dl>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
@@ -936,37 +965,37 @@
                     <xsl:variable name="corespi-name" select="$sender/tei:persName[@ref = $corespi]"/>
                     <xsl:choose>
                         <xsl:when test="count($handDesc-v/tei:handNote[@corresp = $corespi]) = 1">
-                            <tr>
-                                <th style="text-align: left;">Handschrift <xsl:value-of
+                            <dl>
+                                <dt>Handschrift <xsl:value-of
                                         select="mam:vorname-vor-nachname($corespi-name)"/>
-                                </th>
-                                <td style="vertical-align: top;">
+                                </dt>
+                                <dd>
                                     <xsl:value-of
                                         select="mam:handNote($handDesc-v/tei:handNote[@corresp = $corespi])"
                                     />
-                                </td>
-                            </tr>
+                                </dd>
+                            </dl>
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:for-each select="$handDesc-v/tei:handNote[@corresp = $corespi]">
-                                <tr>
+                                <dl>
                                     <xsl:choose>
                                         <xsl:when test="position() = 1">
-                                            <th style="text-align: left;">Handschrift <xsl:value-of
+                                            <dt>Handschrift <xsl:value-of
                                                   select="mam:vorname-vor-nachname($corespi-name)"/>
-                                            </th>
+                                            </dt>
                                         </xsl:when>
                                         <xsl:otherwise>
-                                            <th/>
+                                            <dt/>
                                         </xsl:otherwise>
                                     </xsl:choose>
-                                    <td style="vertical-align: top;">
+                                    <dd>
                                         <xsl:variable name="poschitzon" select="position()"/>
                                         <xsl:value-of select="$poschitzon"/>
                                         <xsl:text>) </xsl:text>
                                         <xsl:value-of select="mam:handNote(current())"/>
-                                    </td>
-                                </tr>
+                                    </dd>
+                                </dl>
                             </xsl:for-each>
                         </xsl:otherwise>
                     </xsl:choose>
