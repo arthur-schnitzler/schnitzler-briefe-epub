@@ -117,7 +117,7 @@
                             <dd>
                                 <xsl:choose>
                                     <xsl:when test="child::*[2]">
-                                        <ul>
+                                        <ul class="correspsearch-eng">
                                             <xsl:if test="./tei:date">
                                                 <li>
                                                   <xsl:value-of select="./tei:date"/>
@@ -303,9 +303,8 @@
                 <xsl:if test="//tei:msIdentifier">
                     <p>
                         <i>
-                            <xsl:text>Signatur</xsl:text>
+                            <xsl:text>Signatur:</xsl:text>
                         </i>
-                        <xsl:text>] </xsl:text>
                         <xsl:for-each select="//tei:msIdentifier/child::*">
                             <xsl:value-of select="."/>
                             <xsl:if test="not(position() = last())">
@@ -317,18 +316,16 @@
                 <xsl:if test="descendant::tei:objectType">
                     <p>
                         <i>
-                            <xsl:text>Typ</xsl:text>
+                            <xsl:text>Typ:</xsl:text>
                         </i>
-                        <xsl:text>] </xsl:text>
                         <xsl:apply-templates select="tei:objectType"/>
                     </p>
                 </xsl:if>
                 <xsl:if test="descendant::tei:physDesc">
                     <p>
                         <i>
-                            <xsl:text>Beschreibung</xsl:text>
+                            <xsl:text>Beschreibung:</xsl:text>
                         </i>
-                        <xsl:text>] </xsl:text>
                         <xsl:apply-templates select="tei:msDesc/tei:physDesc/tei:objectDesc"/>
                     </p>
                     <xsl:if test="tei:msDesc/tei:physDesc/tei:typeDesc">
@@ -339,7 +336,7 @@
                     </xsl:if>
                     <xsl:if test="tei:msDesc/tei:physDesc/tei:additions">
                         <p>
-                            <i>Zufügungen</i>
+                            <i>Zufügungen:</i>
                         </p>
                         <xsl:apply-templates select="tei:msDesc/tei:physDesc/tei:additions"/>
                     </xsl:if>
