@@ -94,7 +94,7 @@
                     </div>
                 </xsl:if>
                 <!-- correspDesc -->
-                <div class="msDesc" style="font-size: smaller;">
+                <div class="correspDesc" style="font-size: smaller;">
                     <h4>Versandweg</h4>
                     <table class="table table-striped">
                         <tbody>
@@ -102,11 +102,11 @@
                                 <tr>
                                     <th>
                                         <xsl:choose>
-                                            <xsl:when test="@type = 'sent'"> Versand: </xsl:when>
+                                            <xsl:when test="@type = 'sent'"> Versendet: </xsl:when>
                                             <xsl:when test="@type = 'received'"> Empfangen: </xsl:when>
                                             <xsl:when test="@type = 'forwarded'"> Weitergeleitet: </xsl:when>
                                             <xsl:when test="@type = 'redirected'"> Umgeleitet: </xsl:when>
-                                            <xsl:when test="@type = 'delivered'"> Zustellung: </xsl:when>
+                                            <xsl:when test="@type = 'delivered'"> Zugestellt: </xsl:when>
                                             <xsl:when test="@type = 'transmitted'"> Übermittelt:
                                             </xsl:when>
                                         </xsl:choose>
@@ -132,10 +132,10 @@
                     </table>
                 </div>
                 <!-- msDesc -->
-                <xsl:if test="descendant::tei:msDesc">
+                <xsl:if test="descendant::tei:listWit">
                     <div class="msDesc" style="font-size: smaller;">
                         <h4>Manuskriptbeschreibung</h4>
-                        <xsl:apply-templates select="//tei:msDesc"/>
+                        <xsl:apply-templates select="//tei:listWit"/>
                     </div>
                 </xsl:if>
                 <xsl:if test="$correspContext/tei:ref[@type = 'withinCorrespondence']">
@@ -144,34 +144,35 @@
                         <xsl:for-each
                             select="$correspContext/tei:ref[@type = 'belongsToCorrespondence']">
                             <xsl:variable name="target" select="@target"/>
-                            <xsl:if
-                                test="$correspContext/tei:ref[@source = $target and @subtype = 'previous_letter']">
-                                <xsl:call-template name="mam:nav-li-item">
-                                    <xsl:with-param name="eintrag" select="."/>
-                                    <xsl:with-param name="direction" select="'prev-doc2'"/>
-                                </xsl:call-template>
-                                <xsl:text> </xsl:text>
-                            </xsl:if>
-                            <xsl:text>Blättern in der Korrespondenz </xsl:text>
-                            <xsl:choose>
-                                <xsl:when test="contains(., ', ')">
-                                    <xsl:value-of select="tokenize(., ', ')[1]"/>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:value-of select="."/>
-                                </xsl:otherwise>
-                            </xsl:choose>
-                            <xsl:if
-                                test="$correspContext/tei:ref[@source = $target and @subtype = 'next_letter']">
-                                <xsl:text> </xsl:text>
-                                <xsl:call-template name="mam:nav-li-item">
-                                    <xsl:with-param name="eintrag" select="."/>
-                                    <xsl:with-param name="direction" select="'next-doc2'"/>
-                                </xsl:call-template>
-                            </xsl:if>
+                            <p><xsl:if
+                                    test="$correspContext/tei:ref[@source = $target and @subtype = 'previous_letter']">
+                                    <xsl:call-template name="mam:nav-li-item">
+                                        <xsl:with-param name="eintrag" select="."/>
+                                        <xsl:with-param name="direction" select="'prev-doc2'"/>
+                                    </xsl:call-template>
+                                    <xsl:text> </xsl:text>
+                                </xsl:if>
+                                <xsl:text>Blättern in der Korrespondenz </xsl:text>
+                                <xsl:choose>
+                                    <xsl:when test="contains(., ',')">
+                                        <xsl:value-of select="tokenize(., ',')[1]"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="."/>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:if
+                                    test="$correspContext/tei:ref[@source = $target and @subtype = 'next_letter']">
+                                    <xsl:text> </xsl:text>
+                                    <xsl:call-template name="mam:nav-li-item">
+                                        <xsl:with-param name="eintrag" select="."/>
+                                        <xsl:with-param name="direction" select="'next-doc2'"/>
+                                    </xsl:call-template>
+                                </xsl:if></p>
                         </xsl:for-each>
                     </div>
-                    <!--<h4>Blättern</h4>
+                </xsl:if>
+                <!--<h4>Blättern</h4>
                         <!-\- voriger Brief -\->
                         <xsl:if test="$correspContext/tei:ref/@subtype = 'previous_letter'">
                             <div class="previous-letter">
@@ -228,7 +229,6 @@
                                 </ul>
                             </div>
                         </xsl:if>-->
-                </xsl:if>
             </body>
         </html>
     </xsl:template>
@@ -270,8 +270,8 @@
     <xsl:template match="tei:body">
         <xsl:apply-templates/>
     </xsl:template>
-    <!-- msDesc -->
-    <xsl:template match="tei:msDesc">
+    <!-- listWit -->
+    <xsl:template match="tei:listWit">
         <xsl:if test="descendant::tei:witness">
             <xsl:for-each select="//tei:witness">
                 <xsl:choose>
@@ -304,7 +304,7 @@
                             </td>
                         </tr>
                     </xsl:if>
-                    <xsl:if test="//tei:physDesc">
+                    <xsl:if test="descendant::tei:physDesc">
                         <tr>
                             <th style="text-align: left;">Beschreibung</th>
                             <td style="vertical-align: top;">
@@ -1120,12 +1120,14 @@
                     <xsl:text>Maschinenschriftliche Abschrift</xsl:text>
                 </xsl:when>
             </xsl:choose>
-            <xsl:if test="child::tei:supportDesc[not(child::*[2])]/tei:extent[not(child::*[2])]/tei:measure/@quantity = 1">
+            <xsl:if
+                test="child::tei:supportDesc[not(child::*[2])]/tei:extent[not(child::*[2])]/tei:measure/@quantity = 1">
                 <xsl:text>, </xsl:text>
             </xsl:if>
         </xsl:if>
         <xsl:choose>
-            <xsl:when test="child::tei:supportDesc[not(child::*[2])]/tei:extent[not(child::*[2])]/tei:measure/@quantity = 1">
+            <xsl:when
+                test="child::tei:supportDesc[not(child::*[2])]/tei:extent[not(child::*[2])]/tei:measure/@quantity = 1">
                 <!-- das übergeht Widmung, Kartenbrief und Karte, wenn nur eine Angabe, 1. TEIL -->
             </xsl:when>
             <xsl:otherwise>
@@ -1746,15 +1748,24 @@
                 <xsl:attribute name="class">
                     <xsl:text>stamp</xsl:text>
                 </xsl:attribute>
+                <xsl:attribute name="style">
+                    <xsl:text>color: gray; font-weight: bold; font-style: italic;</xsl:text>
+                </xsl:attribute>
             </xsl:if>
             <xsl:if test=".[@rend = 'pre-print']">
                 <xsl:attribute name="class">
                     <xsl:text>pre-print</xsl:text>
                 </xsl:attribute>
+                <xsl:attribute name="style">
+                    <xsl:text>color: gray; font-weight: bold;</xsl:text>
+                </xsl:attribute>
             </xsl:if>
             <xsl:if test=".[@rend = 'italics']">
                 <xsl:attribute name="class">
                     <xsl:text>italics</xsl:text>
+                </xsl:attribute>
+                <xsl:attribute name="style">
+                    <xsl:text>font-style: italic;</xsl:text>
                 </xsl:attribute>
             </xsl:if>
             <xsl:if test=".[@rend = 'underline']">
