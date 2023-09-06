@@ -1901,13 +1901,12 @@
         <span>
             <xsl:attribute name="class">
                 <xsl:text>salute</xsl:text>
-            </xsl:attribute>
-            <xsl:attribute name="class">
+           
                 <xsl:if test=".[@rend = 'center']">
-                    <xsl:text>center</xsl:text>
+                    <xsl:text> center</xsl:text>
                 </xsl:if>
                 <xsl:if test=".[@rend = 'right']">
-                    <xsl:text>text-align-right</xsl:text>
+                    <xsl:text> text-align-right</xsl:text>
                 </xsl:if>
             </xsl:attribute>
             <xsl:apply-templates/>
@@ -1929,13 +1928,12 @@
         <span>
             <xsl:attribute name="class">
                 <xsl:text>salute</xsl:text>
-            </xsl:attribute>
-            <xsl:attribute name="class">
+            
                 <xsl:if test=".[@rend = 'center']">
-                    <xsl:text>center</xsl:text>
+                    <xsl:text> center</xsl:text>
                 </xsl:if>
                 <xsl:if test=".[@rend = 'right']">
-                    <xsl:text>text-align-right</xsl:text>
+                    <xsl:text> text-align-right</xsl:text>
                 </xsl:if>
             </xsl:attribute>
             <xsl:apply-templates/>
