@@ -163,3 +163,8 @@ latintype {
 
 .unclear{color: grey;}
 
+.correspsearch-eng ul {
+    list-style: none; /* Ausblenden der Bullets */
+    margin: 0; /* Entfernen des Abstands davor und danach */
+    padding: 0; /* Optional: Entfernen des Innenabstands der Liste */
+  }
