@@ -60,8 +60,9 @@
                 <meta name="publisher"
                     content="Austrian Centre for Digital Humanities and Cultural Heritage (ACDH-CH)"
                 />
+                <link rel="stylesheet" type="text/css" href="../styles/stylesheet.css"/>
             </head>
-            <body style="font-family: serif; text-align: left;">
+            <body class="body-style">
                 <!-- Titel -->
                 <h4>
                     <xsl:text>[</xsl:text>
@@ -77,7 +78,7 @@
                 </div>
                 <!-- Fußnoten -->
                 <xsl:if test="//tei:note[@type = 'footnote']">
-                    <div class="footnote" style="font-size: smaller;">
+                    <div class="footnote smaller-font">
                         <xsl:apply-templates select="//tei:note[@type = 'footnote']" mode="footnote"
                         />
                     </div>
@@ -86,7 +87,7 @@
                 <br/>
                 <!-- Kommentar -->
                 <xsl:if test="//tei:note[@type = 'commentary' or @type = 'textConst']">
-                    <div class="kommentar" style="font-size: smaller;">
+                    <div class="kommentar smaller-font">
                         <br/>
                         <h4>Kommentar</h4>
                         <xsl:apply-templates
@@ -96,7 +97,7 @@
                     </div>
                 </xsl:if>
                 <!-- correspDesc -->
-                <div class="correspDesc" style="font-size: smaller;">
+                <div class="correspDesc smaller-font">
                     <h4>Versandweg</h4>
                     <dl>
                         <xsl:for-each select="descendant::tei:correspAction">
@@ -147,13 +148,13 @@
                 </div>
                 <!-- msDesc -->
                 <xsl:if test="descendant::tei:listWit">
-                    <div class="msDesc" style="font-size: smaller;">
+                    <div class="msDesc smaller-font">
                         <h4>Manuskriptbeschreibung</h4>
                         <xsl:apply-templates select="//tei:listWit"/>
                     </div>
                 </xsl:if>
                 <xsl:if test="$correspContext/tei:ref[@type = 'withinCorrespondence']">
-                    <div class="correspContext" style="font-size: smaller;">
+                    <div class="correspContext smaller-font">
                         <br/>
                         <xsl:for-each
                             select="$correspContext/tei:ref[@type = 'belongsToCorrespondence']">
@@ -1288,13 +1289,13 @@
     </xsl:template>
     <!-- exclude notes (except for footnotes) in the main text, but include them in the footnote/comment section -->
     <xsl:template match="tei:note[@type = 'footnote']">
-        <sup style="font-size: 0.8em;">
+        <sup class="smaller-font">
             <xsl:number level="any"/>
         </sup>
     </xsl:template>
     <xsl:template match="tei:note[@type = 'footnote']" mode="footnote">
         <div class="footnote">
-            <sup style="font-size: 0.8em;">
+            <sup class="smaller-font">
                 <xsl:number level="any"/>
             </sup>
             <xsl:apply-templates/>
@@ -1406,7 +1407,7 @@
     <!-- title -->
     <xsl:template match="tei:body//tei:title">
         <xsl:if test=".[@level = 'm']">
-            <span class="mono-title" style="font-style: italic;">
+            <span class="mono-title">
                 <xsl:apply-templates/>
             </span>
         </xsl:if>
@@ -1429,7 +1430,7 @@
     <!-- title in Kommentaren -->
     <xsl:template match="tei:title">
         <xsl:if test=".[@level = 'm']">
-            <span class="mono-title" style="font-style: italic;">
+            <span class="mono-title">
                 <xsl:apply-templates/>
             </span>
         </xsl:if>
@@ -1502,7 +1503,7 @@
     </xsl:template>
     <!-- beschädigte Stellen mit kleinen Punkten unterstreichen -->
     <xsl:template match="tei:damage">
-        <span class="damage" style="text-decoration: underline; text-decoration-style: dotted;">
+        <span class="damage">
             <xsl:apply-templates/>
         </span>
     </xsl:template>
@@ -1555,7 +1556,7 @@
     </xsl:template>
     <!-- Umgang mit Streichungen -->
     <xsl:template match="tei:del">
-        <del style="text-decoration: line-through;">
+        <del class="del">
             <xsl:apply-templates/>
         </del>
     </xsl:template>
@@ -1616,8 +1617,11 @@
     <xsl:template match="tei:space[@unit = 'chars' and not(@quantity = 1)]">
         <xsl:variable name="weite" select="0.5 * @quantity"/>
         <xsl:element name="span">
-            <xsl:attribute name="style">
-                <xsl:value-of select="concat('display:inline-block; width: ', $weite, 'em; ')"/>
+            <xsl:attribute name="class">
+                <xsl:text>inline-block</xsl:text>
+            </xsl:attribute>
+             <xsl:attribute name="style">
+                <xsl:value-of select="concat('width: ', $weite, 'em; ')"/>
             </xsl:attribute>
         </xsl:element>
     </xsl:template>
@@ -1691,8 +1695,8 @@
                 <xsl:attribute name="class">
                     <xsl:text>work</xsl:text>
                 </xsl:attribute>
-                <xsl:attribute name="style">
-                    <xsl:text>font-style: italic;</xsl:text>
+                <xsl:attribute name="class">
+                    <xsl:text>mono-title</xsl:text>
                 </xsl:attribute>
             </xsl:if>
             <xsl:apply-templates/>
@@ -1710,105 +1714,60 @@
                 <xsl:attribute name="class">
                     <xsl:text>superscript</xsl:text>
                 </xsl:attribute>
-                <xsl:attribute name="style">
-                    <xsl:text>position: relative; top: -0.5em; font-size: 80%;</xsl:text>
-                </xsl:attribute>
             </xsl:if>
             <xsl:if test=".[@rend = 'subscript']">
                 <xsl:attribute name="class">
                     <xsl:text>subscript</xsl:text>
-                </xsl:attribute>
-                <xsl:attribute name="style">
-                    <xsl:text>position: relative; top: 0.5em; font-size: 80%</xsl:text>
                 </xsl:attribute>
             </xsl:if>
             <xsl:if test=".[@rend = 'spaced_out']">
                 <xsl:attribute name="class">
                     <xsl:text>spaced_out</xsl:text>
                 </xsl:attribute>
-                <xsl:attribute name="style">
-                    <xsl:text>letter-spacing: 2px;</xsl:text>
-                </xsl:attribute>
             </xsl:if>
             <xsl:if test=".[@rend = 'bold']">
                 <xsl:attribute name="class">
                     <xsl:text>bold</xsl:text>
-                </xsl:attribute>
-                <xsl:attribute name="style">
-                    <xsl:text>font-weight: bold;</xsl:text>
                 </xsl:attribute>
             </xsl:if>
             <xsl:if test=".[@rend = 'antiqua']">
                 <xsl:attribute name="class">
                     <xsl:text>antiqua</xsl:text>
                 </xsl:attribute>
-                <xsl:attribute name="style">
-                    <xsl:text>font-variant: small-caps;</xsl:text>
-                </xsl:attribute>
             </xsl:if>
             <xsl:if test=".[@rend = 'capitals']">
                 <xsl:attribute name="class">
                     <xsl:text>capitals</xsl:text>
-                </xsl:attribute>
-                <xsl:attribute name="style">
-                    <xsl:text>font-variant: small-caps;</xsl:text>
                 </xsl:attribute>
             </xsl:if>
             <xsl:if test=".[@rend = 'small_caps']">
                 <xsl:attribute name="class">
                     <xsl:text>small_caps</xsl:text>
                 </xsl:attribute>
-                <xsl:attribute name="style">
-                    <xsl:text>font-variant: small-caps;</xsl:text>
-                </xsl:attribute>
             </xsl:if>
             <xsl:if test=".[@rend = 'latintype']">
                 <xsl:attribute name="class">
                     <xsl:text>latintype</xsl:text>
-                </xsl:attribute>
-                <xsl:attribute name="style">
-                    <xsl:text>font-variant: small-caps;</xsl:text>
                 </xsl:attribute>
             </xsl:if>
             <xsl:if test=".[@rend = 'stamp']">
                 <xsl:attribute name="class">
                     <xsl:text>stamp</xsl:text>
                 </xsl:attribute>
-                <xsl:attribute name="style">
-                    <xsl:text>color: gray; font-weight: bold; font-style: italic;</xsl:text>
-                </xsl:attribute>
             </xsl:if>
             <xsl:if test=".[@rend = 'pre-print']">
                 <xsl:attribute name="class">
                     <xsl:text>pre-print</xsl:text>
-                </xsl:attribute>
-                <xsl:attribute name="style">
-                    <xsl:text>color: gray; font-weight: bold;</xsl:text>
                 </xsl:attribute>
             </xsl:if>
             <xsl:if test=".[@rend = 'italics']">
                 <xsl:attribute name="class">
                     <xsl:text>italics</xsl:text>
                 </xsl:attribute>
-                <xsl:attribute name="style">
-                    <xsl:text>font-style: italic;</xsl:text>
-                </xsl:attribute>
             </xsl:if>
             <xsl:if test=".[@rend = 'underline']">
                 <xsl:attribute name="class">
-                    <xsl:text>underline</xsl:text>
-                </xsl:attribute>
-                <xsl:attribute name="style">
-                    <xsl:if test="@n = 1">
-                        <xsl:text>text-decoration: underline;</xsl:text>
-                    </xsl:if>
-                    <xsl:if test="@n = 2">
-                        <xsl:text>text-decoration:underline;
-                    border-bottom: 1px solid #000;</xsl:text>
-                    </xsl:if>
-                    <xsl:if test="@n = 3">
-                        <xsl:text>border-bottom: 3px double; line-height: 1.9em;</xsl:text>
-                    </xsl:if>
+                    <xsl:text>underline</xsl:text><xsl:value-of select="@n"/>
                 </xsl:attribute>
             </xsl:if>
             <xsl:apply-templates/>
@@ -1831,12 +1790,12 @@
         match="tei:p[(@rend = 'center' or @rend = 'right') and not(ancestor::tei:desc) and not(ancestor::tei:quote)]">
         <p>
             <xsl:if test="@rend">
-                <xsl:attribute name="style">
+                <xsl:attribute name="class">
                     <xsl:if test=".[@rend = 'center']">
-                        <xsl:text>text-align: center;</xsl:text>
+                        <xsl:text>center</xsl:text>
                     </xsl:if>
                     <xsl:if test=".[@rend = 'right']">
-                        <xsl:text>text-align: right;</xsl:text>
+                        <xsl:text>text-align-right;</xsl:text>
                     </xsl:if>
                 </xsl:attribute>
             </xsl:if>
@@ -1884,12 +1843,12 @@
     </xsl:template>
     <!-- Gedichte -->
     <xsl:template match="tei:lg[@type = 'poem']">
-        <div class="poem" style="display: block; margin: 1em 0;">
+        <div class="poem">
             <xsl:apply-templates/>
         </div>
     </xsl:template>
     <xsl:template match="tei:lg[@type = 'stanza']">
-        <p class="stanza" style="display: block; margin: 1em 0;">
+        <p class="stanza">
             <xsl:apply-templates/>
         </p>
     </xsl:template>
@@ -1915,12 +1874,12 @@
             <xsl:attribute name="class">
                 <xsl:text>dateline</xsl:text>
             </xsl:attribute>
-            <xsl:attribute name="style">
+            <xsl:attribute name="class">
                 <xsl:if test=".[@rend = 'center']">
-                    <xsl:text>text-align: center;</xsl:text>
+                    <xsl:text>center</xsl:text>
                 </xsl:if>
                 <xsl:if test=".[@rend = 'right']">
-                    <xsl:text>text-align: right;</xsl:text>
+                    <xsl:text>text-align-right</xsl:text>
                 </xsl:if>
             </xsl:attribute>
             <xsl:apply-templates/>
@@ -1943,12 +1902,12 @@
             <xsl:attribute name="class">
                 <xsl:text>salute</xsl:text>
             </xsl:attribute>
-            <xsl:attribute name="style">
+            <xsl:attribute name="class">
                 <xsl:if test=".[@rend = 'center']">
-                    <xsl:text>text-align: center;</xsl:text>
+                    <xsl:text>center</xsl:text>
                 </xsl:if>
                 <xsl:if test=".[@rend = 'right']">
-                    <xsl:text>text-align: right;</xsl:text>
+                    <xsl:text>text-align-right</xsl:text>
                 </xsl:if>
             </xsl:attribute>
             <xsl:apply-templates/>
@@ -1971,12 +1930,12 @@
             <xsl:attribute name="class">
                 <xsl:text>salute</xsl:text>
             </xsl:attribute>
-            <xsl:attribute name="style">
+            <xsl:attribute name="class">
                 <xsl:if test=".[@rend = 'center']">
-                    <xsl:text>text-align: center;</xsl:text>
+                    <xsl:text>center</xsl:text>
                 </xsl:if>
                 <xsl:if test=".[@rend = 'right']">
-                    <xsl:text>text-align: right;</xsl:text>
+                    <xsl:text>text-align-right</xsl:text>
                 </xsl:if>
             </xsl:attribute>
             <xsl:apply-templates/>
@@ -1989,12 +1948,12 @@
     </xsl:template>
     <!-- seg / side by side -->
     <xsl:template match="tei:seg[@rend = 'left']">
-        <span class="seg-left" style="float: left; width: 50%">
+        <span class="seg-left" >
             <xsl:apply-templates/>
         </span>
     </xsl:template>
     <xsl:template match="tei:seg[@rend = 'right']">
-        <span class="seg-left" style="float: right; width: 50%">
+        <span class="seg-right">
             <xsl:apply-templates/>
         </span>
     </xsl:template>
@@ -2216,13 +2175,13 @@
     <!-- signed -->
     <xsl:template match="tei:signed">
         <br/>
-        <span class="signature" style="text-align: right;">
+        <span class="signature">
             <xsl:apply-templates/>
         </span>
     </xsl:template>
     <!-- unclear -->
     <xsl:template match="tei:unclear">
-        <span class="unclear" style="color: grey;">
+        <span class="unclear">
             <xsl:apply-templates/>
         </span>
     </xsl:template>

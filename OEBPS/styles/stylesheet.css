@@ -3,10 +3,163 @@ html {
     font-family: "serif";
 }
 
-td, th {
+td,
+th {
     vertical-align: top;
 }
 
 th {
     font-style: italic;
 }
+
+dl {
+    margin: 0;
+    padding: 0;
+}
+
+h4 {
+    margin-top: 2em;
+}
+
+dt {
+    float: left;
+    clear: left;
+    margin-right: 5px;
+    font-weight: bold;
+    font-style: italic;
+}
+
+
+
+dd {
+    margin-left: 0px;
+    margin-bottom: 10px;
+}
+
+h1,
+.center {
+    text-align: center;
+}
+
+.text-align-right {
+text-align: right;
+    
+}
+
+.smaller-font {
+    font-size: 80%
+}
+
+.abstand {
+    margin-top: 2em;
+}
+
+.body-style {
+    font-family: serif;
+}
+
+.mono-title,
+italics {
+    font-style: italic;
+}
+
+.damage {
+    text-decoration: underline;
+    text-decoration-style: dotted;
+}
+
+.del {
+    text-decoration: line-through;
+}
+
+.poem,
+.stanza {
+    display: block;
+    margin: 1em 0;
+}
+
+.seg-left {
+    float: left;
+    width: 50%
+}
+
+.seg-right {
+    float: right;
+    width: 50%
+}
+
+.unclear {
+    color: grey;
+}
+
+.signature {
+    text-align: right;
+}
+.superscript {
+    position: relative;
+    top: -0.5em;
+    font-size: 80%;
+}
+
+.subscript {
+    position: relative;
+    top: 0.5em;
+    font-size: 80%
+
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.spaced_out {
+    letter-spacing: 2px;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.antiqua {
+    font-variant: small-caps;
+}
+
+.capitals {
+    text-transform: uppercase;
+}
+
+.small-caps,
+latintype {
+    font-variant: small-caps; /* Stellt sicher, dass Kleinbuchstaben als Kapitälchen dargestellt werden */
+    font-variant-caps: all-small-caps; /* Erzwingt die Verwendung von Kapitälchen für alle Buchstaben */
+}
+
+.stamp {
+    color: gray;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.pre-print {
+    color: gray;
+    font-weight: bold;
+}
+
+.underline1 {
+    text-decoration: underline
+}
+
+.underline2 {
+    text-decoration: underline;
+    border-bottom: 1px solid #000;
+}
+
+.underline3 {
+    border-bottom: 3px double;
+    line-height: 1.9em;
+}
+
+.signature{text-align: right;}
+
+.unclear{color: grey;}
+
