@@ -83,8 +83,6 @@
                         />
                     </div>
                 </xsl:if>
-                <br/>
-                <br/>
                 <!-- Kommentar -->
                 <xsl:if test="//tei:note[@type = 'commentary' or @type = 'textConst']">
                     <div class="kommentar smaller-font">
