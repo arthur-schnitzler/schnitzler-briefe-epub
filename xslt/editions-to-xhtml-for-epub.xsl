@@ -1143,7 +1143,7 @@
                 <xsl:choose>
                     <xsl:when test="handNote/@corresp = 'schreibkraft'">
                         <dl>
-                            <dt>Handschrift einer Schreibkraft</dt>
+                            <dt class="correspDesc"><xsl:text>Handschrift einer Schreibkraft: </xsl:text></dt>
                             <dd>
                                 <xsl:value-of select="mam:handNote(tei:handNote)"/>
                             </dd>
@@ -1153,7 +1153,7 @@
                         <xsl:variable name="sender"
                             select="ancestor::tei:teiHeader[1]/tei:profileDesc[1]/tei:correspDesc[1]/tei:correspAction[@type = 'sent']/tei:persName[@ref = tei:handNote/@corresp]"/>
                         <dl>
-                            <dt>Handschrift <xsl:value-of select="$sender"/>
+                            <dt class="correspDesc"><xsl:text>Handschrift </xsl:text><xsl:value-of select="$sender"/><xsl:text>: </xsl:text>
                             </dt>
                             <dd>
                                 <xsl:value-of select="mam:handNote(tei:handNote)"/>
