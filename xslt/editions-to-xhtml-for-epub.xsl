@@ -307,9 +307,11 @@
                                                   </xsl:when>
                                                   <xsl:otherwise>
                                                   <xsl:for-each select="tei:persName">
-                                                  <br/>
                                                   <xsl:value-of select="mam:vorname-vor-nachname(.)"
                                                   />
+                                                      <xsl:if test="not(fn:position()=last())">
+                                                          <br/>
+                                                      </xsl:if>
                                                   </xsl:for-each>
                                                   </xsl:otherwise>
                                                   </xsl:choose>
