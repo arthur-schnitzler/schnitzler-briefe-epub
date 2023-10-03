@@ -1173,8 +1173,8 @@
                     <xsl:choose>
                         <xsl:when test="count($handDesc-v/tei:handNote[@corresp = $corespi]) = 1">
                             <dl>
-                                <dt>Handschrift <xsl:value-of
-                                        select="mam:vorname-vor-nachname($corespi-name)"/>
+                                <dt class="correspDesc"><xsl:text>Handschrift </xsl:text><xsl:value-of
+                                        select="mam:vorname-vor-nachname($corespi-name)"/><xsl:text>: </xsl:text>
                                 </dt>
                                 <dd>
                                     <xsl:value-of
@@ -1188,12 +1188,12 @@
                                 <dl>
                                     <xsl:choose>
                                         <xsl:when test="position() = 1">
-                                            <dt>Handschrift <xsl:value-of
-                                                  select="mam:vorname-vor-nachname($corespi-name)"/>
+                                            <dt class="correspDesc"><xsl:text>Handschrift </xsl:text><xsl:value-of
+                                                  select="mam:vorname-vor-nachname($corespi-name)"/><xsl:text>: </xsl:text>
                                             </dt>
                                         </xsl:when>
                                         <xsl:otherwise>
-                                            <dt/>
+                                            <dt class="correspDesc"/>
                                         </xsl:otherwise>
                                     </xsl:choose>
                                     <dd>
