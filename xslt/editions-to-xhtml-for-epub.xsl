@@ -165,7 +165,7 @@
                                     <xsl:value-of select="$pers-title"/>
                                 </h5>
                             </xsl:if>
-                            <ul>
+                            <div>
                                 <xsl:for-each
                                     select="//tei:rs[@subtype = 'implied' and @type = 'person'][not(@ref = //tei:rs[not(@subtype = 'implied' and @type = 'person')]/@ref)][not(@ref = preceding::tei:rs[@subtype = 'implied' and @type = 'person']/@ref)]/@ref">
                                     <xsl:variable name="persName">
@@ -176,17 +176,17 @@
                                                     tei:surname)"
                                         />
                                     </xsl:variable>
-                                    <li>
+                                    <p>
                                         <span class="lemma">
                                             <i>
                                                 <xsl:value-of select="../text()"/>
-                                                <xsl:text>] </xsl:text>
+                                                <xsl:text> ] </xsl:text>
                                             </i>
                                         </span>
                                         <xsl:value-of select="$persName"/>
-                                    </li>
+                                    </p>
                                 </xsl:for-each>
-                            </ul>
+                            </div>
                         </xsl:if>
                         <!-- Orte -->
                         <xsl:if
@@ -196,7 +196,7 @@
                                     <xsl:value-of select="$place-title"/>
                                 </xsl:if>
                             </h5>
-                            <ul>
+                            <div>
                                 <xsl:for-each
                                     select="//tei:rs[@subtype = 'implied' and @type = 'place'][not(@ref = //tei:rs[not(@subtype = 'implied' and @type = 'place')]/@ref)][not(@ref = preceding::tei:rs[@subtype = 'implied' and @type = 'place']/@ref)]/@ref">
                                     <xsl:variable name="placeName">
@@ -204,17 +204,17 @@
                                                 $back/tei:listPlace/tei:place[@xml:id = substring-after(current(), '#')]/tei:placeName[1]"
                                         />
                                     </xsl:variable>
-                                    <li>
+                                    <p>
                                         <span class="lemma">
                                             <i>
                                                 <xsl:value-of select="../text()"/>
-                                                <xsl:text>] </xsl:text>
+                                                <xsl:text> ] </xsl:text>
                                             </i>
                                         </span>
                                         <xsl:value-of select="$placeName"/>
-                                    </li>
+                                    </p>
                                 </xsl:for-each>
-                            </ul>
+                            </div>
                         </xsl:if>
                         <!-- Werke -->
                         <xsl:if
@@ -224,7 +224,7 @@
                                     <xsl:value-of select="$work-title"/>
                                 </xsl:if>
                             </h5>
-                            <ul>
+                            <div>
                                 <xsl:for-each
                                     select="//tei:rs[@subtype = 'implied' and @type = 'work'][not(@ref = //tei:rs[not(@subtype = 'implied' and @type = 'work')]/@ref)][not(@ref = preceding::tei:rs[@subtype = 'implied' and @type = 'work']/@ref)]/@ref">
                                     <xsl:variable name="workName">
@@ -232,17 +232,17 @@
                                                 $back/tei:listBibl/tei:bibl[@xml:id = substring-after(current(), '#')]/tei:title[1]"
                                         />
                                     </xsl:variable>
-                                    <li>
+                                    <p>
                                         <span class="lemma">
                                             <i>
                                                 <xsl:value-of select="../text()"/>
-                                                <xsl:text>] </xsl:text>
+                                                <xsl:text> ] </xsl:text>
                                             </i>
                                         </span>
                                         <xsl:value-of select="$workName"/>
-                                    </li>
+                                    </p>
                                 </xsl:for-each>
-                            </ul>
+                            </div>
                         </xsl:if>
                         <!-- Institutionen -->
                         <xsl:if
@@ -252,7 +252,7 @@
                                     <xsl:value-of select="$org-title"/>
                                 </xsl:if>
                             </h5>
-                            <ul>
+                            <div>
                                 <xsl:for-each
                                     select="//tei:rs[@subtype = 'implied' and @type = 'org'][not(@ref = //tei:rs[not(@subtype = 'implied' and @type = 'org')]/@ref)][not(@ref = preceding::tei:rs[@subtype = 'implied' and @type = 'org']/@ref)]/@ref">
                                     <xsl:variable name="orgName">
@@ -260,17 +260,17 @@
                                                 $back/tei:listOrg/tei:org[@xml:id = substring-after(current(), '#')]/tei:orgName[1]"
                                         />
                                     </xsl:variable>
-                                    <li>
+                                    <p>
                                         <span class="lemma">
                                             <i>
                                                 <xsl:value-of select="../text()"/>
-                                                <xsl:text>] </xsl:text>
+                                                <xsl:text> ] </xsl:text>
                                             </i>
                                         </span>
                                         <xsl:value-of select="$orgName"/>
-                                    </li>
+                                    </p>
                                 </xsl:for-each>
-                            </ul>
+                            </div>
                         </xsl:if>
                     </div>
                 </xsl:if>
@@ -482,7 +482,7 @@
                 <xsl:if test="//tei:msIdentifier">
                     <p>
                         <i>
-                            <xsl:text>Signatur:</xsl:text>
+                            <xsl:text>Signatur: </xsl:text>
                         </i>
                         <xsl:for-each select="//tei:msIdentifier/child::*">
                             <xsl:value-of select="."/>
@@ -495,7 +495,7 @@
                 <xsl:if test="descendant::tei:objectType">
                     <p>
                         <i>
-                            <xsl:text>Typ:</xsl:text>
+                            <xsl:text>Typ: </xsl:text>
                         </i>
                         <xsl:apply-templates select="tei:objectType"/>
                     </p>
@@ -503,7 +503,7 @@
                 <xsl:if test="descendant::tei:physDesc">
                     <p>
                         <i>
-                            <xsl:text>Beschreibung:</xsl:text>
+                            <xsl:text>Beschreibung: </xsl:text>
                         </i>
                         <xsl:apply-templates select="tei:msDesc/tei:physDesc/tei:objectDesc"/>
                     </p>
@@ -515,7 +515,7 @@
                     </xsl:if>
                     <xsl:if test="tei:msDesc/tei:physDesc/tei:additions">
                         <p>
-                            <i>Zufügungen:</i>
+                            <i>Zufügungen: </i>
                         </p>
                         <xsl:apply-templates select="tei:msDesc/tei:physDesc/tei:additions"/>
                     </xsl:if>
