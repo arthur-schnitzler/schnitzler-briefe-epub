@@ -180,7 +180,7 @@
                                         <span class="lemma">
                                             <i>
                                                 <xsl:value-of select="../text()"/>
-                                                <xsl:text> ] </xsl:text>
+                                                <xsl:text>] </xsl:text>
                                             </i>
                                         </span>
                                         <xsl:value-of select="$persName"/>
@@ -208,7 +208,7 @@
                                         <span class="lemma">
                                             <i>
                                                 <xsl:value-of select="../text()"/>
-                                                <xsl:text> ] </xsl:text>
+                                                <xsl:text>] </xsl:text>
                                             </i>
                                         </span>
                                         <xsl:value-of select="$placeName"/>
@@ -236,7 +236,7 @@
                                         <span class="lemma">
                                             <i>
                                                 <xsl:value-of select="../text()"/>
-                                                <xsl:text> ] </xsl:text>
+                                                <xsl:text>] </xsl:text>
                                             </i>
                                         </span>
                                         <xsl:value-of select="$workName"/>
@@ -264,7 +264,7 @@
                                         <span class="lemma">
                                             <i>
                                                 <xsl:value-of select="../text()"/>
-                                                <xsl:text> ] </xsl:text>
+                                                <xsl:text>] </xsl:text>
                                             </i>
                                         </span>
                                         <xsl:value-of select="$orgName"/>
@@ -294,7 +294,7 @@
                                     <xsl:when test="child::*[2]">
                                         <ul class="correspsearch-eng">
                                             <xsl:if test="./tei:date">
-                                                <li class="1">
+                                                <li>
                                                   <xsl:value-of select="./tei:date"/>
                                                 </li>
                                             </xsl:if>
@@ -306,14 +306,11 @@
                                                   select="mam:vorname-vor-nachname(tei:persName)"/>
                                                   </xsl:when>
                                                   <xsl:otherwise>
-                                                  <ul>
                                                   <xsl:for-each select="tei:persName">
-                                                  <li>
+                                                  <br/>
                                                   <xsl:value-of select="mam:vorname-vor-nachname(.)"
                                                   />
-                                                  </li>
                                                   </xsl:for-each>
-                                                  </ul>
                                                   </xsl:otherwise>
                                                   </xsl:choose>
                                                 </li>
@@ -842,25 +839,27 @@
     </xsl:function>
     <!-- auch noch physDesc -->
     <xsl:template match="tei:incident/tei:desc/tei:stamp">
-        <i> <xsl:text>Stempel </xsl:text>
+        <i>
+            <xsl:text>Stempel </xsl:text>
             <xsl:value-of select="@n"/>
         </i>
-        <xsl:text>] </xsl:text>
+        <xsl:text>: </xsl:text>
         <xsl:if test="tei:placeName">
             <xsl:apply-templates select="./tei:placeName"/>
-            <xsl:if test="tei:*[not(name()='placeName')]">
+            <xsl:if test="tei:*[not(name() = 'placeName')]">
                 <xsl:text>, </xsl:text>
             </xsl:if>
         </xsl:if>
         <xsl:if test="tei:date">
             <xsl:apply-templates select="./tei:date"/>
-            <xsl:if test="tei:*[not(name()='date') and not(name()='placeName')]">
+            <xsl:if test="tei:*[not(name() = 'date') and not(name() = 'placeName')]">
                 <xsl:text>, </xsl:text>
             </xsl:if>
         </xsl:if>
         <xsl:if test="tei:time">
             <xsl:apply-templates select="./tei:time"/>
-            <xsl:if test="tei:*[not(name()='date') and not(name()='placeName') and not(name()='time')]">
+            <xsl:if
+                test="tei:*[not(name() = 'date') and not(name() = 'placeName') and not(name() = 'time')]">
                 <xsl:text>, </xsl:text>
             </xsl:if>
         </xsl:if>
@@ -1080,7 +1079,7 @@
             select="count(parent::tei:incident/preceding-sibling::tei:incident[@type = 'editorial'])"/>
         <xsl:choose>
             <xsl:when test="$poschitzion &gt; 0">
-                <dt  class="correspDesc"/>
+                <dt class="correspDesc"/>
                 <dd>
                     <xsl:value-of select="$poschitzion + 1"/>
                     <xsl:text>) </xsl:text>
@@ -1133,7 +1132,7 @@
                     <i>
                         <xsl:text>Handschrift</xsl:text>
                     </i>
-                    <xsl:text>] </xsl:text>
+                    <xsl:text>: </xsl:text>
                     <xsl:value-of select="mam:handNote(tei:handNote)"/>
                 </p>
             </xsl:when>
