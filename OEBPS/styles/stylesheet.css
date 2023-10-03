@@ -29,6 +29,21 @@ dt {
     font-style: italic;
 }
 
+dl.correspDesc {
+    display: block; /* Auf einer neuen Zeile anzeigen */
+}
+
+dt.correspDesc {
+    font-style: italic; /* Kursiv setzen */
+    float: none;
+    font-weight: unset;
+}
+
+dt.stamp {
+    font-style: italic; /* Kursiv setzen */
+    float: none;
+    font-weight: unset;
+}
 
 
 dd {
@@ -163,8 +178,9 @@ latintype {
 
 .unclear{color: grey;}
 
-.correspsearch-eng ul {
+ul.correspsearch-eng {
     list-style: none; /* Ausblenden der Bullets */
     margin: 0; /* Entfernen des Abstands davor und danach */
     padding: 0; /* Optional: Entfernen des Innenabstands der Liste */
   }
+  
