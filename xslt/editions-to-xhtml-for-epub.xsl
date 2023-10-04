@@ -7,6 +7,7 @@
     <xsl:mode on-no-match="shallow-skip"/>
     <xsl:variable name="correspContext" as="node()?"
         select="descendant::tei:correspDesc[1]/tei:correspContext"/>
+    <xsl:key name="not-implied-values" match="descendant::tei:item" use="."/>
     <xsl:template match="/">
         <html xmlns="http://www.w3.org/1999/xhtml">
             <head>
@@ -95,183 +96,113 @@
                 </xsl:if>
                 <!-- nicht explizit erwähnte Entitäten -->
                 <xsl:variable name="back" select="//tei:back"/>
-                <xsl:if
-                    test="//tei:rs[@subtype = 'implied' and not(ancestor::tei:note) and not(ancestor::tei:teiHeader) and not(@ref = //tei:rs[not(@subtype = 'implied')]/@ref)][not(@ref = preceding::tei:rs[@subtype = 'implied']/@ref)]">
+                <xsl:variable name="rs-not-implied">
+                    <xsl:element name="list" namespace="http://www.tei-c.org/ns/1.0">
+                        <xsl:for-each
+                            select="descendant::tei:rs[not(@subtype = 'implied') and not(ancestor::tei:back)]/tokenize(@ref, ' ')">
+                            <xsl:element name="item" namespace="http://www.tei-c.org/ns/1.0">
+                                <xsl:value-of select="."/>
+                            </xsl:element>
+                        </xsl:for-each>
+                    </xsl:element>
+                </xsl:variable>
+                <xsl:variable name="rs-implied-only-nicht-distinct">
+                    <xsl:element name="list" namespace="http://www.tei-c.org/ns/1.0">
+                        <xsl:for-each
+                            select="descendant::tei:rs[@subtype = 'implied' and not(ancestor::tei:teiHeader) and not(ancestor::tei:note)]/tokenize(@ref, ' ')">
+                            <xsl:choose>
+                                <xsl:when test="key('not-implied-values', ., $rs-not-implied)"/>
+                                <xsl:otherwise>
+                                    <xsl:element name="item" namespace="http://www.tei-c.org/ns/1.0">
+                                        <xsl:value-of select="."/>
+                                    </xsl:element>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:for-each>
+                    </xsl:element>
+                </xsl:variable>
+                <xsl:variable name="rs-implied-only">
+                    <xsl:element name="list" namespace="http://www.tei-c.org/ns/1.0">
+                        <xsl:for-each
+                            select="$rs-implied-only-nicht-distinct/tei:list/tei:item[not(. = preceding-sibling::tei:item)]">
+                            <xsl:element name="item" namespace="http://www.tei-c.org/ns/1.0">
+                                <xsl:value-of select="."/>
+                            </xsl:element>
+                        </xsl:for-each>
+                    </xsl:element>
+                </xsl:variable>
+                <xsl:if test="$rs-implied-only/descendant::tei:item">
                     <div class="implied-entities smaller-font">
-                        <xsl:if
-                            test="count(//tei:rs[@subtype = 'implied' and not(@ref = //tei:rs[not(@subtype = 'implied') and not(ancestor::tei:note) and not(ancestor::tei:teiHeader)]/@ref)][not(@ref = preceding::tei:rs[@subtype = 'implied']/@ref)]) = 1">
-                            <h4>Nicht explizit erwähnte Entität</h4>
-                        </xsl:if>
-                        <xsl:if
-                            test="count(//tei:rs[@subtype = 'implied' and not(ancestor::tei:note) and not(ancestor::tei:teiHeader) and not(@ref = //tei:rs[not(@subtype = 'implied')]/@ref)][not(@ref = preceding::tei:rs[@subtype = 'implied']/@ref)]) > 1">
-                            <h4>Nicht explizit erwähnte Entitäten</h4>
-                        </xsl:if>
-                        <xsl:variable name="personCount"
-                            select="count(//tei:rs[@subtype = 'implied' and not(ancestor::tei:note) and not(ancestor::tei:teiHeader) and @type = 'person'][not(@ref = //tei:rs[not(@subtype = 'implied' and @type = 'person')]/@ref)][not(@ref = preceding::tei:rs[@subtype = 'implied' and @type = 'person']/@ref)])"/>
-                        <xsl:variable name="pers-title">
-                            <xsl:choose>
-                                <xsl:when test="$personCount = 1">
-                                    <xsl:text>Person:</xsl:text>
-                                </xsl:when>
-                                <xsl:when test="$personCount > 1">
-                                    <xsl:text>Personen:</xsl:text>
-                                </xsl:when>
-                            </xsl:choose>
-                        </xsl:variable>
-                        <!-- Überschrift für Orte -->
-                        <xsl:variable name="placeCount"
-                            select="count(//tei:rs[@subtype = 'implied' and @type = 'place'][not(@ref = //tei:rs[not(@subtype = 'implied' and @type = 'place')]/@ref)][not(@ref = preceding::tei:rs[@subtype = 'implied' and @type = 'place']/@ref)])"/>
-                        <xsl:variable name="place-title">
-                            <xsl:choose>
-                                <xsl:when test="$placeCount = 1">
-                                    <h5>Ort:</h5>
-                                </xsl:when>
-                                <xsl:when test="$placeCount > 1">
-                                    <h5>Orte:</h5>
-                                </xsl:when>
-                            </xsl:choose>
-                        </xsl:variable>
-                        <!-- Überschrift für Werke -->
-                        <xsl:variable name="workCount"
-                            select="count(//tei:rs[@subtype = 'implied' and @type = 'work'][not(@ref = //tei:rs[not(@subtype = 'implied' and @type = 'work')]/@ref)][not(@ref = preceding::tei:rs[@subtype = 'implied' and @type = 'work']/@ref)])"/>
-                        <xsl:variable name="work-title">
-                            <xsl:choose>
-                                <xsl:when test="$workCount = 1">
-                                    <h5>Werk:</h5>
-                                </xsl:when>
-                                <xsl:when test="$workCount > 1">
-                                    <h5>Werke:</h5>
-                                </xsl:when>
-                            </xsl:choose>
-                        </xsl:variable>
-                        <!-- Überschrift für Institutionen -->
-                        <xsl:variable name="orgCount"
-                            select="count(//tei:rs[@subtype = 'implied' and @type = 'org'][not(@ref = //tei:rs[not(@subtype = 'implied' and @type = 'org')]/@ref)][not(@ref = preceding::tei:rs[@subtype = 'implied' and @type = 'org']/@ref)])"/>
-                        <xsl:variable name="org-title">
-                            <xsl:choose>
-                                <xsl:when test="$orgCount = 1">
-                                    <h5>Institution:</h5>
-                                </xsl:when>
-                                <xsl:when test="$orgCount > 1">
-                                    <h5>Institutionen:</h5>
-                                </xsl:when>
-                            </xsl:choose>
-                        </xsl:variable>
-                        <!-- Personen -->
-                        <xsl:if
-                            test="//tei:rs[@subtype = 'implied' and not(ancestor::tei:note) and not(ancestor::tei:teiHeader) and @type = 'person'][not(@ref = //tei:rs[not(@subtype = 'implied' and @type = 'person')]/@ref)][not(@ref = preceding::tei:rs[@subtype = 'implied' and @type = 'person']/@ref)]/@ref">
-                            <xsl:if test="position() = 1">
-                                <h5>
-                                    <xsl:value-of select="$pers-title"/>
-                                </h5>
-                            </xsl:if>
-                            <div>
-                                <xsl:for-each
-                                    select="//tei:rs[@subtype = 'implied' and not(ancestor::tei:note) and not(ancestor::tei:teiHeader) and @type = 'person'][not(@ref = //tei:rs[not(@subtype = 'implied' and @type = 'person')]/@ref)][not(@ref = preceding::tei:rs[@subtype = 'implied' and @type = 'person']/@ref)]/@ref">
-                                    <xsl:variable name="persName">
-                                        <xsl:value-of select="
-                                                $back/tei:listPerson/tei:person[@xml:id = substring-after(current(), '#')]/tei:persName[1]/(if (tei:forename) then
-                                                    concat(tei:forename, ' ', tei:surname)
-                                                else
-                                                    tei:surname)"
-                                        />
-                                    </xsl:variable>
+                        <xsl:choose>
+                            <xsl:when test="$rs-implied-only/tei:list/tei:item[2]">
+                                <h4>Implizite Erwähnungen</h4>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <h4>Implizite Erwähnung</h4>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <div>
+                            <xsl:variable name="rs-implied-inhalt" as="node()?">
+                                <xsl:element name="list">
+                                    <xsl:for-each select="descendant::tei:rs[@subtype = 'implied']">
+                                        <xsl:element name="item"
+                                            namespace="http://www.tei-c.org/ns/1.0">
+                                            <xsl:attribute name="ref">
+                                                <xsl:value-of select="@ref"/>
+                                            </xsl:attribute>
+                                            <xsl:value-of select="descendant::text()"/>
+                                        </xsl:element>
+                                    </xsl:for-each>
+                                    <xsl:copy-of
+                                        select="descendant::tei:rs[@subtype = 'implied']//text()"/>
+                                </xsl:element>
+                            </xsl:variable>
+                            <xsl:for-each select="$rs-implied-only/descendant::tei:item">
+                                <xsl:variable name="current-string" as="xs:string"
+                                    select="replace(., '#', '')"/>
+                                <xsl:variable name="eintrag" as="xs:string?">
+                                    <xsl:choose>
+                                        <xsl:when
+                                            test="$back/tei:listPerson[1]/tei:person[$current-string = @xml:id][1]">
+                                            <xsl:value-of select="
+                                                    $back/tei:listPerson/tei:person[@xml:id = $current-string]/tei:persName[1]/(if (tei:forename) then
+                                                        concat(tei:forename, ' ', tei:surname)
+                                                    else
+                                                        tei:surname)"
+                                            />
+                                        </xsl:when>
+                                        <xsl:when
+                                            test="$back/tei:listBibl[1]/tei:bibl[$current-string = @xml:id][1]">
+                                            <xsl:value-of select="
+                                                    $back/tei:listBibl/tei:bibl[@xml:id = $current-string]/tei:title[1]"
+                                            />
+                                        </xsl:when>
+                                        <xsl:when
+                                            test="$back/tei:listPlace[1]/tei:place[$current-string = @xml:id][1]">
+                                            <xsl:value-of select="
+                                                    $back/tei:listPlace/tei:place[@xml:id = $current-string]/tei:placeName[1]"
+                                            />
+                                        </xsl:when>
+                                        <xsl:when
+                                            test="$back/tei:listOrg[1]/tei:org[$current-string = @xml:id][1]">
+                                            <xsl:value-of select="
+                                                    $back/tei:listOrg/tei:org[@xml:id = $current-string]/tei:orgName[1]"
+                                            />
+                                        </xsl:when>
+                                    </xsl:choose>
+                                </xsl:variable>
+                                <xsl:if test="not($eintrag = '' or empty($eintrag))">
                                     <p>
                                         <span class="lemma">
-                                            <i>
-                                                <xsl:value-of select="../text()"/>
-                                                <xsl:text>] </xsl:text>
-                                            </i>
+                                            <xsl:value-of
+                                                select="$rs-implied-inhalt/descendant::tei:item[contains(@ref, $current-string)][1]"/>
+                                            <xsl:text>] </xsl:text>
                                         </span>
-                                        <xsl:value-of select="$persName"/>
+                                        <xsl:value-of select="$eintrag"/>
                                     </p>
-                                </xsl:for-each>
-                            </div>
-                        </xsl:if>
-                        <!-- Orte -->
-                        <xsl:if
-                            test="//tei:rs[@subtype = 'implied' and @type = 'place' and not(ancestor::tei:note) and not(ancestor::tei:teiHeader)][not(@ref = //tei:rs[not(@subtype = 'implied' and @type = 'place')]/@ref)][not(@ref = preceding::tei:rs[@subtype = 'implied' and @type = 'place']/@ref)]/@ref">
-                            <h5>
-                                <xsl:if test="position() = 1">
-                                    <xsl:value-of select="$place-title"/>
                                 </xsl:if>
-                            </h5>
-                            <div>
-                                <xsl:for-each
-                                    select="//tei:rs[@subtype = 'implied' and @type = 'place' and not(ancestor::tei:note) and not(ancestor::tei:teiHeader)][not(@ref = //tei:rs[not(@subtype = 'implied' and @type = 'place')]/@ref)][not(@ref = preceding::tei:rs[@subtype = 'implied' and @type = 'place']/@ref)]/@ref">
-                                    <xsl:variable name="placeName">
-                                        <xsl:value-of select="
-                                                $back/tei:listPlace/tei:place[@xml:id = substring-after(current(), '#')]/tei:placeName[1]"
-                                        />
-                                    </xsl:variable>
-                                    <p>
-                                        <span class="lemma">
-                                            <i>
-                                                <xsl:value-of select="../text()"/>
-                                                <xsl:text>] </xsl:text>
-                                            </i>
-                                        </span>
-                                        <xsl:value-of select="$placeName"/>
-                                    </p>
-                                </xsl:for-each>
-                            </div>
-                        </xsl:if>
-                        <!-- Werke -->
-                        <xsl:if
-                            test="//tei:rs[@subtype = 'implied' and @type = 'work' and not(ancestor::tei:note) and not(ancestor::tei:teiHeader)][not(@ref = //tei:rs[not(@subtype = 'implied' and @type = 'work')]/@ref)][not(@ref = preceding::tei:rs[@subtype = 'implied' and @type = 'work']/@ref)]/@ref">
-                            <h5>
-                                <xsl:if test="position() = 1">
-                                    <xsl:value-of select="$work-title"/>
-                                </xsl:if>
-                            </h5>
-                            <div>
-                                <xsl:for-each
-                                    select="//tei:rs[@subtype = 'implied' and @type = 'work' and not(ancestor::tei:note) and not(ancestor::tei:teiHeader)][not(@ref = //tei:rs[not(@subtype = 'implied' and @type = 'work')]/@ref)][not(@ref = preceding::tei:rs[@subtype = 'implied' and @type = 'work']/@ref)]/@ref">
-                                    <xsl:variable name="workName">
-                                        <xsl:value-of select="
-                                                $back/tei:listBibl/tei:bibl[@xml:id = substring-after(current(), '#')]/tei:title[1]"
-                                        />
-                                    </xsl:variable>
-                                    <p>
-                                        <span class="lemma">
-                                            <i>
-                                                <xsl:value-of select="../text()"/>
-                                                <xsl:text>] </xsl:text>
-                                            </i>
-                                        </span>
-                                        <xsl:value-of select="$workName"/>
-                                    </p>
-                                </xsl:for-each>
-                            </div>
-                        </xsl:if>
-                        <!-- Institutionen -->
-                        <xsl:if
-                            test="//tei:rs[@subtype = 'implied' and @type = 'org' and not(ancestor::tei:note) and not(ancestor::tei:teiHeader)][not(@ref = //tei:rs[not(@subtype = 'implied' and @type = 'org')]/@ref)][not(@ref = preceding::tei:rs[@subtype = 'implied' and @type = 'org']/@ref)]/@ref">
-                            <h5>
-                                <xsl:if test="position() = 1">
-                                    <xsl:value-of select="$org-title"/>
-                                </xsl:if>
-                            </h5>
-                            <div>
-                                <xsl:for-each
-                                    select="//tei:rs[@subtype = 'implied' and @type = 'org' and not(ancestor::tei:note) and not(ancestor::tei:teiHeader)][not(@ref = //tei:rs[not(@subtype = 'implied' and @type = 'org')]/@ref)][not(@ref = preceding::tei:rs[@subtype = 'implied' and @type = 'org']/@ref)]/@ref">
-                                    <xsl:variable name="orgName">
-                                        <xsl:value-of select="
-                                                $back/tei:listOrg/tei:org[@xml:id = substring-after(current(), '#')]/tei:orgName[1]"
-                                        />
-                                    </xsl:variable>
-                                    <p>
-                                        <span class="lemma">
-                                            <i>
-                                                <xsl:value-of select="../text()"/>
-                                                <xsl:text>] </xsl:text>
-                                            </i>
-                                        </span>
-                                        <xsl:value-of select="$orgName"/>
-                                    </p>
-                                </xsl:for-each>
-                            </div>
-                        </xsl:if>
+                            </xsl:for-each>
+                        </div>
                     </div>
                 </xsl:if>
                 <!-- correspDesc -->
@@ -1913,7 +1844,8 @@
                 <xsl:attribute name="class">
                     <xsl:text>work</xsl:text>
                 </xsl:attribute>
-                <xsl:if test="not(@subtype = 'implied')"><!-- implizit genannte Titel nicht kursiv -->
+                <xsl:if test="not(@subtype = 'implied')">
+                    <!-- implizit genannte Titel nicht kursiv -->
                     <xsl:attribute name="class">
                         <xsl:text>mono-title</xsl:text>
                     </xsl:attribute>
