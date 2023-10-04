@@ -218,7 +218,7 @@
                         </xsl:if>
                         <!-- Werke -->
                         <xsl:if
-                            test="//tei:rs[@subtype = 'implied' and @type = 'work'and not(ancestor::tei:note) and not(ancestor::tei:teiHeader)][not(@ref = //tei:rs[not(@subtype = 'implied' and @type = 'work')]/@ref)][not(@ref = preceding::tei:rs[@subtype = 'implied' and @type = 'work']/@ref)]/@ref">
+                            test="//tei:rs[@subtype = 'implied' and @type = 'work' and not(ancestor::tei:note) and not(ancestor::tei:teiHeader)][not(@ref = //tei:rs[not(@subtype = 'implied' and @type = 'work')]/@ref)][not(@ref = preceding::tei:rs[@subtype = 'implied' and @type = 'work']/@ref)]/@ref">
                             <h5>
                                 <xsl:if test="position() = 1">
                                     <xsl:value-of select="$work-title"/>
@@ -307,11 +307,10 @@
                                                   </xsl:when>
                                                   <xsl:otherwise>
                                                   <xsl:for-each select="tei:persName">
-                                                  <xsl:value-of select="mam:vorname-vor-nachname(.)"
-                                                  />
-                                                      <xsl:if test="not(fn:position()=last())">
-                                                          <br/>
-                                                      </xsl:if>
+                                                  <xsl:value-of select="mam:vorname-vor-nachname(.)"/>
+                                                  <xsl:if test="not(fn:position() = last())">
+                                                  <br/>
+                                                  </xsl:if>
                                                   </xsl:for-each>
                                                   </xsl:otherwise>
                                                   </xsl:choose>
@@ -1143,7 +1142,9 @@
                 <xsl:choose>
                     <xsl:when test="handNote/@corresp = 'schreibkraft'">
                         <dl>
-                            <dt class="correspDesc"><xsl:text>Handschrift einer Schreibkraft: </xsl:text></dt>
+                            <dt class="correspDesc">
+                                <xsl:text>Handschrift einer Schreibkraft: </xsl:text>
+                            </dt>
                             <dd>
                                 <xsl:value-of select="mam:handNote(tei:handNote)"/>
                             </dd>
@@ -1153,7 +1154,10 @@
                         <xsl:variable name="sender"
                             select="ancestor::tei:teiHeader[1]/tei:profileDesc[1]/tei:correspDesc[1]/tei:correspAction[@type = 'sent']/tei:persName[@ref = tei:handNote/@corresp]"/>
                         <dl>
-                            <dt class="correspDesc"><xsl:text>Handschrift </xsl:text><xsl:value-of select="$sender"/><xsl:text>: </xsl:text>
+                            <dt class="correspDesc">
+                                <xsl:text>Handschrift </xsl:text>
+                                <xsl:value-of select="$sender"/>
+                                <xsl:text>: </xsl:text>
                             </dt>
                             <dd>
                                 <xsl:value-of select="mam:handNote(tei:handNote)"/>
@@ -1173,8 +1177,10 @@
                     <xsl:choose>
                         <xsl:when test="count($handDesc-v/tei:handNote[@corresp = $corespi]) = 1">
                             <dl>
-                                <dt class="correspDesc"><xsl:text>Handschrift </xsl:text><xsl:value-of
-                                        select="mam:vorname-vor-nachname($corespi-name)"/><xsl:text>: </xsl:text>
+                                <dt class="correspDesc">
+                                    <xsl:text>Handschrift </xsl:text>
+                                    <xsl:value-of select="mam:vorname-vor-nachname($corespi-name)"/>
+                                    <xsl:text>: </xsl:text>
                                 </dt>
                                 <dd>
                                     <xsl:value-of
@@ -1188,8 +1194,11 @@
                                 <dl>
                                     <xsl:choose>
                                         <xsl:when test="position() = 1">
-                                            <dt class="correspDesc"><xsl:text>Handschrift </xsl:text><xsl:value-of
-                                                  select="mam:vorname-vor-nachname($corespi-name)"/><xsl:text>: </xsl:text>
+                                            <dt class="correspDesc">
+                                                <xsl:text>Handschrift </xsl:text>
+                                                <xsl:value-of
+                                                  select="mam:vorname-vor-nachname($corespi-name)"/>
+                                                <xsl:text>: </xsl:text>
                                             </dt>
                                         </xsl:when>
                                         <xsl:otherwise>
@@ -1904,9 +1913,11 @@
                 <xsl:attribute name="class">
                     <xsl:text>work</xsl:text>
                 </xsl:attribute>
-                <xsl:attribute name="class">
-                    <xsl:text>mono-title</xsl:text>
-                </xsl:attribute>
+                <xsl:if test="not(@subtype = 'implied')"><!-- implizit genannte Titel nicht kursiv -->
+                    <xsl:attribute name="class">
+                        <xsl:text>mono-title</xsl:text>
+                    </xsl:attribute>
+                </xsl:if>
             </xsl:if>
             <xsl:apply-templates/>
         </span>
