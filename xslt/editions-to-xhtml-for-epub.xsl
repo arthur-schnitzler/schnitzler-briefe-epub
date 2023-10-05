@@ -94,7 +94,8 @@
                     </div>
                 </xsl:if>
                 <!-- nicht explizit erwähnte Entitäten -->
-                <xsl:variable name="back" select="//tei:back"/>
+                <xsl:variable name="back"
+                    select="descendant::tei:*[ancestor-or-self::tei:back[1]] except tei:person[tei:persName/tei:surname[fn:starts-with(., '??')]]"/>
                 <xsl:variable name="rs-not-implied">
                     <xsl:element name="list" namespace="http://www.tei-c.org/ns/1.0">
                         <xsl:for-each
@@ -131,31 +132,21 @@
                     </xsl:element>
                 </xsl:variable>
                 <xsl:if test="$rs-implied-only/descendant::tei:item">
-                    <div class="implied-entities smaller-font">
-                        <xsl:choose>
-                            <xsl:when test="$rs-implied-only/tei:list/tei:item[2]">
-                                <h4>Implizite Erwähnungen</h4>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <h4>Implizite Erwähnung</h4>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                        <div>
-                            <xsl:variable name="rs-implied-inhalt" as="node()?">
-                                <xsl:element name="list">
-                                    <xsl:for-each select="descendant::tei:rs[@subtype = 'implied']">
-                                        <xsl:element name="item"
-                                            namespace="http://www.tei-c.org/ns/1.0">
-                                            <xsl:attribute name="ref">
-                                                <xsl:value-of select="@ref"/>
-                                            </xsl:attribute>
-                                            <xsl:value-of select="descendant::text()"/>
-                                        </xsl:element>
-                                    </xsl:for-each>
-                                    <xsl:copy-of
-                                        select="descendant::tei:rs[@subtype = 'implied']//text()"/>
+                    <xsl:variable name="rs-implied-inhalt" as="node()?">
+                        <xsl:element name="list">
+                            <xsl:for-each select="descendant::tei:rs[@subtype = 'implied']">
+                                <xsl:element name="item" namespace="http://www.tei-c.org/ns/1.0">
+                                    <xsl:attribute name="ref">
+                                        <xsl:value-of select="@ref"/>
+                                    </xsl:attribute>
+                                    <xsl:value-of select="descendant::text()"/>
                                 </xsl:element>
-                            </xsl:variable>
+                            </xsl:for-each>
+                            <xsl:copy-of select="descendant::tei:rs[@subtype = 'implied']//text()"/>
+                        </xsl:element>
+                    </xsl:variable>
+                    <xsl:variable name="eintrag-ohne-unbekannte" as="node()">
+                        <xsl:element name="list" namespace="http://www.tei-c.org/ns/1.0">
                             <xsl:for-each select="$rs-implied-only/descendant::tei:item">
                                 <xsl:variable name="current-string" as="xs:string"
                                     select="replace(., '#', '')"/>
@@ -190,20 +181,49 @@
                                         </xsl:when>
                                     </xsl:choose>
                                 </xsl:variable>
-                                <xsl:if test="not($eintrag = '' or empty($eintrag))">
-                                    <p>
-                                        <span class="lemma">
-                                            <i><xsl:value-of
-                                                  select="$rs-implied-inhalt/descendant::tei:item[contains(@ref, $current-string)][1]"
-                                                /></i>
-                                            <xsl:text>] </xsl:text>
-                                        </span>
-                                        <xsl:value-of select="$eintrag"/>
-                                    </p>
+                                <xsl:if
+                                    test="not($eintrag = '' or empty($eintrag) or starts-with($eintrag, '??')) and not(starts-with($rs-implied-inhalt/descendant::tei:item[contains(@ref, $current-string)][1], '??'))">
+                                    <xsl:element name="item" namespace="http://www.tei-c.org/ns/1.0">
+                                        <xsl:element name="span"
+                                            namespace="http://www.tei-c.org/ns/1.0">
+                                            <xsl:value-of
+                                                select="$rs-implied-inhalt/descendant::tei:item[contains(@ref, $current-string)][1]"
+                                            />
+                                        </xsl:element>
+                                        <xsl:element name="desc"
+                                            namespace="http://www.tei-c.org/ns/1.0">
+                                            <xsl:value-of select="$eintrag"/>
+                                        </xsl:element>
+                                    </xsl:element>
                                 </xsl:if>
                             </xsl:for-each>
+                        </xsl:element>
+                    </xsl:variable>
+                    <xsl:if test="$eintrag-ohne-unbekannte/tei:item[1]">
+                        <div class="implied-entities smaller-font">
+                            <xsl:choose>
+                                <xsl:when test="$eintrag-ohne-unbekannte/tei:item[2]">
+                                    <h4>Implizite Erwähnungen</h4>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <h4>Implizite Erwähnung</h4>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                            <div>
+                                <xsl:for-each select="$eintrag-ohne-unbekannte/tei:item">
+                                    <p>
+                                        <span class="lemma">
+                                            <i>
+                                                <xsl:value-of select="tei:span"/>
+                                            </i>
+                                            <xsl:text>] </xsl:text>
+                                        </span>
+                                        <xsl:value-of select="tei:desc"/>
+                                    </p>
+                                </xsl:for-each>
+                            </div>
                         </div>
-                    </div>
+                    </xsl:if>
                 </xsl:if>
                 <!-- correspDesc -->
                 <div class="correspDesc smaller-font">
@@ -1064,7 +1084,8 @@
                 test="not(child::tei:handNote[2]) and (ancestor::tei:teiHeader[1]/tei:profileDesc[1]/tei:correspDesc[1]/tei:correspAction[@type = 'sent']/tei:persName/@ref = child::tei:handNote/@corresp)">
                 <p>
                     <i>
-                        <xsl:text>Handschrift: </xsl:text></i>
+                        <xsl:text>Handschrift: </xsl:text>
+                    </i>
                     <xsl:value-of select="mam:handNote(tei:handNote)"/>
                 </p>
             </xsl:when>
@@ -1072,7 +1093,8 @@
             <xsl:when test="not(child::tei:handNote[2]) and not(tei:handNote/@corresp)">
                 <p>
                     <i>
-                        <xsl:text>Handschrift: </xsl:text></i>
+                        <xsl:text>Handschrift: </xsl:text>
+                    </i>
                     <xsl:value-of select="mam:handNote(tei:handNote)"/>
                 </p>
             </xsl:when>
