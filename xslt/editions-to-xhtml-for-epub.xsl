@@ -439,12 +439,15 @@
                     </p>
                 </xsl:if>
                 <xsl:if test="descendant::tei:physDesc">
-                    <p>
-                        <i>
-                            <xsl:text>Beschreibung: </xsl:text>
-                        </i>
-                        <xsl:apply-templates select="tei:msDesc/tei:physDesc/tei:objectDesc"/>
-                    </p>
+                    <xsl:if test="//tei:measure[not(@unit = 'karte' or 'kartenbrief' or 'widmung') and @quantity = '1']">
+                        <!-- bei Karten, Kartenbriefen und Widmungen nur wenn mehr als 1 Stück -->
+                        <p>
+                            <i>
+                                <xsl:text>Beschreibung: </xsl:text>
+                            </i>
+                            <xsl:apply-templates select="tei:msDesc/tei:physDesc/tei:objectDesc"/>
+                        </p>
+                    </xsl:if>
                     <xsl:if test="tei:msDesc/tei:physDesc/tei:typeDesc">
                         <xsl:apply-templates select="tei:msDesc/tei:physDesc/tei:typeDesc"/>
                     </xsl:if>
@@ -1248,7 +1251,7 @@
                     </xsl:when>
                 </xsl:choose>
             </xsl:when>
-            <!-- ab hier ist nurmehr @corresp zu berücksichtigen, alle @ana-Fälle sind erledigt -->
+            <!-- ab hier ist nurmehr @unit zu berücksichtigen, alle @ana-Fälle sind erledigt -->
             <xsl:when test="@corresp = 'anderes'">
                 <xsl:text>Sonderfall</xsl:text>
             </xsl:when>
