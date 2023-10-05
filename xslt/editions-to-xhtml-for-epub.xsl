@@ -91,7 +91,6 @@
                         <xsl:apply-templates
                             select="//tei:note[@type = 'textConst' or @type = 'commentary']"
                             mode="kommentaranhang"/>
-                        <br/>
                     </div>
                 </xsl:if>
                 <!-- nicht explizit erwähnte Entitäten -->
