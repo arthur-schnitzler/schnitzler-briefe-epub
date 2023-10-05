@@ -38,9 +38,6 @@ python remove-tei-files.py
 ```
 ant -f create-tocs.xml
 ```
-
-If you encounter problems with this, please run the XSL transformations one by one as described in the document.
-
 - Create the EPUB by running
 ```
 zip -rX out/schnitzler-briefe.epub mimetype META-INF/ OEBPS/ -x "*.DS_Store" -x "README.md" -x "epubcheck.jar" -x "lib" -x "out" -x "obsolete" -x "xslt" -x ".gitignore" -x ".git" -x ".github" -x "fetch-data.sh" -x "remove-unapproved-files.py" -x "remove-empty-namespace-declarations.py" -x "remove-tei-files.py" -x "requirements.txt" -x "shellscripts" -x "editions-to-epub.xml" -x "create-tocs.xml" -x "LICENSE"
