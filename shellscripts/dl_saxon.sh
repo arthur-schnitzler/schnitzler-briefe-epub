@@ -1,3 +1,5 @@
 #!/bin/bash
 echo "downloading saxon"
-wget https://sourceforge.net/projects/saxon/files/Saxon-HE/9.9/SaxonHE9-9-1-7J.zip/download && unzip download -d saxon && rm -rf download
+wget https://github.com/Saxonica/Saxon-HE/releases/download/SaxonHE11-6/SaxonHE11-6J.zip
+unzip SaxonHE11-6J.zip -d saxon
+rm -rf SaxonHE11-6J.zip

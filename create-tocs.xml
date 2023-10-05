@@ -30,7 +30,7 @@
     <xslt style="./xslt/create-content.xsl" destdir="${contentTmp}" basedir="${contentDir}"
         includes="content.opf" extension=".opf">
         <factory name="net.sf.saxon.TransformerFactoryImpl"/>
-        <classpath location="./saxon/saxon9he.jar"/>
+        <classpath location="./saxon/saxon-he-11.6.jar"/>
     </xslt>
     <move todir="${contentDir}">
         <fileset dir="${contentTmp}"/>
@@ -41,7 +41,7 @@
     <xslt style="./xslt/create-inhaltsverzeichnis-1.xsl" destdir="${inhaltsverzeichnisTmp}"
         basedir="${contentDir}" includes="inhaltsverzeichnis.ncx" extension=".ncx">
         <factory name="net.sf.saxon.TransformerFactoryImpl"/>
-        <classpath location="./saxon/saxon9he.jar"/>
+        <classpath location="./saxon/saxon-he-11.6.jar"/>
     </xslt>
     <move todir="${contentDir}">
         <fileset dir="${inhaltsverzeichnisTmp}"/>
@@ -53,7 +53,7 @@
     <xslt style="./xslt/create-inhaltsverzeichnis-2.xsl" destdir="${inhaltsverzeichnisTmp}"
         basedir="${contentDir}" includes="inhaltsverzeichnis.ncx" extension=".ncx">
         <factory name="net.sf.saxon.TransformerFactoryImpl"/>
-        <classpath location="./saxon/saxon9he.jar"/>
+        <classpath location="./saxon/saxon-he-11.6.jar"/>
     </xslt>
     <move todir="${contentDir}">
         <fileset dir="${inhaltsverzeichnisTmp}"/>
@@ -64,7 +64,7 @@
     <xslt style="./xslt/create-titel.xsl" destdir="${titelTmp}" basedir="${textDir}"
         includes="titel.xhtml" extension=".xhtml">
         <factory name="net.sf.saxon.TransformerFactoryImpl"/>
-        <classpath location="./saxon/saxon9he.jar"/>
+        <classpath location="./saxon/saxon-he-11.6.jar"/>
     </xslt>
     <move todir="${textDir}">
         <fileset dir="${titelTmp}"/>
@@ -75,7 +75,7 @@
     <xslt style="./xslt/create-toc-years-1.xsl" destdir="${toc-yearsTmp}" basedir="${textDir}"
         includes="toc-years.xhtml" extension=".xhtml">
         <factory name="net.sf.saxon.TransformerFactoryImpl"/>
-        <classpath location="./saxon/saxon9he.jar"/>
+        <classpath location="./saxon/saxon-he-11.6.jar"/>
     </xslt>
     <move todir="${textDir}">
         <fileset dir="${toc-yearsTmp}"/>
@@ -87,7 +87,7 @@
     <xslt style="./xslt/create-toc-years-2.xsl" destdir="${toc-yearsTmp}" basedir="${textDir}"
         includes="toc-years.xhtml" extension=".xhtml">
         <factory name="net.sf.saxon.TransformerFactoryImpl"/>
-        <classpath location="./saxon/saxon9he.jar"/>
+        <classpath location="./saxon/saxon-he-11.6.jar"/>
     </xslt>
     <move todir="${textDir}">
         <fileset dir="${toc-yearsTmp}"/>
@@ -98,7 +98,7 @@
     <xslt style="./xslt/create-inhalt.xsl" destdir="${inhaltTmp}" basedir="${textDir}"
         includes="inhalt.xhtml" extension=".xhtml">
         <factory name="net.sf.saxon.TransformerFactoryImpl"/>
-        <classpath location="./saxon/saxon9he.jar"/>
+        <classpath location="./saxon/saxon-he-11.6.jar"/>
     </xslt>
     <move todir="${textDir}">
         <fileset dir="${inhaltTmp}"/>

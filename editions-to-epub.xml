@@ -13,7 +13,7 @@
     <xslt style="./xslt/editions-to-xhtml-for-epub.xsl" destdir="${tmpDir}" basedir="${editions}"
         includes="L0*.xml" extension=".xml">
         <factory name="net.sf.saxon.TransformerFactoryImpl"/>
-        <classpath location="./saxon/saxon9he.jar"/>
+        <classpath location="./saxon/saxon-he-11.6.jar"/>
     </xslt>
 
     <!-- move transformed files and rename them to xhtml -->
