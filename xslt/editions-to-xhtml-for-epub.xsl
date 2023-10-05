@@ -439,7 +439,8 @@
                     </p>
                 </xsl:if>
                 <xsl:if test="descendant::tei:physDesc">
-                    <xsl:if test="//tei:measure[not(@unit = 'karte' or 'kartenbrief' or 'widmung') and @quantity = '1']">
+                    <xsl:if
+                        test="//tei:measure[not(@unit = 'karte' or 'kartenbrief' or 'widmung') and @quantity = '1']">
                         <!-- bei Karten, Kartenbriefen und Widmungen nur wenn mehr als 1 Stück -->
                         <p>
                             <i>
@@ -1060,6 +1061,17 @@
     </xsl:template>
     <xsl:template match="tei:handDesc">
         <xsl:choose>
+            <!-- Nur eine Handschrift von Autor/Autorin, aber mit @corresp angegeben (Sonderfall) -->
+            <xsl:when
+                test="not(child::tei:handNote[2]) and (ancestor::tei:teiHeader[1]/tei:profileDesc[1]/tei:correspDesc[1]/tei:correspAction[@type = 'sent']/tei:persName/@ref = child::tei:handNote/@corresp)">
+                <p>
+                    <i>
+                        <xsl:text>Handschrift</xsl:text>
+                    </i>
+                    <xsl:text>: </xsl:text>
+                    <xsl:value-of select="mam:handNote(tei:handNote)"/>
+                </p>
+            </xsl:when>
             <!-- Nur eine Handschrift, diese demnach vom Autor/der Autorin: -->
             <xsl:when test="not(child::tei:handNote[2]) and not(tei:handNote/@corresp)">
                 <p>
@@ -1073,7 +1085,7 @@
             <!-- Nur eine Handschrift, diese nicht vom Autor/der Autorin: -->
             <xsl:when test="not(child::tei:handNote[2]) and (tei:handNote/@corresp)">
                 <xsl:choose>
-                    <xsl:when test="handNote/@corresp = 'schreibkraft'">
+                    <xsl:when test="tei:handNote/@corresp = 'schreibkraft'">
                         <dl>
                             <dt class="correspDesc">
                                 <xsl:text>Handschrift einer Schreibkraft: </xsl:text>
