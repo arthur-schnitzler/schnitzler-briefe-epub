@@ -440,7 +440,7 @@
                 </xsl:if>
                 <xsl:if test="descendant::tei:physDesc">
                     <xsl:if
-                        test="//tei:measure[not(@unit = 'karte' or 'kartenbrief' or 'widmung') and @quantity = '1']">
+                        test="//tei:extent[child::tei:measure[not(@unit = 'karte' or @unit = 'kartenbrief' or @unit = 'widmung') and @quantity = '1']]">
                         <!-- bei Karten, Kartenbriefen und Widmungen nur wenn mehr als 1 Stück -->
                         <p>
                             <i>
@@ -977,7 +977,7 @@
             select="count(parent::tei:incident/preceding-sibling::tei:incident[@type = 'additional-information'])"/>
         <xsl:choose>
             <xsl:when test="$poschitzion &gt; 0">
-<!--                <dt/>-->
+                <!--                <dt/>-->
                 <dd>
                     <xsl:value-of select="$poschitzion + 1"/>
                     <xsl:text>) </xsl:text>
