@@ -2214,7 +2214,8 @@
         </xsl:choose>
     </xsl:template>
     <xsl:template
-        match="tei:ref[@type = 'schnitzler-briefe' or @type = 'schnitzler-bahr' or @type = 'schnitzler-lektueren' or @type='schnitzler-interviews']">
+        match="tei:ref[@type = 'schnitzler-briefe' or @type = 'schnitzler-bahr' or @type = 'schnitzler-lektueren' or @type='schnitzler-interviews']"/>
+    <!--
         <xsl:variable name="type-url" as="xs:string">
             <xsl:choose>
                 <xsl:when test="@type = 'schnitzler-briefe'">
@@ -2317,7 +2318,7 @@
                 </a>
             </xsl:otherwise>
         </xsl:choose>
-    </xsl:template>
+    </xsl:template>-->
     <!-- c -->
     <xsl:template match="tei:c[@rendition = '#kaufmannsund']">
         <xsl:text>&amp;</xsl:text>
