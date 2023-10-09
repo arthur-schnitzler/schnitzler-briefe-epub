@@ -6,8 +6,6 @@ The GitHub-Action "Create EPUB" fetches data from https://github.com/arthur-schn
 
 With these XHTML files it produces an E-Book of all correspondences that have the status "approved".
 
-The GitHub-Action is currently in development, so please work manually.
-
 ## If working manually
 Reproduce the workflow defined here: https://github.com/arthur-schnitzler/schnitzler-briefe-epub/blob/main/.github/workflows/epub.yaml
 
