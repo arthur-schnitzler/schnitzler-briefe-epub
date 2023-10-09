@@ -24656,18 +24656,7 @@
          <content src="texts/L02049.xhtml"></content>
          </navPoint>
       
-      <navPoint id="L03052" playOrder="2430">
-         
-         <navLabel>
-            
-            <text>Felix Salten: Widmungsexemplar Wurstelprater für Arthur Schnitzler,
-               12. 12. 1911</text>
-            </navLabel>
-         
-         <content src="texts/L03052.xhtml"></content>
-         </navPoint>
-      
-      <navPoint id="L03053" playOrder="2431">
+      <navPoint id="L03053" playOrder="2430">
          
          <navLabel>
             
@@ -24676,6 +24665,17 @@
             </navLabel>
          
          <content src="texts/L03053.xhtml"></content>
+         </navPoint>
+      
+      <navPoint id="L03052" playOrder="2431">
+         
+         <navLabel>
+            
+            <text>Felix Salten: Widmungsexemplar Wurstelprater für Arthur Schnitzler,
+               12. 12. 1911</text>
+            </navLabel>
+         
+         <content src="texts/L03052.xhtml"></content>
          </navPoint>
       
       <navPoint id="L02566" playOrder="2432">
@@ -29538,18 +29538,7 @@
          <content src="texts/L02502.xhtml"></content>
          </navPoint>
       
-      <navPoint id="L03044" playOrder="2912">
-         
-         <navLabel>
-            
-            <text>Felix Salten: Widmungsexemplar Der Schrei der Liebe für Arthur Schnitzler,
-               Juli 1928</text>
-            </navLabel>
-         
-         <content src="texts/L03044.xhtml"></content>
-         </navPoint>
-      
-      <navPoint id="L03045" playOrder="2913">
+      <navPoint id="L03045" playOrder="2912">
          
          <navLabel>
             
@@ -29558,6 +29547,17 @@
             </navLabel>
          
          <content src="texts/L03045.xhtml"></content>
+         </navPoint>
+      
+      <navPoint id="L03044" playOrder="2913">
+         
+         <navLabel>
+            
+            <text>Felix Salten: Widmungsexemplar Der Schrei der Liebe für Arthur Schnitzler,
+               Juli 1928</text>
+            </navLabel>
+         
+         <content src="texts/L03044.xhtml"></content>
          </navPoint>
       
       <navPoint id="L02503" playOrder="2914">
