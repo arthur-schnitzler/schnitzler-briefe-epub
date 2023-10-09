@@ -2241,10 +2241,9 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
-        <xsl:value-of select="$type-url"/>
-        <xsl:value-of select="$ref-mit-endung"/>
-        <!--<xsl:choose>
-            <xsl:when test="@subtype = 'date-only'">
+        <xsl:choose>
+            <xsl:when test="@subtype = 'date-only'"/>
+            <!--<xsl:when test="@subtype = 'date-only'">
                 <a>
                     <xsl:attribute name="class">reference-black</xsl:attribute>
                     <xsl:attribute name="href">
@@ -2270,7 +2269,7 @@
                         
                     </xsl:choose>
                 </a>
-            </xsl:when>
+            </xsl:when>-->
             <xsl:otherwise>
                 <xsl:choose>
                     <xsl:when test="@subtype = 'See'">
@@ -2318,7 +2317,7 @@
                     
                 </a>
             </xsl:otherwise>
-        </xsl:choose>-->
+        </xsl:choose>
     </xsl:template>
     <!-- c -->
     <xsl:template match="tei:c[@rendition = '#kaufmannsund']">
