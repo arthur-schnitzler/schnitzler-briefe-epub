@@ -2214,8 +2214,7 @@
         </xsl:choose>
     </xsl:template>
     <xsl:template
-        match="tei:ref[@type = 'schnitzler-briefe' or @type = 'schnitzler-bahr' or @type = 'schnitzler-lektueren' or @type='schnitzler-interviews']"/>
-    <!--
+        match="tei:ref[@type = 'schnitzler-briefe' or @type = 'schnitzler-bahr' or @type = 'schnitzler-lektueren' or @type='schnitzler-interviews']">
         <xsl:variable name="type-url" as="xs:string">
             <xsl:choose>
                 <xsl:when test="@type = 'schnitzler-briefe'">
@@ -2242,7 +2241,9 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
-        <xsl:choose>
+        <xsl:value-of select="$type-url"/>
+        <xsl:value-of select="$ref-mit-endung"/>
+        <!--<xsl:choose>
             <xsl:when test="@subtype = 'date-only'">
                 <a>
                     <xsl:attribute name="class">reference-black</xsl:attribute>
@@ -2317,8 +2318,8 @@
                     
                 </a>
             </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>-->
+        </xsl:choose>-->
+    </xsl:template>
     <!-- c -->
     <xsl:template match="tei:c[@rendition = '#kaufmannsund']">
         <xsl:text>&amp;</xsl:text>
