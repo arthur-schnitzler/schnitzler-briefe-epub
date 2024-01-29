@@ -876,6 +876,7 @@
                 <dd>
                     <xsl:value-of select="$poschitzion + 1"/>
                     <xsl:text>) </xsl:text>
+                    <xsl:value-of select="mam:incident-rend(parent::tei:incident/@rend)"/>
                     <xsl:apply-templates/>
                 </dd>
             </xsl:when>
@@ -883,6 +884,7 @@
                 test="$poschitzion = 0 and not(parent::tei:incident/following-sibling::tei:incident[@type = 'supplement'])">
                 <dt>Beilage</dt>
                 <dd>
+                    <xsl:value-of select="mam:incident-rend(parent::tei:incident/@rend)"/>
                     <xsl:apply-templates/>
                 </dd>
             </xsl:when>
@@ -892,6 +894,7 @@
                 <dd>
                     <xsl:value-of select="$poschitzion + 1"/>
                     <xsl:text>) </xsl:text>
+                    <xsl:value-of select="mam:incident-rend(parent::tei:incident/@rend)"/>
                     <xsl:apply-templates/>
                 </dd>
             </xsl:when>
@@ -903,6 +906,7 @@
         <xsl:choose>
             <xsl:when test="$poschitzion &gt; 0">
                 <dd>
+                    <xsl:value-of select="mam:incident-rend(parent::tei:incident/@rend)"/>
                     <xsl:apply-templates/>
                 </dd>
             </xsl:when>
@@ -912,6 +916,7 @@
                     <xsl:text>Versand</xsl:text>
                 </dt>
                 <dd>
+                    <xsl:value-of select="mam:incident-rend(parent::tei:incident/@rend)"/>
                     <xsl:apply-templates/>
                 </dd>
             </xsl:when>
@@ -921,6 +926,7 @@
                     <xsl:text>Versand</xsl:text>
                 </dt>
                 <dd>
+                    <xsl:value-of select="mam:incident-rend(parent::tei:incident/@rend)"/>
                     <xsl:apply-templates/>
                 </dd>
             </xsl:when>
@@ -936,6 +942,7 @@
                 <dd>
                     <xsl:value-of select="$poschitzion + 1"/>
                     <xsl:text>) </xsl:text>
+                    <xsl:value-of select="mam:incident-rend(parent::tei:incident/@rend)"/>
                     <xsl:apply-templates/>
                 </dd>
             </xsl:when>
@@ -947,6 +954,7 @@
                 <dd>
                     <xsl:value-of select="$poschitzion + 1"/>
                     <xsl:text>) </xsl:text>
+                    <xsl:value-of select="mam:incident-rend(parent::tei:incident/@rend)"/>
                     <xsl:apply-templates/>
                 </dd>
             </xsl:when>
@@ -955,6 +963,7 @@
                     <xsl:value-of select="$receiver"/>
                 </dt>
                 <dd>
+                    <xsl:value-of select="mam:incident-rend(parent::tei:incident/@rend)"/>
                     <xsl:apply-templates/>
                 </dd>
             </xsl:otherwise>
@@ -968,6 +977,7 @@
                 <dd>
                     <xsl:value-of select="$poschitzion + 1"/>
                     <xsl:text>) </xsl:text>
+                    <xsl:value-of select="mam:incident-rend(parent::tei:incident/@rend)"/>
                     <xsl:apply-templates/>
                 </dd>
             </xsl:when>
@@ -977,6 +987,7 @@
                     <xsl:text>Ordnung</xsl:text>
                 </dt>
                 <dd>
+                    <xsl:value-of select="mam:incident-rend(parent::tei:incident/@rend)"/>
                     <xsl:apply-templates/>
                 </dd>
             </xsl:when>
@@ -988,6 +999,7 @@
                 <dd>
                     <xsl:value-of select="$poschitzion + 1"/>
                     <xsl:text>) </xsl:text>
+                    <xsl:value-of select="mam:incident-rend(parent::tei:incident/@rend)"/>
                     <xsl:apply-templates/>
                 </dd>
             </xsl:when>
@@ -1002,6 +1014,7 @@
                 <dd>
                     <xsl:value-of select="$poschitzion + 1"/>
                     <xsl:text>) </xsl:text>
+                    <xsl:value-of select="mam:incident-rend(parent::tei:incident/@rend)"/>
                     <xsl:apply-templates/>
                 </dd>
             </xsl:when>
@@ -1011,6 +1024,7 @@
                     <xsl:text>Zusatz</xsl:text>
                 </dt>
                 <dd>
+                    <xsl:value-of select="mam:incident-rend(parent::tei:incident/@rend)"/>
                     <xsl:apply-templates/>
                 </dd>
             </xsl:when>
@@ -1022,6 +1036,7 @@
                 <dd>
                     <xsl:value-of select="$poschitzion + 1"/>
                     <xsl:text>) </xsl:text>
+                    <xsl:value-of select="mam:incident-rend(parent::tei:incident/@rend)"/>
                     <xsl:apply-templates/>
                 </dd>
             </xsl:when>
@@ -1036,6 +1051,7 @@
                 <dd>
                     <xsl:value-of select="$poschitzion + 1"/>
                     <xsl:text>) </xsl:text>
+                    <xsl:value-of select="mam:incident-rend(parent::tei:incident/@rend)"/>
                     <xsl:apply-templates/>
                 </dd>
             </xsl:when>
@@ -1043,6 +1059,7 @@
                 test="$poschitzion = 0 and not(parent::tei:incident/following-sibling::tei:incident[@type = 'editorial'])">
                 <dt class="correspDesc">Editorischer Hinweis</dt>
                 <dd>
+                    <xsl:value-of select="mam:incident-rend(parent::tei:incident/@rend)"/>
                     <xsl:apply-templates/>
                 </dd>
             </xsl:when>
@@ -1052,30 +1069,32 @@
                 <dd>
                     <xsl:value-of select="$poschitzion + 1"/>
                     <xsl:text>) </xsl:text>
+                    <xsl:value-of select="mam:incident-rend(parent::tei:incident/@rend)"/>
                     <xsl:apply-templates/>
                 </dd>
             </xsl:when>
         </xsl:choose>
     </xsl:template>
     <xsl:template match="tei:typeDesc">
-        <li>
+        <p><i>Typografie: </i>
             <xsl:apply-templates/>
-        </li>
+        </p>
     </xsl:template>
-    <xsl:template match="tei:typeDesc/tei:p">
-        <dl>
-            <xsl:choose>
-                <xsl:when test="not(preceding-sibling::tei:p)">
-                    <dt>Typografie</dt>
-                </xsl:when>
-                <xsl:otherwise>
-                    <dt/>
-                </xsl:otherwise>
-            </xsl:choose>
-            <dd>
-                <xsl:apply-templates/>
-            </dd>
-        </dl>
+    <xsl:template match="tei:typeDesc/tei:typeNote">
+        <xsl:choose>
+            <xsl:when test="@medium = 'schreibmaschine'">
+                <xsl:text>Schreibmaschine</xsl:text>
+            </xsl:when>
+            <xsl:when test="@medium = 'maschinell'">
+                <xsl:text>maschinell</xsl:text>
+            </xsl:when>
+            <xsl:when test="@medium = 'druck'">
+                <xsl:text>Druck</xsl:text>
+            </xsl:when>
+            <xsl:when test="@medium = 'anderes'">
+                <xsl:apply-templates select="child::tei:p/node()"/>
+            </xsl:when>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="tei:handDesc">
         <xsl:choose>
@@ -2214,7 +2233,7 @@
         </xsl:choose>
     </xsl:template>
     <xsl:template
-        match="tei:ref[@type = 'schnitzler-briefe' or @type = 'schnitzler-bahr' or @type = 'schnitzler-lektueren' or @type='schnitzler-interviews']">
+        match="tei:ref[@type = 'schnitzler-briefe' or @type = 'schnitzler-bahr' or @type = 'schnitzler-lektueren' or @type = 'schnitzler-interviews']">
         <xsl:variable name="type-url" as="xs:string">
             <xsl:choose>
                 <xsl:when test="@type = 'schnitzler-briefe'">
@@ -2257,7 +2276,7 @@
                         </xsl:when>
                         <xsl:when test="@type = 'schnitzler-interviews'">
                             <xsl:value-of
-                                select="document(concat('https://raw.githubusercontent.com/arthur-schnitzler/schnitzler-interviews-static/main/data/editions/', replace($ref-mit-endung, '.xhtml', '.xml')))/descendant::tei:titleStmt[1]/tei:title[@type='iso-date'][1]/text()"
+                                select="document(concat('https://raw.githubusercontent.com/arthur-schnitzler/schnitzler-interviews-static/main/data/editions/', replace($ref-mit-endung, '.xhtml', '.xml')))/descendant::tei:titleStmt[1]/tei:title[@type = 'iso-date'][1]/text()"
                             />
                         </xsl:when>
                         <xsl:when test="@type = 'schnitzler-bahr'">
@@ -2265,8 +2284,8 @@
                                 select="document(concat($type-url, replace($ref-mit-endung, '.xhtml', '.xml')))/descendant::tei:dateSender[1]/tei:date[1]/text()"
                             />
                         </xsl:when>
-                        
-                        
+
+
                     </xsl:choose>
                 </a>
             </xsl:when>
@@ -2293,16 +2312,22 @@
                     <xsl:variable name="dateiname-xml" as="xs:string?">
                         <xsl:choose>
                             <xsl:when test="@type = 'schnitzler-briefe'">
-                                <xsl:value-of select="concat('https://raw.githubusercontent.com/arthur-schnitzler/schnitzler-briefe-data/main/data/editions/', replace($ref-mit-endung, '.xhtml', '.xml'))"/>
+                                <xsl:value-of
+                                    select="concat('https://raw.githubusercontent.com/arthur-schnitzler/schnitzler-briefe-data/main/data/editions/', replace($ref-mit-endung, '.xhtml', '.xml'))"
+                                />
                             </xsl:when>
                             <xsl:when test="@type = 'schnitzler-bahr'">
-                                <xsl:value-of select="concat('https://raw.githubusercontent.com/arthur-schnitzler/schnitzler-bahr-data/main/data/editions/', replace($ref-mit-endung, '.xhtml', '.xml'))"/>
+                                <xsl:value-of
+                                    select="concat('https://raw.githubusercontent.com/arthur-schnitzler/schnitzler-bahr-data/main/data/editions/', replace($ref-mit-endung, '.xhtml', '.xml'))"
+                                />
                             </xsl:when>
                             <xsl:when test="@type = 'schnitzler-lektueren'">
-                                <xsl:value-of select="concat('https://raw.githubusercontent.com/arthur-schnitzler/schnitzler-lektueren/main/data/editions/', replace($ref-mit-endung, '.xhtml', '.xml'))"/>
+                                <xsl:value-of
+                                    select="concat('https://raw.githubusercontent.com/arthur-schnitzler/schnitzler-lektueren/main/data/editions/', replace($ref-mit-endung, '.xhtml', '.xml'))"
+                                />
                             </xsl:when>
                         </xsl:choose>
-                        
+
                     </xsl:variable>
                     <xsl:choose>
                         <xsl:when test="document($dateiname-xml)/child::*[1]">
@@ -2314,7 +2339,7 @@
                             <xsl:value-of select="$dateiname-xml"/>
                         </xsl:otherwise>
                     </xsl:choose>
-                    
+
                 </a>
             </xsl:otherwise>
         </xsl:choose>
@@ -2417,4 +2442,33 @@
     <xsl:template match="tei:foreign">
         <xsl:apply-templates/>
     </xsl:template>
+    <xsl:function name="mam:incident-rend">
+        <xsl:param name="rend" as="xs:string?"/>
+        <xsl:choose>
+            <xsl:when test="$rend = 'bleistift'">
+                <xsl:text>mit Bleistift </xsl:text>
+            </xsl:when>
+            <xsl:when test="$rend = 'roter_buntstift'">
+                <xsl:text>mit rotem Buntstift </xsl:text>
+            </xsl:when>
+            <xsl:when test="$rend = 'blauer_buntstift'">
+                <xsl:text>mit blauem Buntstift </xsl:text>
+            </xsl:when>
+            <xsl:when test="$rend = 'gruener_buntstift'">
+                <xsl:text>mit grünem Buntstift </xsl:text>
+            </xsl:when>
+            <xsl:when test="$rend = 'schwarze_tinte'">
+                <xsl:text>mit schwarzer Tinte </xsl:text>
+            </xsl:when>
+            <xsl:when test="$rend = 'blaue_tinte'">
+                <xsl:text>mit blauer Tinte </xsl:text>
+            </xsl:when>
+            <xsl:when test="$rend = 'gruene_tinte'">
+                <xsl:text>mit grüner Tinte </xsl:text>
+            </xsl:when>
+            <xsl:when test="$rend = 'rote_tinte'">
+                <xsl:text>mit roter Tinte </xsl:text>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:function>
 </xsl:stylesheet>
