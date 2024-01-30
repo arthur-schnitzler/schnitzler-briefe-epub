@@ -1086,7 +1086,7 @@
         </xsl:choose>
     </xsl:template>
     <xsl:template match="tei:typeDesc">
-        <p><i>Typografie: </i>
+        <p><i>Herstellung: </i>
             <xsl:apply-templates/>
         </p>
     </xsl:template>
