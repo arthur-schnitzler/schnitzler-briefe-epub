@@ -36,10 +36,20 @@
                             <xsl:value-of
                                 select="//tei:correspAction[@type = 'sent']//tei:date/@notBefore"/>
                         </xsl:if>
+                        <xsl:if test="//tei:correspAction[@type = 'sent']//tei:date/@from">
+                            <xsl:value-of
+                                select="//tei:correspAction[@type = 'sent']//tei:date/@from"/>
+                        </xsl:if>
                         <xsl:if
                             test="//tei:correspAction[@type = 'sent']//tei:date[not(@notBefore)]/@notAfter">
                             <xsl:value-of
                                 select="//tei:correspAction[@type = 'sent']//tei:date[not(@notBefore)]/@notAfter"
+                            />
+                        </xsl:if>
+                        <xsl:if
+                            test="//tei:correspAction[@type = 'sent']//tei:date[not(@from)]/@to">
+                            <xsl:value-of
+                                select="//tei:correspAction[@type = 'sent']//tei:date[not(@from)]/@to"
                             />
                         </xsl:if>
                     </xsl:attribute>
@@ -1150,6 +1160,7 @@
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
+            <!-- mehrere Handschriften -->
             <xsl:otherwise>
                 <xsl:variable name="handDesc-v" select="current()"/>
                 <xsl:variable name="sender"
