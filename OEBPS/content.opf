@@ -31,18 +31,6 @@
       <item id="toc-years"
             href="texts/toc-years.xhtml"
             media-type="application/xhtml+xml"/>
-      <item id="L01422"
-            href="texts/L01422.xhtml"
-            media-type="application/xhtml+xml"/>
-      <item id="L02357"
-            href="texts/L02357.xhtml"
-            media-type="application/xhtml+xml"/>
-      <item id="L01604"
-            href="texts/L01604.xhtml"
-            media-type="application/xhtml+xml"/>
-      <item id="L01361"
-            href="texts/L01361.xhtml"
-            media-type="application/xhtml+xml"/>
       <item id="L02551"
             href="texts/L02551.xhtml"
             media-type="application/xhtml+xml"/>
@@ -5401,6 +5389,9 @@
       <item id="L01360"
             href="texts/L01360.xhtml"
             media-type="application/xhtml+xml"/>
+      <item id="L01361"
+            href="texts/L01361.xhtml"
+            media-type="application/xhtml+xml"/>
       <item id="L03439"
             href="texts/L03439.xhtml"
             media-type="application/xhtml+xml"/>
@@ -5601,6 +5592,9 @@
             media-type="application/xhtml+xml"/>
       <item id="L01420"
             href="texts/L01420.xhtml"
+            media-type="application/xhtml+xml"/>
+      <item id="L01422"
+            href="texts/L01422.xhtml"
             media-type="application/xhtml+xml"/>
       <item id="L01421"
             href="texts/L01421.xhtml"
@@ -6201,6 +6195,9 @@
             media-type="application/xhtml+xml"/>
       <item id="L01603"
             href="texts/L01603.xhtml"
+            media-type="application/xhtml+xml"/>
+      <item id="L01604"
+            href="texts/L01604.xhtml"
             media-type="application/xhtml+xml"/>
       <item id="L01605"
             href="texts/L01605.xhtml"
@@ -8623,6 +8620,9 @@
       <item id="L02356"
             href="texts/L02356.xhtml"
             media-type="application/xhtml+xml"/>
+      <item id="L02357"
+            href="texts/L02357.xhtml"
+            media-type="application/xhtml+xml"/>
       <item id="L02358"
             href="texts/L02358.xhtml"
             media-type="application/xhtml+xml"/>
@@ -9277,10 +9277,6 @@
       <itemref idref="rechte"/>
       <itemref idref="vorbemerkung"/>
       <itemref idref="toc-years"/>
-      <itemref idref="L01422"/>
-      <itemref idref="L02357"/>
-      <itemref idref="L01604"/>
-      <itemref idref="L01361"/>
       <itemref idref="L02551"/>
       <itemref idref="L02639"/>
       <itemref idref="L02640"/>
@@ -11067,6 +11063,7 @@
       <itemref idref="L01358"/>
       <itemref idref="L01359"/>
       <itemref idref="L01360"/>
+      <itemref idref="L01361"/>
       <itemref idref="L03439"/>
       <itemref idref="L01362"/>
       <itemref idref="L01363"/>
@@ -11134,6 +11131,7 @@
       <itemref idref="L01418"/>
       <itemref idref="L01419"/>
       <itemref idref="L01420"/>
+      <itemref idref="L01422"/>
       <itemref idref="L01421"/>
       <itemref idref="L01423"/>
       <itemref idref="L01424"/>
@@ -11334,6 +11332,7 @@
       <itemref idref="L01601"/>
       <itemref idref="L01602"/>
       <itemref idref="L01603"/>
+      <itemref idref="L01604"/>
       <itemref idref="L01605"/>
       <itemref idref="L01606"/>
       <itemref idref="L01607"/>
@@ -12141,6 +12140,7 @@
       <itemref idref="L02354"/>
       <itemref idref="L02355"/>
       <itemref idref="L02356"/>
+      <itemref idref="L02357"/>
       <itemref idref="L02358"/>
       <itemref idref="L02359"/>
       <itemref idref="L02360"/>
