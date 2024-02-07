@@ -1897,6 +1897,9 @@
       <item id="L00505"
             href="texts/L00505.xhtml"
             media-type="application/xhtml+xml"/>
+      <item id="L02751"
+            href="texts/L02751.xhtml"
+            media-type="application/xhtml+xml"/>
       <item id="L02752"
             href="texts/L02752.xhtml"
             media-type="application/xhtml+xml"/>
@@ -2016,6 +2019,9 @@
             media-type="application/xhtml+xml"/>
       <item id="L00531"
             href="texts/L00531.xhtml"
+            media-type="application/xhtml+xml"/>
+      <item id="L02766"
+            href="texts/L02766.xhtml"
             media-type="application/xhtml+xml"/>
       <item id="L00532"
             href="texts/L00532.xhtml"
@@ -4624,6 +4630,9 @@
       <item id="L01180"
             href="texts/L01180.xhtml"
             media-type="application/xhtml+xml"/>
+      <item id="L03088"
+            href="texts/L03088.xhtml"
+            media-type="application/xhtml+xml"/>
       <item id="L01181"
             href="texts/L01181.xhtml"
             media-type="application/xhtml+xml"/>
@@ -4983,6 +4992,9 @@
             media-type="application/xhtml+xml"/>
       <item id="L01251"
             href="texts/L01251.xhtml"
+            media-type="application/xhtml+xml"/>
+      <item id="L03230"
+            href="texts/L03230.xhtml"
             media-type="application/xhtml+xml"/>
       <item id="L01252"
             href="texts/L01252.xhtml"
@@ -9100,11 +9112,11 @@
       <item id="L02502"
             href="texts/L02502.xhtml"
             media-type="application/xhtml+xml"/>
-      <item id="L03045"
-            href="texts/L03045.xhtml"
-            media-type="application/xhtml+xml"/>
       <item id="L03044"
             href="texts/L03044.xhtml"
+            media-type="application/xhtml+xml"/>
+      <item id="L03045"
+            href="texts/L03045.xhtml"
             media-type="application/xhtml+xml"/>
       <item id="L02503"
             href="texts/L02503.xhtml"
@@ -9899,6 +9911,7 @@
       <itemref idref="L02693"/>
       <itemref idref="L00504"/>
       <itemref idref="L00505"/>
+      <itemref idref="L02751"/>
       <itemref idref="L02752"/>
       <itemref idref="L00506"/>
       <itemref idref="L02753"/>
@@ -9939,6 +9952,7 @@
       <itemref idref="L00530"/>
       <itemref idref="L02690"/>
       <itemref idref="L00531"/>
+      <itemref idref="L02766"/>
       <itemref idref="L00532"/>
       <itemref idref="L02688"/>
       <itemref idref="L02767"/>
@@ -10808,6 +10822,7 @@
       <itemref idref="L01178"/>
       <itemref idref="L01179"/>
       <itemref idref="L01180"/>
+      <itemref idref="L03088"/>
       <itemref idref="L01181"/>
       <itemref idref="L03089"/>
       <itemref idref="L01182"/>
@@ -10928,6 +10943,7 @@
       <itemref idref="L01249"/>
       <itemref idref="L01250"/>
       <itemref idref="L01251"/>
+      <itemref idref="L03230"/>
       <itemref idref="L01252"/>
       <itemref idref="L01253"/>
       <itemref idref="L01254"/>
@@ -12300,8 +12316,8 @@
       <itemref idref="L02500"/>
       <itemref idref="L02501"/>
       <itemref idref="L02502"/>
-      <itemref idref="L03045"/>
       <itemref idref="L03044"/>
+      <itemref idref="L03045"/>
       <itemref idref="L02503"/>
       <itemref idref="L02504"/>
       <itemref idref="L02505"/>
