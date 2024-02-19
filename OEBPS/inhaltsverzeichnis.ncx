@@ -25707,18 +25707,7 @@
          <content src="texts/L02049.xhtml"></content>
          </navPoint>
       
-      <navPoint id="L03052" playOrder="2551">
-         
-         <navLabel>
-            
-            <text>Felix Salten: Widmungsexemplar Wurstelprater für Arthur Schnitzler,
-               12. 12. 1911</text>
-            </navLabel>
-         
-         <content src="texts/L03052.xhtml"></content>
-         </navPoint>
-      
-      <navPoint id="L03053" playOrder="2552">
+      <navPoint id="L03053" playOrder="2551">
          
          <navLabel>
             
@@ -25727,6 +25716,17 @@
             </navLabel>
          
          <content src="texts/L03053.xhtml"></content>
+         </navPoint>
+      
+      <navPoint id="L03052" playOrder="2552">
+         
+         <navLabel>
+            
+            <text>Felix Salten: Widmungsexemplar Wurstelprater für Arthur Schnitzler,
+               12. 12. 1911</text>
+            </navLabel>
+         
+         <content src="texts/L03052.xhtml"></content>
          </navPoint>
       
       <navPoint id="L02566" playOrder="2553">

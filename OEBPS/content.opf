@@ -7666,11 +7666,11 @@
       <item id="L02049"
             href="texts/L02049.xhtml"
             media-type="application/xhtml+xml"/>
-      <item id="L03052"
-            href="texts/L03052.xhtml"
-            media-type="application/xhtml+xml"/>
       <item id="L03053"
             href="texts/L03053.xhtml"
+            media-type="application/xhtml+xml"/>
+      <item id="L03052"
+            href="texts/L03052.xhtml"
             media-type="application/xhtml+xml"/>
       <item id="L02566"
             href="texts/L02566.xhtml"
@@ -11834,8 +11834,8 @@
       <itemref idref="L02048"/>
       <itemref idref="L02552"/>
       <itemref idref="L02049"/>
-      <itemref idref="L03052"/>
       <itemref idref="L03053"/>
+      <itemref idref="L03052"/>
       <itemref idref="L02566"/>
       <itemref idref="L02050"/>
       <itemref idref="L02051"/>
