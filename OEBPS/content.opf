@@ -2671,8 +2671,8 @@
       <item id="L00647"
             href="texts/L00647.xhtml"
             media-type="application/xhtml+xml"/>
-      <item id="L03359"
-            href="texts/L03359.xhtml"
+      <item id="L03260"
+            href="texts/L03260.xhtml"
             media-type="application/xhtml+xml"/>
       <item id="L00648"
             href="texts/L00648.xhtml"
@@ -2761,6 +2761,9 @@
       <item id="L00671"
             href="texts/L00671.xhtml"
             media-type="application/xhtml+xml"/>
+      <item id="L02963"
+            href="texts/L02963.xhtml"
+            media-type="application/xhtml+xml"/>
       <item id="L00672"
             href="texts/L00672.xhtml"
             media-type="application/xhtml+xml"/>
@@ -2773,6 +2776,9 @@
       <item id="L02811"
             href="texts/L02811.xhtml"
             media-type="application/xhtml+xml"/>
+      <item id="L03264"
+            href="texts/L03264.xhtml"
+            media-type="application/xhtml+xml"/>
       <item id="L00674"
             href="texts/L00674.xhtml"
             media-type="application/xhtml+xml"/>
@@ -2784,6 +2790,9 @@
             media-type="application/xhtml+xml"/>
       <item id="L00676"
             href="texts/L00676.xhtml"
+            media-type="application/xhtml+xml"/>
+      <item id="L03265"
+            href="texts/L03265.xhtml"
             media-type="application/xhtml+xml"/>
       <item id="L00677"
             href="texts/L00677.xhtml"
@@ -10364,7 +10373,7 @@
       <itemref idref="L02804"/>
       <itemref idref="L00646"/>
       <itemref idref="L00647"/>
-      <itemref idref="L03359"/>
+      <itemref idref="L03260"/>
       <itemref idref="L00648"/>
       <itemref idref="L02805"/>
       <itemref idref="L00649"/>
@@ -10394,14 +10403,17 @@
       <itemref idref="L00669"/>
       <itemref idref="L00670"/>
       <itemref idref="L00671"/>
+      <itemref idref="L02963"/>
       <itemref idref="L00672"/>
       <itemref idref="L02810"/>
       <itemref idref="L00673"/>
       <itemref idref="L02811"/>
+      <itemref idref="L03264"/>
       <itemref idref="L00674"/>
       <itemref idref="L02812"/>
       <itemref idref="L00675"/>
       <itemref idref="L00676"/>
+      <itemref idref="L03265"/>
       <itemref idref="L00677"/>
       <itemref idref="L00678"/>
       <itemref idref="L00679"/>
