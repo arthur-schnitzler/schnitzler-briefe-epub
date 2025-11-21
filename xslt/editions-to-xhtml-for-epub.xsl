@@ -1521,20 +1521,19 @@
     </xsl:template>
     <xsl:template match="tei:note[(@type = 'textConst' or @type = 'commentary')]"/>
     <xsl:template
-        match="tei:note[(@type = 'textConst' or @type = 'commentary') and not(ancestor::tei:note[@type = 'footnote'])]"
+        match="tei:note[(@type = 'textConst' or @type = 'commentary') and not(ancestor::tei:note[@type = 'footnote']) and @corresp]"
         mode="kommentaranhang">
         <p>
             <xsl:attribute name="class">
-                <xsl:value-of select="@xml:id"/>
+                <xsl:value-of select="@corresp"/>
             </xsl:attribute>
             <!-- Der Teil hier bildet das Lemma und kürzt es -->
-            <xsl:variable name="lemma-start" as="xs:string"
-                select="substring(@xml:id, 1, string-length(@xml:id) - 1)"/>
-            <xsl:variable name="lemma-end" as="xs:string" select="@xml:id"/>
+            <xsl:variable name="lemma-start" as="xs:string" select="@corresp"/>
+            <xsl:variable name="lemma-end" as="xs:string" select="generate-id()"/>
             <xsl:variable name="lemmaganz">
                 <xsl:for-each-group
                     select="ancestor::tei:*/tei:anchor[@xml:id = $lemma-start]/following-sibling::node()"
-                    group-ending-with="tei:note[@xml:id = $lemma-end]">
+                    group-ending-with="tei:note[generate-id() = $lemma-end]">
                     <xsl:if test="position() eq 1">
                         <xsl:apply-templates select="current-group()[position() != last()]"
                             mode="lemma"/>
