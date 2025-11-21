@@ -3,7 +3,11 @@
     "allow": [
       "Bash(find:*)",
       "Bash(git add:*)",
-      "Bash(./shellscripts/dl_saxon.sh:*)"
+      "Bash(./shellscripts/dl_saxon.sh:*)",
+      "Bash(./fetch-data.sh:*)",
+      "Bash(python:*)",
+      "Bash(python3:*)",
+      "Bash(mv:*)"
     ],
     "deny": [],
     "ask": []

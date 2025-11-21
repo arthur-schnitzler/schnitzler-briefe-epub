@@ -41,16 +41,16 @@ jobs:
                 ./fetch-data.sh
           - name: Remove files that are not approved
             run: |
-                python ./remove-unapproved-files.py
+                python3 ./remove-unapproved-files.py
           - name: Prepare files for Epub
             run: |
                 ant -f ./editions-to-epub.xml
           - name: Remove empty namespace declarations
             run: |
-                python ./remove-empty-namespace-declarations.py
+                python3 ./remove-empty-namespace-declarations.py
           - name: Remove TEI files
             run: |
-                python ./remove-tei-files.py
+                python3 ./remove-tei-files.py
           - name: Create TOCs for the Epub
             run: |
                 ant -f ./create-tocs.xml
