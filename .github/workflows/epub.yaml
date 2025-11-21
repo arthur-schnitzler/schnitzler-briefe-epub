@@ -1,6 +1,9 @@
 name: Create Epub
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 1 * *'  # Runs at 00:00 on the 1st day of every month
 
 jobs:
     build_pages:
@@ -10,12 +13,26 @@ jobs:
             ANT_OPTS: -Xmx6g
         steps:
           - name: Perform Checkout
-            uses: actions/checkout@v3
+            uses: actions/checkout@v4
+
+          - name: Set up Python
+            uses: actions/setup-python@v5
+            with:
+              python-version: '3.x'
+
           - name: Install Saxon and Ant
             run: |
-                apt-get update && apt-get install openjdk-11-jre-headless ant -y --no-install-recommend
                 ./shellscripts/script.sh
+
+          - name: Cache Ant-Contrib
+            id: cache-ant-contrib
+            uses: actions/cache@v4
+            with:
+              path: /usr/share/ant/lib/ant-contrib-1.0b3.jar
+              key: ant-contrib-1.0b3
+
           - name: Install Ant-Contrib
+            if: steps.cache-ant-contrib.outputs.cache-hit != 'true'
             run: |
               wget https://repo1.maven.org/maven2/ant-contrib/ant-contrib/1.0b3/ant-contrib-1.0b3.jar
               mv ant-contrib-1.0b3.jar /usr/share/ant/lib
@@ -44,7 +61,7 @@ jobs:
             #run: |
                 #java -jar ./epubcheck.jar ./out/schnitzler-briefe.epub
           - name: Commit and Push
-            uses: stefanzweifel/git-auto-commit-action@v4
+            uses: stefanzweifel/git-auto-commit-action@v5
             with:
                 github_token: ${{secrets.GITHUB_TOKEN}}
                 commit_message: Generated new Epub

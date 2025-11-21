@@ -11,7 +11,7 @@ Reproduce the workflow defined here: https://github.com/arthur-schnitzler/schnit
 
 … means:
 
-- Install Saxon by running
+- Saxon XSLT processor is included in the repository (directory `saxon/`) and ready to use. If needed, it can be re-downloaded by running:
 ```
 sh shellscripts/dl_saxon.sh
 ```

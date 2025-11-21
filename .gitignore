@@ -1,3 +1,25 @@
-saxon/
-
+# Oxygen XML Editor Projektdateien
 *.xpr
+
+# macOS Systemdateien
+.DS_Store
+
+# Build-Output
+out/
+
+# Temporary build directories
+OEBPS/contentTmp/
+OEBPS/inhaltsverzeichnisTmp/
+
+# Heruntergeladene Editions-Dateien (werden per Skript geholt)
+editions/
+
+# Python Cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Temporary files
+*.tmp
+*.bak
+*~
