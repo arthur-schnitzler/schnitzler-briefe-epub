@@ -63,5 +63,4 @@ jobs:
           - name: Commit and Push
             uses: stefanzweifel/git-auto-commit-action@v5
             with:
-                github_token: ${{secrets.GITHUB_TOKEN}}
                 commit_message: Generated new Epub
