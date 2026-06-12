@@ -489,9 +489,12 @@
                     <xsl:if test="tei:msDesc/tei:physDesc/tei:handDesc">
                         <xsl:apply-templates select="tei:msDesc/tei:physDesc/tei:handDesc"/>
                     </xsl:if>
-                    <!-- nur ausgeben, wenn die Zufügungen auch Inhalt haben,
-                         sonst entsteht ein leeres (invalides) ul -->
-                    <xsl:if test="tei:msDesc/tei:physDesc/tei:additions/*">
+                    <!-- nur ausgeben, wenn die Zufügungen Inhalt haben, der vom
+                         tei:additions-Template auch gerendert wird (nur diese
+                         incident-Typen erzeugen li), sonst entsteht ein leeres
+                         (invalides) ul -->
+                    <xsl:if
+                        test="tei:msDesc/tei:physDesc/tei:additions/tei:incident[@type = ('postal', 'receiver', 'archival', 'additional-information', 'editorial')]">
                         <p>
                             <i>Zufügungen: </i>
                         </p>
