@@ -16,8 +16,14 @@
         <classpath location="./saxon/saxon-he-11.6.jar"/>
     </xslt>
 
-    <!-- move transformed files and rename them to xhtml -->
+    <!-- alte transformierte Briefe entfernen, damit keine Dateien liegen
+         bleiben, die es in den Quelldaten nicht mehr gibt -->
     <property name="textDir" value="./OEBPS/texts"/>
+    <delete>
+        <fileset dir="${textDir}" includes="L0*.xhtml"/>
+    </delete>
+
+    <!-- move transformed files and rename them to xhtml -->
     <move todir="${textDir}">
         <fileset dir="${tmpDir}"/>
         <mapper type="glob" from="*.xml" to="*.xhtml"/>

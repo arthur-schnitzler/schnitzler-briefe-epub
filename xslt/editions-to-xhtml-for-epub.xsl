@@ -403,7 +403,9 @@
         <xsl:param name="eintrag" as="node()"/>
         <xsl:param name="direction"/>
         <xsl:element name="a">
-            <xsl:attribute name="id">
+            <!-- class statt id: bei Briefen in mehreren Korrespondenzen
+                 kommt dieselbe Richtung mehrfach vor -->
+            <xsl:attribute name="class">
                 <xsl:value-of select="$direction"/>
             </xsl:attribute>
             <xsl:attribute name="href">
@@ -420,11 +422,12 @@
             <!--<xsl:value-of select="$eintrag"/>-->
         </xsl:element>
     </xsl:template>
-    <!-- copy -->
-    <xsl:template match="@* | node()">
-        <xsl:copy>
-            <xsl:apply-templates select="@* | node()"/>
-        </xsl:copy>
+    <!-- Fallback: TEI-Elemente ohne eigenes Template als span ausgeben,
+         damit keine TEI-Elemente in das XHTML gelangen (EPUB-Validität) -->
+    <xsl:template match="*">
+        <span class="{string-join((local-name(), @type, @rend), ' ')}">
+            <xsl:apply-templates/>
+        </span>
     </xsl:template>
     <!-- normalize space -->
     <xsl:template match="text()">
@@ -486,7 +489,9 @@
                     <xsl:if test="tei:msDesc/tei:physDesc/tei:handDesc">
                         <xsl:apply-templates select="tei:msDesc/tei:physDesc/tei:handDesc"/>
                     </xsl:if>
-                    <xsl:if test="tei:msDesc/tei:physDesc/tei:additions">
+                    <!-- nur ausgeben, wenn die Zufügungen auch Inhalt haben,
+                         sonst entsteht ein leeres (invalides) ul -->
+                    <xsl:if test="tei:msDesc/tei:physDesc/tei:additions/*">
                         <p>
                             <i>Zufügungen: </i>
                         </p>
@@ -1577,9 +1582,11 @@
                 <xsl:text>]&#160;</xsl:text>
             </span>
             <span class="kommentar-text">
-                <xsl:attribute name="id">
-                    <xsl:value-of select="@xml:id"/>
-                </xsl:attribute>
+                <xsl:if test="@xml:id">
+                    <xsl:attribute name="id">
+                        <xsl:value-of select="@xml:id"/>
+                    </xsl:attribute>
+                </xsl:if>
                 <xsl:apply-templates select="node() except Lemma"/>
             </span>
         </p>
@@ -1712,9 +1719,11 @@
             <xsl:attribute name="class">
                 <xsl:text>writingSession</xsl:text>
             </xsl:attribute>
-            <xsl:attribute name="content">
-                <xsl:value-of select="@n"/>
-            </xsl:attribute>
+            <xsl:if test="@n">
+                <xsl:attribute name="title">
+                    <xsl:value-of select="@n"/>
+                </xsl:attribute>
+            </xsl:if>
             <xsl:apply-templates/>
         </div>
     </xsl:template>
@@ -1756,11 +1765,11 @@
         </xsl:if>
     </xsl:function>
     <xsl:template match="tei:gap[@unit = 'lines' and @reason = 'illegible']">
-        <div class="illegible">
+        <span class="illegible">
             <xsl:text> [</xsl:text>
             <xsl:value-of select="@quantity"/>
             <xsl:text> Zeilen unleserlich] </xsl:text>
-        </div>
+        </span>
     </xsl:template>
     <xsl:template match="tei:gap[@reason = 'outOfScope']">
         <span class="outOfScope">[…]</span>
@@ -1866,7 +1875,7 @@
                 <xsl:text>add</xsl:text>
             </xsl:attribute>
             <xsl:if test=".[@place]">
-                <xsl:attribute name="content">
+                <xsl:attribute name="title">
                     <xsl:value-of select="@place"/>
                 </xsl:attribute>
             </xsl:if>

@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 
 # hacky way to make sure the script
 # gets always run from parent-dir

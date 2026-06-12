@@ -5,6 +5,13 @@ on:
   schedule:
     - cron: '0 0 1 * *'  # Runs at 00:00 on the 1st day of every month
 
+permissions:
+  contents: write
+
+concurrency:
+  group: create-epub
+  cancel-in-progress: false
+
 jobs:
     build_pages:
         name: Create Epub
@@ -20,28 +27,15 @@ jobs:
             with:
               python-version: '3.x'
 
-          - name: Install Saxon and Ant
-            run: |
-                ./shellscripts/script.sh
-
-          - name: Cache Ant-Contrib
-            id: cache-ant-contrib
-            uses: actions/cache@v4
-            with:
-              path: /usr/share/ant/lib/ant-contrib-1.0b3.jar
-              key: ant-contrib-1.0b3
-
-          - name: Install Ant-Contrib
-            if: steps.cache-ant-contrib.outputs.cache-hit != 'true'
-            run: |
-              wget https://repo1.maven.org/maven2/ant-contrib/ant-contrib/1.0b3/ant-contrib-1.0b3.jar
-              mv ant-contrib-1.0b3.jar /usr/share/ant/lib
           - name: Fetch data
             run: |
                 ./fetch-data.sh
           - name: Remove files that are not approved
             run: |
                 python3 ./remove-unapproved-files.py
+          - name: Extract correspondence mapping
+            run: |
+                python3 ./extract-correspondences.py
           - name: Prepare files for Epub
             run: |
                 ant -f ./editions-to-epub.xml
@@ -51,16 +45,35 @@ jobs:
           - name: Remove TEI files
             run: |
                 python3 ./remove-tei-files.py
+          - name: Fix internal links
+            run: |
+                python3 ./fix-internal-links.py
           - name: Create TOCs for the Epub
             run: |
                 ant -f ./create-tocs.xml
           - name: Create Epub
             run: |
-                zip -rX out/schnitzler-briefe.epub mimetype META-INF/ OEBPS/ -x "*.DS_Store" -x "README.md" -x "epubcheck.jar" -x "lib" -x "out" -x "obsolete" -x "xslt" -x ".gitignore" -x ".git" -x ".github" -x "fetch-data.sh" -x "remove-unapproved-files.py" -x "remove-empty-namespace-declarations.py" -x "remove-tei-files.py" -x "requirements.txt" -x "shellscripts" -x "editions-to-epub.xml" -x "create-tocs.xml" -x "LICENSE"
-          #- name: Validate Epub
-            #run: |
-                #java -jar ./epubcheck.jar ./out/schnitzler-briefe.epub
+                mkdir -p out
+                rm -f out/schnitzler-briefe.epub
+                zip -X0 out/schnitzler-briefe.epub mimetype
+                zip -rX9 out/schnitzler-briefe.epub META-INF/ OEBPS/ -x "*.DS_Store"
+          - name: Create Epubs per correspondence
+            run: |
+                python3 ./create-correspondence-epubs.py
+          - name: Validate Epub
+            continue-on-error: true
+            run: |
+                java -jar ./epubcheck.jar ./out/schnitzler-briefe.epub
           - name: Commit and Push
             uses: stefanzweifel/git-auto-commit-action@v5
             with:
                 commit_message: Generated new Epub
+          - name: Publish Epubs as release
+            env:
+                GH_TOKEN: ${{ github.token }}
+            run: |
+                gh release delete latest --cleanup-tag --yes || true
+                gh release create latest \
+                    --title "Schnitzler-Briefe EPUBs ($(date +%Y-%m-%d))" \
+                    --notes "Automatisch erzeugte E-Books: Gesamtausgabe sowie ein EPUB je Korrespondenz." \
+                    out/schnitzler-briefe.epub out/korrespondenzen/*.epub

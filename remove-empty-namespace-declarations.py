@@ -12,12 +12,12 @@ def parse_xhtml_files(directory):
             filepath = os.path.join(directory, filename)
             
             try:
-                with open(filepath, "r") as file:
+                with open(filepath, "r", encoding="utf-8") as file:
                     content = file.read()
 
                 updated_content = content.replace(' xmlns=""', '')
 
-                with open(filepath, "w") as file:
+                with open(filepath, "w", encoding="utf-8") as file:
                     file.write(updated_content)
                 
                 corrected_files.append(filename)  # Add the filename to the corrected files list
