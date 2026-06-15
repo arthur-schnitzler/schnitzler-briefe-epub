@@ -9,6 +9,13 @@ With these XHTML files it produces an E-Book of all correspondences that have th
 The finished EPUBs are published as GitHub release `latest`:
 https://github.com/arthur-schnitzler/schnitzler-briefe-epub/releases/tag/latest
 
+For stable external links use the `releases/latest/download/` URLs (they always point to the newest release):
+
+- Complete edition: https://github.com/arthur-schnitzler/schnitzler-briefe-epub/releases/latest/download/schnitzler-briefe.epub
+- Single correspondence, e.g.: https://github.com/arthur-schnitzler/schnitzler-briefe-epub/releases/latest/download/schnitzler-briefe-hofmannsthal-hugo-von.epub
+
+(The EPUBs are no longer committed to `out/`; that folder is build output and is git-ignored.)
+
 ## If working manually
 
 Reproduce the workflow defined here: https://github.com/arthur-schnitzler/schnitzler-briefe-epub/blob/main/.github/workflows/epub.yaml
