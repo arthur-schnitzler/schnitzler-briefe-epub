@@ -8715,7 +8715,17 @@
          <content src="texts/L00590.xhtml"></content>
          </navPoint>
       
-      <navPoint id="L00591" playOrder="865">
+      <navPoint id="L03701" playOrder="865">
+         
+         <navLabel>
+            
+            <text>Elsa Plessner an Arthur Schnitzler, 14. 9. 1896</text>
+            </navLabel>
+         
+         <content src="texts/L03701.xhtml"></content>
+         </navPoint>
+      
+      <navPoint id="L00591" playOrder="866">
          
          <navLabel>
             
@@ -8723,16 +8733,6 @@
             </navLabel>
          
          <content src="texts/L00591.xhtml"></content>
-         </navPoint>
-      
-      <navPoint id="L03701" playOrder="866">
-         
-         <navLabel>
-            
-            <text>Elsa Plessner an Arthur Schnitzler, 15. 9. 1896</text>
-            </navLabel>
-         
-         <content src="texts/L03701.xhtml"></content>
          </navPoint>
       
       <navPoint id="L03702" playOrder="867">
@@ -12785,7 +12785,7 @@
          
          <navLabel>
             
-            <text>Hugo August von Hofmannsthal an Arthur Schnitzler, 16. 11. 1898</text>
+            <text>Hugo August von Hofmannsthal an Arthur Schnitzler, 15. 11. 1898</text>
             </navLabel>
          
          <content src="texts/L00857.xhtml"></content>
@@ -33517,7 +33517,7 @@
          
          <navLabel>
             
-            <text>Arthur Schnitzler an Elsa Plessner, 12. 1. 1916</text>
+            <text>Arthur Schnitzler an Elsa Ginsberg-Plessner, 12. 1. 1916</text>
             </navLabel>
          
          <content src="texts/L04339.xhtml"></content>
@@ -33537,7 +33537,7 @@
          
          <navLabel>
             
-            <text>Arthur Schnitzler an Elsa Plessner, 17. 1. 1916</text>
+            <text>Arthur Schnitzler an Elsa Ginsberg-Plessner, 17. 1. 1916</text>
             </navLabel>
          
          <content src="texts/L04340.xhtml"></content>

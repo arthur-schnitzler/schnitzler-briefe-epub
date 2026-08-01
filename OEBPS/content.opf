@@ -2608,11 +2608,11 @@
       <item id="L00590"
             href="texts/L00590.xhtml"
             media-type="application/xhtml+xml"/>
-      <item id="L00591"
-            href="texts/L00591.xhtml"
-            media-type="application/xhtml+xml"/>
       <item id="L03701"
             href="texts/L03701.xhtml"
+            media-type="application/xhtml+xml"/>
+      <item id="L00591"
+            href="texts/L00591.xhtml"
             media-type="application/xhtml+xml"/>
       <item id="L03702"
             href="texts/L03702.xhtml"
@@ -12296,8 +12296,8 @@
       <itemref idref="L00588"/>
       <itemref idref="L00589"/>
       <itemref idref="L00590"/>
-      <itemref idref="L00591"/>
       <itemref idref="L03701"/>
+      <itemref idref="L00591"/>
       <itemref idref="L03702"/>
       <itemref idref="L00592"/>
       <itemref idref="L00593"/>
