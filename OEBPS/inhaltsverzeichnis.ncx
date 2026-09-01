@@ -15558,7 +15558,7 @@
          
          <navLabel>
             
-            <text>Felix und Ottilie Salten und Arthur Schnitzler an Richard
+            <text>Felix Salten, Ottilie Metzl und Arthur Schnitzler an Richard
                Beer-Hofmann, 26. 5. 1900</text>
             </navLabel>
          
@@ -31352,7 +31352,8 @@
          
          <navLabel>
             
-            <text>Arthur Schnitzler an Albert Ehrenstein, [nach dem 15.] 5. 1912</text>
+            <text>Arthur Schnitzler an Albert Ehrenstein, [zwischen 23. und
+               25.] 5. 1912</text>
             </navLabel>
          
          <content src="texts/L02068.xhtml"></content>
@@ -33302,17 +33303,7 @@
          <content src="texts/L02209.xhtml"></content>
          </navPoint>
       
-      <navPoint id="L02210" playOrder="3304">
-         
-         <navLabel>
-            
-            <text>Arthur Schnitzler an Robert Adam, 29. 6. 1915</text>
-            </navLabel>
-         
-         <content src="texts/L02210.xhtml"></content>
-         </navPoint>
-      
-      <navPoint id="L02211" playOrder="3305">
+      <navPoint id="L02211" playOrder="3304">
          
          <navLabel>
             
@@ -33322,7 +33313,7 @@
          <content src="texts/L02211.xhtml"></content>
          </navPoint>
       
-      <navPoint id="L02212" playOrder="3306">
+      <navPoint id="L02212" playOrder="3305">
          
          <navLabel>
             
@@ -33332,7 +33323,7 @@
          <content src="texts/L02212.xhtml"></content>
          </navPoint>
       
-      <navPoint id="L02213" playOrder="3307">
+      <navPoint id="L02213" playOrder="3306">
          
          <navLabel>
             
@@ -33342,7 +33333,7 @@
          <content src="texts/L02213.xhtml"></content>
          </navPoint>
       
-      <navPoint id="L02214" playOrder="3308">
+      <navPoint id="L02214" playOrder="3307">
          
          <navLabel>
             
@@ -33352,7 +33343,7 @@
          <content src="texts/L02214.xhtml"></content>
          </navPoint>
       
-      <navPoint id="L02215" playOrder="3309">
+      <navPoint id="L02215" playOrder="3308">
          
          <navLabel>
             
@@ -33362,7 +33353,7 @@
          <content src="texts/L02215.xhtml"></content>
          </navPoint>
       
-      <navPoint id="L03656" playOrder="3310">
+      <navPoint id="L03656" playOrder="3309">
          
          <navLabel>
             
@@ -33372,7 +33363,7 @@
          <content src="texts/L03656.xhtml"></content>
          </navPoint>
       
-      <navPoint id="L02216" playOrder="3311">
+      <navPoint id="L02216" playOrder="3310">
          
          <navLabel>
             
@@ -33382,7 +33373,7 @@
          <content src="texts/L02216.xhtml"></content>
          </navPoint>
       
-      <navPoint id="L02217" playOrder="3312">
+      <navPoint id="L02217" playOrder="3311">
          
          <navLabel>
             
@@ -33392,7 +33383,7 @@
          <content src="texts/L02217.xhtml"></content>
          </navPoint>
       
-      <navPoint id="L02218" playOrder="3313">
+      <navPoint id="L02218" playOrder="3312">
          
          <navLabel>
             
@@ -33402,7 +33393,7 @@
          <content src="texts/L02218.xhtml"></content>
          </navPoint>
       
-      <navPoint id="L02219" playOrder="3314">
+      <navPoint id="L02219" playOrder="3313">
          
          <navLabel>
             
@@ -33412,7 +33403,7 @@
          <content src="texts/L02219.xhtml"></content>
          </navPoint>
       
-      <navPoint id="L03613" playOrder="3315">
+      <navPoint id="L03613" playOrder="3314">
          
          <navLabel>
             
@@ -33423,7 +33414,7 @@
          <content src="texts/L03613.xhtml"></content>
          </navPoint>
       
-      <navPoint id="L02220" playOrder="3316">
+      <navPoint id="L02220" playOrder="3315">
          
          <navLabel>
             
@@ -33433,7 +33424,7 @@
          <content src="texts/L02220.xhtml"></content>
          </navPoint>
       
-      <navPoint id="L03791" playOrder="3317">
+      <navPoint id="L03791" playOrder="3316">
          
          <navLabel>
             
@@ -33443,7 +33434,7 @@
          <content src="texts/L03791.xhtml"></content>
          </navPoint>
       
-      <navPoint id="L03729" playOrder="3318">
+      <navPoint id="L03729" playOrder="3317">
          
          <navLabel>
             
@@ -33453,7 +33444,7 @@
          <content src="texts/L03729.xhtml"></content>
          </navPoint>
       
-      <navPoint id="L03652" playOrder="3319">
+      <navPoint id="L03652" playOrder="3318">
          
          <navLabel>
             
@@ -33463,7 +33454,7 @@
          <content src="texts/L03652.xhtml"></content>
          </navPoint>
       
-      <navPoint id="L02221" playOrder="3320">
+      <navPoint id="L02221" playOrder="3319">
          
          <navLabel>
             
@@ -33473,7 +33464,7 @@
          <content src="texts/L02221.xhtml"></content>
          </navPoint>
       
-      <navPoint id="L02222" playOrder="3321">
+      <navPoint id="L02222" playOrder="3320">
          
          <navLabel>
             
@@ -33483,7 +33474,7 @@
          <content src="texts/L02222.xhtml"></content>
          </navPoint>
       
-      <navPoint id="L02223" playOrder="3322">
+      <navPoint id="L02223" playOrder="3321">
          
          <navLabel>
             
@@ -33493,7 +33484,7 @@
          <content src="texts/L02223.xhtml"></content>
          </navPoint>
       
-      <navPoint id="L02224" playOrder="3323">
+      <navPoint id="L02224" playOrder="3322">
          
          <navLabel>
             
@@ -33503,7 +33494,7 @@
          <content src="texts/L02224.xhtml"></content>
          </navPoint>
       
-      <navPoint id="L03730" playOrder="3324">
+      <navPoint id="L03730" playOrder="3323">
          
          <navLabel>
             
@@ -33513,7 +33504,7 @@
          <content src="texts/L03730.xhtml"></content>
          </navPoint>
       
-      <navPoint id="L04339" playOrder="3325">
+      <navPoint id="L04339" playOrder="3324">
          
          <navLabel>
             
@@ -33523,7 +33514,7 @@
          <content src="texts/L04339.xhtml"></content>
          </navPoint>
       
-      <navPoint id="L03731" playOrder="3326">
+      <navPoint id="L03731" playOrder="3325">
          
          <navLabel>
             
@@ -33533,7 +33524,7 @@
          <content src="texts/L03731.xhtml"></content>
          </navPoint>
       
-      <navPoint id="L04340" playOrder="3327">
+      <navPoint id="L04340" playOrder="3326">
          
          <navLabel>
             
@@ -33543,7 +33534,7 @@
          <content src="texts/L04340.xhtml"></content>
          </navPoint>
       
-      <navPoint id="L03657" playOrder="3328">
+      <navPoint id="L03657" playOrder="3327">
          
          <navLabel>
             
@@ -33553,7 +33544,7 @@
          <content src="texts/L03657.xhtml"></content>
          </navPoint>
       
-      <navPoint id="L03770" playOrder="3329">
+      <navPoint id="L03770" playOrder="3328">
          
          <navLabel>
             
@@ -33563,7 +33554,7 @@
          <content src="texts/L03770.xhtml"></content>
          </navPoint>
       
-      <navPoint id="L03658" playOrder="3330">
+      <navPoint id="L03658" playOrder="3329">
          
          <navLabel>
             
@@ -33573,7 +33564,7 @@
          <content src="texts/L03658.xhtml"></content>
          </navPoint>
       
-      <navPoint id="L03812" playOrder="3331">
+      <navPoint id="L03812" playOrder="3330">
          
          <navLabel>
             
@@ -33583,7 +33574,7 @@
          <content src="texts/L03812.xhtml"></content>
          </navPoint>
       
-      <navPoint id="L02225" playOrder="3332">
+      <navPoint id="L02225" playOrder="3331">
          
          <navLabel>
             
@@ -33594,7 +33585,7 @@
          <content src="texts/L02225.xhtml"></content>
          </navPoint>
       
-      <navPoint id="L02226" playOrder="3333">
+      <navPoint id="L02226" playOrder="3332">
          
          <navLabel>
             
@@ -33604,7 +33595,7 @@
          <content src="texts/L02226.xhtml"></content>
          </navPoint>
       
-      <navPoint id="L02227" playOrder="3334">
+      <navPoint id="L02227" playOrder="3333">
          
          <navLabel>
             
@@ -33614,7 +33605,7 @@
          <content src="texts/L02227.xhtml"></content>
          </navPoint>
       
-      <navPoint id="L02228" playOrder="3335">
+      <navPoint id="L02228" playOrder="3334">
          
          <navLabel>
             
@@ -33624,7 +33615,7 @@
          <content src="texts/L02228.xhtml"></content>
          </navPoint>
       
-      <navPoint id="L02229" playOrder="3336">
+      <navPoint id="L02229" playOrder="3335">
          
          <navLabel>
             
@@ -33632,6 +33623,16 @@
             </navLabel>
          
          <content src="texts/L02229.xhtml"></content>
+         </navPoint>
+      
+      <navPoint id="L02210" playOrder="3336">
+         
+         <navLabel>
+            
+            <text>Arthur Schnitzler an Robert Adam, 29. 6. 1916</text>
+            </navLabel>
+         
+         <content src="texts/L02210.xhtml"></content>
          </navPoint>
       
       <navPoint id="L02230" playOrder="3337">
